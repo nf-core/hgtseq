@@ -18,6 +18,9 @@
             "kraken2/kraken2": {
                 "git_sha": "abe025677cdd805cc93032341ab19885473c1a07"
             },
+            "krona/ktimporttaxonomy": {
+                "git_sha": "9083d3bb3dfeae8dc61d6a2e9e097468af5fafcd"
+            },
             "multiqc": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
