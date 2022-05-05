@@ -20,6 +20,9 @@
             },
             "multiqc": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "samtools/view": {
+                "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
             }
         }
     }
