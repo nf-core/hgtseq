@@ -6,6 +6,9 @@
             "bwa/mem": {
                 "git_sha": "4f5274c3de0c9521f5033893ff61057a74c45ba9"
             },
+            "bwamem2/mem": {
+                "git_sha": "4f5274c3de0c9521f5033893ff61057a74c45ba9"
+            },
             "custom/dumpsoftwareversions": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
