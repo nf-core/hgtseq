@@ -48,4 +48,4 @@ output:
       pattern: "*.{bam,cram,sam}"
 
 authors:
-  - "@carpan"
+  - "@carpanz"
