@@ -3,8 +3,14 @@
     "homePage": "https://github.com/nf-core/hgtseq",
     "repos": {
         "nf-core/modules": {
+            "bwa/index": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
             "bwa/mem": {
                 "git_sha": "4f5274c3de0c9521f5033893ff61057a74c45ba9"
+            },
+            "bwamem2/index": {
+                "git_sha": "49b18b1639f4f7104187058866a8fab33332bdfe"
             },
             "bwamem2/mem": {
                 "git_sha": "4f5274c3de0c9521f5033893ff61057a74c45ba9"
@@ -26,6 +32,9 @@
             },
             "samtools/view": {
                 "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
+            },
+            "trimgalore": {
+                "git_sha": "85ec13ff1fc2196c5a507ea497de468101baabed"
             }
         }
     }
