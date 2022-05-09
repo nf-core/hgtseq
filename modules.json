@@ -27,6 +27,9 @@
             "krona/ktimporttaxonomy": {
                 "git_sha": "9083d3bb3dfeae8dc61d6a2e9e097468af5fafcd"
             },
+            "krona/ktupdatetaxonomy": {
+                "git_sha": "204dfba2d8635d1a73255538441544a0c1501d4d"
+            },
             "multiqc": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
