@@ -3,14 +3,41 @@
     "homePage": "https://github.com/nf-core/hgtseq",
     "repos": {
         "nf-core/modules": {
+            "bwa/index": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "bwa/mem": {
+                "git_sha": "4f5274c3de0c9521f5033893ff61057a74c45ba9"
+            },
+            "bwamem2/index": {
+                "git_sha": "49b18b1639f4f7104187058866a8fab33332bdfe"
+            },
+            "bwamem2/mem": {
+                "git_sha": "4f5274c3de0c9521f5033893ff61057a74c45ba9"
+            },
             "custom/dumpsoftwareversions": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "fastqc": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
+            "kraken2/kraken2": {
+                "git_sha": "abe025677cdd805cc93032341ab19885473c1a07"
+            },
+            "krona/ktimporttaxonomy": {
+                "git_sha": "9083d3bb3dfeae8dc61d6a2e9e097468af5fafcd"
+            },
+            "krona/ktupdatetaxonomy": {
+                "git_sha": "204dfba2d8635d1a73255538441544a0c1501d4d"
+            },
             "multiqc": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "samtools/view": {
+                "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
+            },
+            "trimgalore": {
+                "git_sha": "85ec13ff1fc2196c5a507ea497de468101baabed"
             }
         }
     }
