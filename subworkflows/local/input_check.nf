@@ -20,25 +20,50 @@ workflow INPUT_CHECK {
     versions = SAMPLESHEET_CHECK.out.versions // channel: [ versions.yml ]
 }
 
+// Useful functions kindly borrowed from Sarek
+
+// Check file extension
+def hasExtension(it, extension) {
+    it.toString().toLowerCase().endsWith(extension.toLowerCase())
+}
+
+// Return file if it exists
+def returnFile(it) {
+    if (!file(it).exists()) exit 1, "Missing file in TSV file: ${it}, see --help for more information"
+    return file(it)
+}
+
 // Function to get list of [ meta, [ fastq_1, fastq_2 ] ]
-def create_fastq_channel(LinkedHashMap row) {
+def create_input_channel(LinkedHashMap row) {
+    // named rows in CSV file expected to be:
+    // sample,group,input1 [optional: input2]
+    // input1 can be either .fastq.gz or .fastq or .bam
+    // input2 can only be .fastq.gz or .fastq
     // create meta map
     def meta = [:]
     meta.id         = row.sample
-    meta.single_end = row.single_end.toBoolean()
 
     // add path(s) of the fastq file(s) to the meta map
     def fastq_meta = []
-    if (!file(row.fastq_1).exists()) {
-        exit 1, "ERROR: Please check input samplesheet -> Read 1 FastQ file does not exist!\n${row.fastq_1}"
+    def file1      = returnFile(row.input1)
+    if (!file1.exists()) {
+        exit 1, "ERROR: Please check input samplesheet -> file indicated in input1 column does not exist!\n${row.input1}"
     }
-    if (meta.single_end) {
-        fastq_meta = [ meta, [ file(row.fastq_1) ] ]
-    } else {
-        if (!file(row.fastq_2).exists()) {
-            exit 1, "ERROR: Please check input samplesheet -> Read 2 FastQ file does not exist!\n${row.fastq_2}"
+    if (row.input2){
+        def file2 = returnFile(row.input2)
+        if (!file2.exists()) {
+            exit 1, "ERROR: Please check input samplesheet -> file indicated in input2 column does not exist!\n${row.input2}"
         }
-        fastq_meta = [ meta, [ file(row.fastq_1), file(row.fastq_2) ] ]
+        meta.single_end = false
+        meta.isbam = false
+        fastq_meta = [ meta, [ file1, file2 ] ]
+    } else {
+        fastq_meta = [ meta, [ file1 ] ]
+        if (hasExtension(file1, ".bam")) {
+            meta.isbam = true
+        } else {
+            meta.isbam = false
+        }
     }
     return fastq_meta
 }
