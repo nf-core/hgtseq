@@ -1,0 +1,44 @@
+name: prepare_reads
+description: |
+  Align reads to a reference genome using bwa and trimmed with trimgalore
+keywords:
+  - align
+  - fasta
+  - bwa-mem
+  - trimming
+modules:
+  - bwa/mem
+  - bwa/index
+  - trimgalore
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: |
+        List of input FastQ files of size 1 and 2 for single-end and paired-end data,
+        respectively.
+  - fasta:
+      type: file
+      description: |
+        Reference genome in FASTA format
+output:
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - trimmed_reads:
+      type: file
+      description: |
+        List of trimmed FastQ files of size 1 and 2 for single-end and paired-end data,
+        respectively.
+  - bam:
+      type: file
+      description: |
+        Mapped bam file
+authors:
+  - "@carpanz"
+
