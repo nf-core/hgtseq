@@ -45,19 +45,15 @@ class RowChecker:
             sample_col (str): The name of the column that contains the sample name
                 (default "sample").
             first_col (str): The name of the column that contains the first (or only)
-                FASTQ file path (default "fastq_1").
+                FASTQ file path (default "input1"). This can also be a BAM file
             second_col (str): The name of the column that contains the second (if any)
-                FASTQ file path (default "fastq_2").
-            single_col (str): The name of the new column that will be inserted and
-                records whether the sample contains single- or paired-end sequencing
-                reads (default "single_end").
+                FASTQ file path (default "input2").
 
         """
         super().__init__(**kwargs)
         self._sample_col = sample_col
         self._first_col = first_col
         self._second_col = second_col
-        self._single_col = single_col
         self._seen = set()
         self.modified = []
 
@@ -96,12 +92,9 @@ class RowChecker:
     def _validate_pair(self, row):
         """Assert that read pairs have the same file extension. Report pair status."""
         if row[self._first_col] and row[self._second_col]:
-            row[self._single_col] = False
             assert (
                 Path(row[self._first_col]).suffixes == Path(row[self._second_col]).suffixes
-            ), "FASTQ pairs must have the same file extensions."
-        else:
-            row[self._single_col] = True
+            ) "FASTQ pairs must have the same file extensions."
 
     def _validate_fastq_format(self, filename):
         """Assert that a given filename has one of the expected FASTQ extensions."""
