@@ -107,7 +107,7 @@ workflow HGTSEQ {
             fastq: it[0].isbam == false
             bam: it[0].isbam == true
         }
-
+    ch_conditional_input.dump(tag: 'checking split isbam')
 
     // execute prepare reads and reads qc if input is fastq
     PREPARE_READS (
