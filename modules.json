@@ -19,7 +19,7 @@
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "fastqc": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+                "git_sha": "49b18b1639f4f7104187058866a8fab33332bdfe"
             },
             "kraken2/kraken2": {
                 "git_sha": "abe025677cdd805cc93032341ab19885473c1a07"
@@ -31,7 +31,7 @@
                 "git_sha": "204dfba2d8635d1a73255538441544a0c1501d4d"
             },
             "multiqc": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+                "git_sha": "e5f8924fabf4c8380f55fb7aee89fd2c268161b1"
             },
             "qualimap/bamqc": {
                 "git_sha": "49b18b1639f4f7104187058866a8fab33332bdfe"
