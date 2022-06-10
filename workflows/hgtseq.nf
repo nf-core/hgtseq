@@ -100,15 +100,14 @@ workflow HGTSEQ {
     // execute prepare reads and reads qc if input is fastq
     if (!params.isbam) {
         PREPARE_READS (
-        ch_conditional_input.fastq,
-        params.fasta,
-        params.aligner
+            INPUT_CHECK.out.reads,
+            params.fasta,
+            params.aligner
         )
         ch_versions = ch_versions.mix(PREPARE_READS.out.versions)
 
         READS_QC (
-            ch_conditional_input.fastq,
-            PREPARE_READS.out.trimmed_reads
+            INPUT_CHECK.out.reads
         )
         ch_versions = ch_versions.mix(READS_QC.out.versions)
     }
@@ -116,9 +115,9 @@ workflow HGTSEQ {
     if (params.isbam) {
         // executes BAM QC on input files from CSV
         BAM_QC (
-        INPUT_CHECK.out.reads,
-        params.fasta,
-        params.gff
+            INPUT_CHECK.out.reads,
+            params.fasta,
+            params.gff
         )
         ch_versions = ch_versions.mix(BAM_QC.out.versions)
 
@@ -131,9 +130,9 @@ workflow HGTSEQ {
     } else {
         // executes BAM QC on aligned trimmed reads
         BAM_QC (
-        PREPARE_READS.out.bam,
-        params.fasta,
-        params.gff
+            PREPARE_READS.out.bam,
+            params.fasta,
+            params.gff
         )
         ch_versions = ch_versions.mix(BAM_QC.out.versions)
 
