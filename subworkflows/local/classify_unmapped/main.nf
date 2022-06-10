@@ -1,13 +1,13 @@
 
-include { SAMTOOLS_INDEX                              } from '../../modules/nf-core/modules/samtools/index/main.nf'
-include { SAMTOOLS_SORT                               } from '../../modules/nf-core/modules/samtools/sort/main.nf'
-include { SAMTOOLS_VIEW   as SAMTOOLS_VIEW_SINGLE     } from '../../modules/nf-core/modules/samtools/view/main.nf'
-include { SAMTOOLS_VIEW   as SAMTOOLS_VIEW_BOTH       } from '../../modules/nf-core/modules/samtools/view/main.nf'
-include { SAMTOOLS_FASTQ  as SAMTOOLS_FASTQ_SINGLE    } from '../../modules/nf-core/modules/samtools/fastq/main.nf'
-include { SAMTOOLS_FASTQ  as SAMTOOLS_FASTQ_BOTH      } from '../../modules/nf-core/modules/samtools/fastq/main.nf'
-include { KRAKEN2_KRAKEN2 as KRAKEN2_SINGLE           } from '../../modules/nf-core/modules/kraken2/kraken2/main.nf'
-include { KRAKEN2_KRAKEN2 as KRAKEN2_BOTH             } from '../../modules/nf-core/modules/kraken2/kraken2/main.nf'
-include { PARSEOUTPUTS                                } from '../../modules/local/parseoutputs/main.nf'
+include { SAMTOOLS_INDEX                              } from '../../../modules/nf-core/modules/samtools/index/main.nf'
+include { SAMTOOLS_SORT                               } from '../../../modules/nf-core/modules/samtools/sort/main.nf'
+include { SAMTOOLS_VIEW   as SAMTOOLS_VIEW_SINGLE     } from '../../../modules/nf-core/modules/samtools/view/main.nf'
+include { SAMTOOLS_VIEW   as SAMTOOLS_VIEW_BOTH       } from '../../../modules/nf-core/modules/samtools/view/main.nf'
+include { SAMTOOLS_FASTQ  as SAMTOOLS_FASTQ_SINGLE    } from '../../../modules/nf-core/modules/samtools/fastq/main.nf'
+include { SAMTOOLS_FASTQ  as SAMTOOLS_FASTQ_BOTH      } from '../../../modules/nf-core/modules/samtools/fastq/main.nf'
+include { KRAKEN2_KRAKEN2 as KRAKEN2_SINGLE           } from '../../../modules/nf-core/modules/kraken2/kraken2/main.nf'
+include { KRAKEN2_KRAKEN2 as KRAKEN2_BOTH             } from '../../../modules/nf-core/modules/kraken2/kraken2/main.nf'
+include { PARSEOUTPUTS                                } from '../../../modules/local/parseoutputs/main.nf'
 
 workflow CLASSIFY_UNMAPPED {
 
