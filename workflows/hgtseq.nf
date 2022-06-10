@@ -114,24 +114,38 @@ workflow HGTSEQ {
     }
 
     if (params.isbam) {
-        ch_conditional_bam = INPUT_CHECK.out.reads
-    } else {
-        ch_conditional_bam = PREPARE_READS.out.bam
-    }
-
-    // execute bam qc if input is bam
-    BAM_QC (
-        ch_conditional_bam,
+        // executes BAM QC on input files from CSV
+        BAM_QC (
+        INPUT_CHECK.out.reads,
         params.fasta,
         params.gff
-    )
-    ch_versions = ch_versions.mix(BAM_QC.out.versions)
+        )
+        ch_versions = ch_versions.mix(BAM_QC.out.versions)
 
-    CLASSIFY_UNMAPPED (
-        ch_conditional_bam,
-        ch_krakendb
-    )
-    ch_versions = ch_versions.mix(CLASSIFY_UNMAPPED.out.versions)
+        // executes classification on input files from CSV
+        CLASSIFY_UNMAPPED (
+            INPUT_CHECK.out.reads,
+            ch_krakendb
+        )
+        ch_versions = ch_versions.mix(CLASSIFY_UNMAPPED.out.versions)
+    } else {
+        // executes BAM QC on aligned trimmed reads
+        BAM_QC (
+        PREPARE_READS.out.bam,
+        params.fasta,
+        params.gff
+        )
+        ch_versions = ch_versions.mix(BAM_QC.out.versions)
+
+        // executes classification on aligned trimmed reads
+        CLASSIFY_UNMAPPED (
+            PREPARE_READS.out.bam,
+            ch_krakendb
+        )
+        ch_versions = ch_versions.mix(CLASSIFY_UNMAPPED.out.versions)
+    }
+
+
 
     // execute reporting only if genome is Human
     if (params.is_human) {
