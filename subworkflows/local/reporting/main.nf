@@ -11,7 +11,9 @@ workflow REPORTING {
     take:
     classified_reads_single
     classified_reads_both
+    integration_sites
     taxonomy
+    sampleids
 
     main:
 
@@ -34,8 +36,9 @@ workflow REPORTING {
     KRONA_KTIMPORTTAXONOMY_BOTH ( both_input, taxonomy )
     ch_versions = ch_versions.mix(KRONA_KTIMPORTTAXONOMY_BOTH.out.versions)
 
+    RANALYSIS (  classified_reads_single, integration_sites, sampleids )
+
     emit:
     single_html = KRONA_KTIMPORTTAXONOMY_SINGLE.out.html
-    both_html   = KRONA_KTIMPORTTAXONOMY_BOTH.out.html
     versions    = ch_versions
 }

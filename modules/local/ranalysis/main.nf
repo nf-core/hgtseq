@@ -14,7 +14,7 @@ process RANALYSIS {
 
 
     output:
-    path("analysis_report.html")
+    path("analysis_report.html"), emit: report
     path("analysis_report.RData")
 
     when:
