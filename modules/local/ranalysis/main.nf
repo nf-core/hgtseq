@@ -28,7 +28,7 @@ process RANALYSIS {
         metamap ->
         sampleList.add(metamap.id)
     }
-    samplestring = sampleList.join(',')
+    def samplestring = sampleList.join(',')
 
     """
     Rscript -e "workdir<-getwd()
