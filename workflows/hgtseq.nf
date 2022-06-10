@@ -140,18 +140,14 @@ workflow HGTSEQ {
     )
     ch_versions = ch_versions.mix(CLASSIFY_UNMAPPED.out.versions)
 
-    ch_classified_reads_single = CLASSIFY_UNMAPPED.out.classified_single.collect{ it[1] }
-    ch_classified_reads_both   = CLASSIFY_UNMAPPED.out.classified_both.collect{ it[1] }
-    ch_integration_sites       = CLASSIFY_UNMAPPED.out.candidate_integrations.collect{ it[1] }
-    ch_sampleids               = CLASSIFY_UNMAPPED.out.classified_single.collect{ it[0] }
-
+    // execute reporting only if genome is Human
     if (params.is_human) {
         REPORTING (
-            ch_classified_reads_single
-            ch_classified_reads_both
-            ch_integration_sites
+            CLASSIFY_UNMAPPED.out.classified_single.collect{ it[1] }
+            CLASSIFY_UNMAPPED.out.classified_both.collect{ it[1] }
+            CLASSIFY_UNMAPPED.out.candidate_integrations.collect{ it[1] }
             ch_kronadb
-            ch_sampleids
+            CLASSIFY_UNMAPPED.out.classified_single.collect{ it[0] }
         )
         ch_versions = ch_versions.mix(REPORTING.out.versions)
     }
