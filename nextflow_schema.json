@@ -83,8 +83,8 @@
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
                 },
                 "is_human": {
-                    "type": "string",
-                    "default": "true",
+                    "type": "boolean",
+                    "default": true,
                     "description": "Set to true when analysing Human data: currently this is the only mode that generates an RMarkdown report"
                 },
                 "krakendb": {
