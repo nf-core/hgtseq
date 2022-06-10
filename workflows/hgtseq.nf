@@ -111,7 +111,9 @@ workflow HGTSEQ {
 
     // execute prepare reads and reads qc if input is fastq
     PREPARE_READS (
-        ch_conditional_input.fastq
+        ch_conditional_input.fastq,
+        params.fasta,
+        params.aligner
     )
     ch_versions = ch_versions.mix(PREPARE_READS.out.versions)
 
