@@ -49,7 +49,7 @@ workflow BAM_QC {
 
     // qualimap requires the original bam file
     // but also a GFF file with the regions to run the QC on
-    QUALIMAP_BAMQC ( bam, gff )
+    QUALIMAP_BAMQC ( SAMTOOLS_SORT.out.bam, gff )
     ch_versions = ch_versions.mix(QUALIMAP_BAMQC.out.versions.first())
 
     emit:
