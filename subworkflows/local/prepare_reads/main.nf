@@ -6,11 +6,11 @@
 // modules to include in this subworkflow
 
 
-include { BWAMEM2_INDEX                } from '../../../modules/bwamem2/index/main.nf'
-include { BWAMEM2_MEM                  } from '../../../modules/bwamem2/mem/main'
-include { BWA_INDEX   as BWAMEM1_INDEX } from '../../../modules/bwa/index/main.nf'
-include { BWA_MEM     as BWAMEM1_MEM   } from '../../../modules/bwa/mem/main.nf'
-include { TRIMGALORE                   } from '../../../modules/trimgalore/main.nf'
+include { BWAMEM2_INDEX                } from '../../modules/nf-core/modules/bwamem2/index/main.nf'
+include { BWAMEM2_MEM                  } from '../../modules/nf-core/modules/bwamem2/mem/main'
+include { BWA_INDEX   as BWAMEM1_INDEX } from '../../modules/nf-core/modules/bwa/index/main.nf'
+include { BWA_MEM     as BWAMEM1_MEM   } from '../../modules/nf-core/modules/bwa/mem/main.nf'
+include { TRIMGALORE                   } from '../../modules/nf-core/modules/trimgalore/main.nf'
 
 
 workflow PREPARE_READS {

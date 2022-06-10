@@ -1,9 +1,9 @@
 
-include { GAWK                     as  GAWK_SINGLE                   } from '../../../modules/local/gawk/main.nf'
-include { GAWK                     as  GAWK_BOTH                     } from '../../../modules/local/gawk/main.nf'
-include { KRONA_KTIMPORTTAXONOMY   as  KRONA_KTIMPORTTAXONOMY_SINGLE } from '../../../modules/krona/ktimporttaxonomy/main.nf'
-include { KRONA_KTIMPORTTAXONOMY   as  KRONA_KTIMPORTTAXONOMY_BOTH   } from '../../../modules/krona/ktimporttaxonomy/main.nf'
-include { RANALYSIS                                                  } from '../../../modules/local/ranalysis/main.nf'
+include { GAWK                     as  GAWK_SINGLE                   } from '../../modules/local/gawk/main.nf'
+include { GAWK                     as  GAWK_BOTH                     } from '../../modules/local/gawk/main.nf'
+include { KRONA_KTIMPORTTAXONOMY   as  KRONA_KTIMPORTTAXONOMY_SINGLE } from '../../modules/nf-core/modules/krona/ktimporttaxonomy/main.nf'
+include { KRONA_KTIMPORTTAXONOMY   as  KRONA_KTIMPORTTAXONOMY_BOTH   } from '../../modules/nf-core/modules/krona/ktimporttaxonomy/main.nf'
+include { RANALYSIS                                                  } from '../../modules/local/ranalysis/main.nf'
 
 
 workflow REPORTING {

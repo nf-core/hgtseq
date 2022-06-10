@@ -12,7 +12,7 @@ workflow INPUT_CHECK {
     SAMPLESHEET_CHECK ( samplesheet )
         .csv
         .splitCsv ( header:true, sep:',' )
-        .map { create_fastq_channel(it) }
+        .map { create_input_channel(it) }
         .set { reads }
 
     emit:
@@ -29,7 +29,7 @@ def hasExtension(it, extension) {
 
 // Return file if it exists
 def returnFile(it) {
-    if (!file(it).exists()) exit 1, "Missing file in TSV file: ${it}, see --help for more information"
+    if (!file(it).exists()) exit 1, "Missing file in CSV file: ${it}, see --help for more information"
     return file(it)
 }
 
@@ -44,7 +44,7 @@ def create_input_channel(LinkedHashMap row) {
     meta.id         = row.sample
 
     // add path(s) of the fastq file(s) to the meta map
-    def fastq_meta = []
+    def input_meta = []
     def file1      = returnFile(row.input1)
     if (!file1.exists()) {
         exit 1, "ERROR: Please check input samplesheet -> file indicated in input1 column does not exist!\n${row.input1}"
@@ -56,9 +56,9 @@ def create_input_channel(LinkedHashMap row) {
         }
         meta.single_end = false
         meta.isbam = false
-        fastq_meta = [ meta, [ file1, file2 ] ]
+        input_meta = [ meta, [ file1, file2 ] ]
     } else {
-        fastq_meta = [ meta, [ file1 ] ]
+        input_meta = [ meta, [ file1 ] ]
         if (hasExtension(file1, ".bam")) {
             meta.isbam = true
             meta.single_end = false
@@ -67,5 +67,5 @@ def create_input_channel(LinkedHashMap row) {
             meta.single_end = true
         }
     }
-    return fastq_meta
+    return input_meta
 }
