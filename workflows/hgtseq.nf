@@ -150,16 +150,16 @@ workflow HGTSEQ {
 
 
     // execute reporting only if genome is Human
-    if (params.is_human) {
-        REPORTING (
-            CLASSIFY_UNMAPPED.out.classified_single.collect{ it[1] }
-            CLASSIFY_UNMAPPED.out.classified_both.collect{ it[1] }
-            CLASSIFY_UNMAPPED.out.candidate_integrations.collect{ it[1] }
-            ch_kronadb
-            CLASSIFY_UNMAPPED.out.classified_single.collect{ it[0] }
-        )
-        ch_versions = ch_versions.mix(REPORTING.out.versions)
-    }
+    // if (params.is_human) {
+    //     REPORTING (
+    //         CLASSIFY_UNMAPPED.out.classified_single.collect{ it[1] }
+    //         CLASSIFY_UNMAPPED.out.classified_both.collect{ it[1] }
+    //         CLASSIFY_UNMAPPED.out.candidate_integrations.collect{ it[1] }
+    //         ch_kronadb
+    //         CLASSIFY_UNMAPPED.out.classified_single.collect{ it[0] }
+    //     )
+    //     ch_versions = ch_versions.mix(REPORTING.out.versions)
+    // }
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
@@ -185,8 +185,8 @@ workflow HGTSEQ {
     ch_multiqc_files = ch_multiqc_files.mix(BAM_QC.idxstats.collect{it[1]}.ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(BAM_QC.qualimap.collect{it[1]}.ifEmpty([]))
     // adding kraken report
-    ch_multiqc_files = ch_multiqc_files.mix(CLASSIFY_UNMAPPED.out.report_single.collect{it[1]}.ifEmpty([]))
-    ch_multiqc_files = ch_multiqc_files.mix(CLASSIFY_UNMAPPED.out.report_both.collect{it[1]}.ifEmpty([]))
+    // ch_multiqc_files = ch_multiqc_files.mix(CLASSIFY_UNMAPPED.out.report_single.collect{it[1]}.ifEmpty([]))
+    // ch_multiqc_files = ch_multiqc_files.mix(CLASSIFY_UNMAPPED.out.report_both.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
         ch_multiqc_files.collect()
