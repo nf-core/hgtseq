@@ -26,7 +26,7 @@ process RANALYSIS {
     def sampleList = []
     sampleids.toList().each().map {
         metamap ->
-        sampleList.add(metamap.id.toString())
+        sampleList.add(metamap.id)
     }
     samplestring = sampleList.join(',')
 
