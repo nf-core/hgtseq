@@ -102,12 +102,13 @@ workflow HGTSEQ {
     // by using the code below we can mix in the same inputs both
     // fastqs and bams
 
-    ch_conditional_input = INPUT_CHECK.out.reads
+    INPUT_CHECK.out.reads
         .branch {
             fastq: it[0].isbam == false
             bam: it[0].isbam == true
         }
-    ch_conditional_input = ch_conditional_input.dump(tag: 'checking split isbam')
+        .set { ch_conditional_input }
+
 
     // execute prepare reads and reads qc if input is fastq
     PREPARE_READS (
