@@ -61,8 +61,10 @@ def create_input_channel(LinkedHashMap row) {
         fastq_meta = [ meta, [ file1 ] ]
         if (hasExtension(file1, ".bam")) {
             meta.isbam = true
+            meta.single_end = false
         } else {
             meta.isbam = false
+            meta.single_end = true
         }
     }
     return fastq_meta
