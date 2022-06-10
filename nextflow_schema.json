@@ -116,7 +116,7 @@
                 },
                 "gff": {
                     "type": "string",
-                    "default": null
+                    "default": "None"
                 }
             },
             "required": [
@@ -299,6 +299,34 @@
                     "fa_icon": "fas fa-bacon"
                 }
             }
+        },
+        "trimgalore_options": {
+            "title": "Trimgalore options",
+            "type": "object",
+            "description": "Trimgalore trimmings options",
+            "default": "",
+            "properties": {
+                "clip_r1": {
+                    "type": "string",
+                    "default": null,
+                    "hidden": true
+                },
+                "clip_r2": {
+                    "type": "string",
+                    "default": null,
+                    "hidden": true
+                },
+                "three_prime_clip_r1": {
+                    "type": "string",
+                    "default": null,
+                    "hidden": true
+                },
+                "three_prime_clip_r2": {
+                    "type": "string",
+                    "default": null,
+                    "hidden": true
+                }
+            }
         }
     },
     "allOf": [
@@ -319,6 +347,9 @@
         },
         {
             "$ref": "#/definitions/generic_options"
+        },
+        {
+            "$ref": "#/definitions/trimgalore_options"
         }
     ]
 }
