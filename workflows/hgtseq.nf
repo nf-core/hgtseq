@@ -98,7 +98,7 @@ workflow HGTSEQ {
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
     // execute prepare reads and reads qc if input is fastq
-    if (!param.isbam) {
+    if (!params.isbam) {
         PREPARE_READS (
         ch_conditional_input.fastq,
         params.fasta,
