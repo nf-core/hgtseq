@@ -107,7 +107,8 @@ workflow HGTSEQ {
         ch_versions = ch_versions.mix(PREPARE_READS.out.versions)
 
         READS_QC (
-            INPUT_CHECK.out.reads
+            INPUT_CHECK.out.reads,
+            PREPARE_READS.out.trimmed_reads
         )
         ch_versions = ch_versions.mix(READS_QC.out.versions)
     }
