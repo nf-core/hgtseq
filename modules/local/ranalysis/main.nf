@@ -24,11 +24,12 @@ process RANALYSIS {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: ''
     def sampleList = []
-    sampleids.toList().each().map {
-        metamap ->
-        sampleList.add(metamap.id)
+    sampleData = sampleids.toList()
+    sampleData.each().map {
+        value ->
+        sampleList.add(value)
     }
-    def samplestring = sampleList.join(',')
+    samplestring = sampleList.join(',')
 
     """
     Rscript -e "workdir<-getwd()
