@@ -84,15 +84,18 @@
                 },
                 "is_human": {
                     "type": "string",
-                    "default": "true"
+                    "default": "true",
+                    "description": "Set to true when analysing Human data: currently this is the only mode that generates an RMarkdown report"
                 },
                 "krakendb": {
                     "type": "string",
-                    "default": "None"
+                    "default": "None",
+                    "description": "Either a local path or a URL to compressed kraken database file"
                 },
                 "kronadb": {
                     "type": "string",
-                    "default": "None"
+                    "default": "None",
+                    "description": "Either a local path or a URL to compressed .tab krona taxonomy"
                 }
             },
             "required": [
