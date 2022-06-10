@@ -125,7 +125,9 @@ workflow HGTSEQ {
 
     // execute bam qc if input is bam
     BAM_QC (
-        ch_conditional_input.bam
+        ch_conditional_input.bam,
+        params.fasta,
+        params.gff
     )
     ch_versions = ch_versions.mix(BAM_QC.out.versions)
 
