@@ -131,7 +131,7 @@ plot <- ggbio() +
   circle(genoma_hg38, geom = "text", aes(label = seqnames), vjust = 0, size = 3)
 
 integration_plot <- plot +
-  circle(integration_noextra, geom = "rect", color = "red")
+  circle(integration_noextra, geom = "rect", color = "red", radius = 20)
 
 integration_plot
 ```
