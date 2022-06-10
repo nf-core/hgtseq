@@ -55,17 +55,10 @@ def create_input_channel(LinkedHashMap row) {
             exit 1, "ERROR: Please check input samplesheet -> file indicated in input2 column does not exist!\n${row.input2}"
         }
         meta.single_end = false
-        meta.isbam = false
         input_meta = [ meta, [ file1, file2 ] ]
     } else {
+        meta.single_end = true
         input_meta = [ meta, [ file1 ] ]
-        if (hasExtension(file1, ".bam")) {
-            meta.isbam = true
-            meta.single_end = false
-        } else {
-            meta.isbam = false
-            meta.single_end = true
-        }
     }
     return input_meta
 }

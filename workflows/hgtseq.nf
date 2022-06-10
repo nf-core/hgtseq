@@ -97,46 +97,38 @@ workflow HGTSEQ {
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
-    // input is dinamycally checked to be a fastq or bam file
-    // and sub workflows are executed depending on this
-    // by using the code below we can mix in the same inputs both
-    // fastqs and bams
-
-    INPUT_CHECK.out.reads
-        .branch {
-            fastq: it[0].isbam == false
-            bam: it[0].isbam == true
-        }
-        .set { ch_conditional_input }
-
-
     // execute prepare reads and reads qc if input is fastq
-    PREPARE_READS (
+    if (!param.isbam) {
+        PREPARE_READS (
         ch_conditional_input.fastq,
         params.fasta,
         params.aligner
-    )
-    ch_versions = ch_versions.mix(PREPARE_READS.out.versions)
+        )
+        ch_versions = ch_versions.mix(PREPARE_READS.out.versions)
 
-    READS_QC (
-        ch_conditional_input.fastq,
-        PREPARE_READS.out.trimmed_reads
-    )
-    ch_versions = ch_versions.mix(READS_QC.out.versions)
+        READS_QC (
+            ch_conditional_input.fastq,
+            PREPARE_READS.out.trimmed_reads
+        )
+        ch_versions = ch_versions.mix(READS_QC.out.versions)
+    }
+
+    if (params.isbam) {
+        ch_conditional_bam = INPUT_CHECK.out.reads
+    } else {
+        ch_conditional_bam = PREPARE_READS.out.bam
+    }
 
     // execute bam qc if input is bam
     BAM_QC (
-        ch_conditional_input.bam,
+        ch_conditional_bam,
         params.fasta,
         params.gff
     )
     ch_versions = ch_versions.mix(BAM_QC.out.versions)
 
-    ch_bam_input = Channel.empty()
-    ch_bam_input = ch_bam_input.mix(PREPARE_READS.out.bam, ch_conditional_input.bam)
-
     CLASSIFY_UNMAPPED (
-        ch_bam_input,
+        ch_conditional_bam,
         ch_krakendb
     )
     ch_versions = ch_versions.mix(CLASSIFY_UNMAPPED.out.versions)
