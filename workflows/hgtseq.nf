@@ -153,7 +153,6 @@ workflow HGTSEQ {
         meta ->
         sample_list.add(meta.id)
     }
-    samples_string = sample_list.join(",")
 
     // execute reporting only if genome is Human
     if (params.is_human) {
@@ -162,7 +161,7 @@ workflow HGTSEQ {
             CLASSIFY_UNMAPPED.out.classified_both.collect{ it[1] },
             CLASSIFY_UNMAPPED.out.candidate_integrations.collect{ it[1] },
             ch_kronadb,
-            samples_string
+            sample_list
         )
         ch_versions = ch_versions.mix(REPORTING.out.versions)
     }

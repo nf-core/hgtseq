@@ -24,11 +24,13 @@ process RANALYSIS {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: ''
 
+    samplestring = sampleids.join(",")
+
     """
     Rscript -e "workdir<-getwd()
         rmarkdown::render('$moduleDir/analysis_report.Rmd',
         params = list(
-        sampleids = \\\"$sampleids\\\"
+        sampleids = \\\"$samplestring\\\"
         ),
         knit_root_dir=workdir,
         output_dir=workdir)"
