@@ -24,7 +24,7 @@ process RANALYSIS {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: ''
     def sampleList = []
-    sampleids.each().map {
+    sampleids.toList().each().map {
         metamap ->
         sampleList.add(metamap.id.toString())
     }
