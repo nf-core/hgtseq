@@ -94,7 +94,7 @@ class RowChecker:
         if row[self._first_col] and row[self._second_col]:
             assert (
                 Path(row[self._first_col]).suffixes == Path(row[self._second_col]).suffixes
-            ) "FASTQ pairs must have the same file extensions."
+            )
 
     def _validate_fastq_format(self, filename):
         """Assert that a given filename has one of the expected FASTQ extensions."""
