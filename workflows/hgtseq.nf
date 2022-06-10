@@ -147,13 +147,6 @@ workflow HGTSEQ {
         ch_versions = ch_versions.mix(CLASSIFY_UNMAPPED.out.versions)
     }
 
-    // collecting a list of sample IDs
-    def sample_list = []
-    CLASSIFY_UNMAPPED.out.classified_single.collect{ it[0] }.each() {
-        meta ->
-        sample_list.add(meta.id)
-    }
-
     // execute reporting only if genome is Human
     if (params.is_human) {
         REPORTING (
@@ -161,7 +154,7 @@ workflow HGTSEQ {
             CLASSIFY_UNMAPPED.out.classified_both.collect{ it[1] },
             CLASSIFY_UNMAPPED.out.candidate_integrations.collect{ it[1] },
             ch_kronadb,
-            sample_list
+            CLASSIFY_UNMAPPED.out.classified_single.collect{ it[0] }
         )
         ch_versions = ch_versions.mix(REPORTING.out.versions)
     }
