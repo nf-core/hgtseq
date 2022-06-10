@@ -12,8 +12,7 @@
             "description": "Define where the pipeline should find input data and save output data.",
             "required": [
                 "input",
-                "outdir",
-                "isbam"
+                "outdir"
             ],
             "properties": {
                 "input": {
@@ -114,6 +113,10 @@
                     "type": "string",
                     "default": "None",
                     "description": "Either a local path or a URL to compressed .tab krona taxonomy"
+                },
+                "gff": {
+                    "type": "string",
+                    "default": null
                 }
             },
             "required": [
