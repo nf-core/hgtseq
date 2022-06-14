@@ -121,7 +121,11 @@
                 },
                 "gff": {
                     "type": "string",
-                    "default": "None"
+                    "format": "file-path",
+                    "mimetype": "text/plain",
+                    "description": "Path to GFF/GTF annotation file.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
+                    "hidden": true
                 }
             },
             "required": [
