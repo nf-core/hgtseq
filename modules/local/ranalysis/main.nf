@@ -4,7 +4,7 @@ process RANALYSIS {
 
     conda (params.enable_conda ? "bioconda::bioconductor-ggbio==1.42.0--r41hdfd78af_0" : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'library://lescailab/hgtseq/r-ggbio-reporting:sha256.5c2f30b64e910375c9f08085faab15fca931eacc979f130f94dba6b828b611f1' :
+        'library://lescailab/hgtseq/r-ggbio-reporting:sha256.eb829b05cf12e8d827813a6afb6e38592aac6568f685a6519f5ed7dd20125cb3' :
         'ghcr.io/lescailab/r-ggbio-reporting:1.0.0' }"
 
     input:
