@@ -176,7 +176,7 @@ workflow HGTSEQ {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     // adding reads QC for both trimmed and untrimmed
     //ch_multiqc_files = ch_multiqc_files.mix(READS_QC.fastqc_untrimmed.collect{it[1]}.ifEmpty([]))
-    ch_multiqc_files = ch_multiqc_files.mix(READS_QC.fastqc_trimmed.collect{it[1]}.ifEmpty([]))
+    //ch_multiqc_files = ch_multiqc_files.mix(READS_QC.fastqc_trimmed.collect{it[1]}.ifEmpty([]))
     // adding BAM qc
     ch_multiqc_files = ch_multiqc_files.mix(BAM_QC.stats.collect{it[1]}.ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(BAM_QC.flagstat.collect{it[1]}.ifEmpty([]))
