@@ -11,6 +11,7 @@ process RANALYSIS {
     path(classified_reads_assignment)
     path(integration_sites)
     val(sampleids)
+    path(markdownfile)
 
 
     output:
@@ -27,7 +28,7 @@ process RANALYSIS {
 
     """
     Rscript -e "workdir<-getwd()
-        rmarkdown::render('$moduleDir/analysis_report.Rmd',
+        rmarkdown::render('$markdownfile',
         params = list(
         sampleids = \\\"$samplestring\\\"
         ),

@@ -36,7 +36,8 @@ workflow REPORTING {
     KRONA_KTIMPORTTAXONOMY_BOTH ( both_input, taxonomy )
     ch_versions = ch_versions.mix(KRONA_KTIMPORTTAXONOMY_BOTH.out.versions)
 
-    RANALYSIS (  classified_reads_single, integration_sites, sampleids )
+    ch_rmarkdown = Channel.value(file("$projectDir/assets/analysis_report.Rmd"))
+    RANALYSIS (  classified_reads_single, integration_sites, sampleids, ch_rmarkdown )
 
     emit:
     single_html = KRONA_KTIMPORTTAXONOMY_SINGLE.out.html
