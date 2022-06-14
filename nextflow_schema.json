@@ -59,6 +59,11 @@
                     "type": "string",
                     "default": "bwa-mem",
                     "description": "Choose if aligner should be bwa-mem or bwa-mem2"
+                },
+                "multiqc_runkraken": {
+                    "type": "boolean",
+                    "default": true,
+                    "hidden": true
                 }
             }
         },
@@ -117,11 +122,6 @@
                 "gff": {
                     "type": "string",
                     "default": "None"
-                },
-                "multiqc_runkraken": {
-                    "type": "string",
-                    "default": "true",
-                    "hidden": true
                 }
             },
             "required": [
