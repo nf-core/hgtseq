@@ -117,6 +117,11 @@
                 "gff": {
                     "type": "string",
                     "default": "None"
+                },
+                "multiqc_runkraken": {
+                    "type": "string",
+                    "default": "true",
+                    "hidden": true
                 }
             },
             "required": [
@@ -308,22 +313,22 @@
             "properties": {
                 "clip_r1": {
                     "type": "string",
-                    "default": null,
+                    "default": "None",
                     "hidden": true
                 },
                 "clip_r2": {
                     "type": "string",
-                    "default": null,
+                    "default": "None",
                     "hidden": true
                 },
                 "three_prime_clip_r1": {
                     "type": "string",
-                    "default": null,
+                    "default": "None",
                     "hidden": true
                 },
                 "three_prime_clip_r2": {
                     "type": "string",
-                    "default": null,
+                    "default": "None",
                     "hidden": true
                 }
             }
