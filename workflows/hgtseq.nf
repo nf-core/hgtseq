@@ -148,15 +148,17 @@ workflow HGTSEQ {
     }
 
     // execute reporting only if genome is Human
-    if (params.is_human) {
-        REPORTING (
-            CLASSIFY_UNMAPPED.out.classified_single.collect{ it[1] },
-            CLASSIFY_UNMAPPED.out.classified_both.collect{ it[1] },
-            CLASSIFY_UNMAPPED.out.candidate_integrations.collect{ it[1] },
-            ch_kronadb,
-            CLASSIFY_UNMAPPED.out.classified_single.collect{ it[0].id }
-        )
-        ch_versions = ch_versions.mix(REPORTING.out.versions)
+    if (!params.enable_conda) {
+        if (params.is_human) {
+            REPORTING (
+                CLASSIFY_UNMAPPED.out.classified_single.collect{ it[1] },
+                CLASSIFY_UNMAPPED.out.classified_both.collect{ it[1] },
+                CLASSIFY_UNMAPPED.out.candidate_integrations.collect{ it[1] },
+                ch_kronadb,
+                CLASSIFY_UNMAPPED.out.classified_single.collect{ it[0].id }
+            )
+            ch_versions = ch_versions.mix(REPORTING.out.versions)
+        }
     }
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
