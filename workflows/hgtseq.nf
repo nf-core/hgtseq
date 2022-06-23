@@ -30,6 +30,9 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
+// MODULE
+include { SAMPLESHEET_CHECK           } from '../modules/local/samplesheet_check'
+
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
@@ -92,24 +95,24 @@ workflow HGTSEQ {
     //
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
     //
-    INPUT_CHECK (
+    SAMPLESHEET_CHECK (
         ch_input
     )
-    ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
+    ch_versions = ch_versions.mix(SAMPLESHEET_CHECK.out.versions)
 
-    test = INPUT_CHECK.out.reads.dump()
+    test = SAMPLESHEET_CHECK.out.reads.dump()
 
     // execute prepare reads and reads qc if input is fastq
     if (!params.isbam) {
         PREPARE_READS (
-            INPUT_CHECK.out.reads,
+            SAMPLESHEET_CHECK.out.reads,
             params.fasta,
             params.aligner
         )
         ch_versions = ch_versions.mix(PREPARE_READS.out.versions)
 
         READS_QC (
-            INPUT_CHECK.out.reads,
+            SAMPLESHEET_CHECK.out.reads,
             PREPARE_READS.out.trimmed_reads
         )
         ch_versions = ch_versions.mix(READS_QC.out.versions)
@@ -118,7 +121,7 @@ workflow HGTSEQ {
     if (params.isbam) {
         // executes BAM QC on input files from CSV
         BAM_QC (
-            INPUT_CHECK.out.reads,
+            SAMPLESHEET_CHECK.out.reads,
             params.fasta,
             params.gff
         )
@@ -126,7 +129,7 @@ workflow HGTSEQ {
 
         // executes classification on input files from CSV
         CLASSIFY_UNMAPPED (
-            INPUT_CHECK.out.reads,
+            SAMPLESHEET_CHECK.out.reads,
             ch_krakendb
         )
         ch_versions = ch_versions.mix(CLASSIFY_UNMAPPED.out.versions)
