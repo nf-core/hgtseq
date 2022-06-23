@@ -30,9 +30,6 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-// MODULE
-include { SAMPLESHEET_CHECK           } from '../modules/local/samplesheet_check'
-
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
@@ -68,6 +65,14 @@ def multiqc_report = []
 
 workflow HGTSEQ {
 
+    def ch_input = Channel.empty()
+    def csv_input = returnFile(params.input)
+    // split csv
+    ch_input = csv_input
+    .csv
+    .splitCsv ( header:true, sep:',' )
+    .map { create_input_channel(it) }
+
     ch_versions = Channel.empty()
 
     // check if databases are local or compressed archives
@@ -92,27 +97,18 @@ workflow HGTSEQ {
         ch_kronadb = Channel.value(kronadb)
     }
 
-    //
-    // SUBWORKFLOW: Read in samplesheet, validate and stage input files
-    //
-    SAMPLESHEET_CHECK (
-        ch_input
-    )
-    ch_versions = ch_versions.mix(SAMPLESHEET_CHECK.out.versions)
-
-    test = SAMPLESHEET_CHECK.out.reads.dump()
 
     // execute prepare reads and reads qc if input is fastq
     if (!params.isbam) {
         PREPARE_READS (
-            SAMPLESHEET_CHECK.out.reads,
+            ch_input,
             params.fasta,
             params.aligner
         )
         ch_versions = ch_versions.mix(PREPARE_READS.out.versions)
 
         READS_QC (
-            SAMPLESHEET_CHECK.out.reads,
+            ch_input,
             PREPARE_READS.out.trimmed_reads
         )
         ch_versions = ch_versions.mix(READS_QC.out.versions)
@@ -121,7 +117,7 @@ workflow HGTSEQ {
     if (params.isbam) {
         // executes BAM QC on input files from CSV
         BAM_QC (
-            SAMPLESHEET_CHECK.out.reads,
+            ch_input,
             params.fasta,
             params.gff
         )
@@ -129,7 +125,7 @@ workflow HGTSEQ {
 
         // executes classification on input files from CSV
         CLASSIFY_UNMAPPED (
-            SAMPLESHEET_CHECK.out.reads,
+            ch_input,
             ch_krakendb
         )
         ch_versions = ch_versions.mix(CLASSIFY_UNMAPPED.out.versions)
@@ -235,6 +231,36 @@ def hasExtension(it, extension) {
 def returnFile(it) {
     if (!file(it).exists()) exit 1, "Input file does not exist: ${it}, see --help for more information"
     return file(it)
+}
+
+// Function to get list of [ meta, [ fastq_1, fastq_2 ] ]
+def create_input_channel(LinkedHashMap row) {
+    // named rows in CSV file expected to be:
+    // sample,group,input1 [optional: input2]
+    // input1 can be either .fastq.gz or .fastq or .bam
+    // input2 can only be .fastq.gz or .fastq
+    // create meta map
+    def meta = [:]
+    meta.id         = row.sample
+
+    // add path(s) of the fastq file(s) to the meta map
+    def input_meta = []
+    def file1      = returnFile(row.input1)
+    if (!file1.exists()) {
+        exit 1, "ERROR: Please check input samplesheet -> file indicated in input1 column does not exist!\n${row.input1}"
+    }
+    if (row.input2){
+        def file2 = returnFile(row.input2)
+        if (!file2.exists()) {
+            exit 1, "ERROR: Please check input samplesheet -> file indicated in input2 column does not exist!\n${row.input2}"
+        }
+        meta.single_end = false
+        input_meta = [ meta, [ file1, file2 ] ]
+    } else {
+        meta.single_end = true
+        input_meta = [ meta, [ file1 ] ]
+    }
+    return input_meta
 }
 
 /*
