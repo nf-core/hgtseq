@@ -12,6 +12,7 @@ process RANALYSIS {
     path(integration_sites)
     val(sampleids)
     path(markdownfile)
+    val(istest)
 
 
     output:
@@ -30,7 +31,8 @@ process RANALYSIS {
     Rscript -e "workdir<-getwd()
         rmarkdown::render('$markdownfile',
         params = list(
-        sampleids = \\\"$samplestring\\\"
+        sampleids = \\\"$samplestring\\\",
+        istest = \\\"$istest\\\"
         ),
         knit_root_dir=workdir,
         output_dir=workdir)"
