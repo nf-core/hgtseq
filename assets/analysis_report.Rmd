@@ -31,7 +31,7 @@ sampleids <- unlist(strsplit(params$sampleids, ","))
 data_classified = tibble()
 data_integrations = tibble()
 
-eval_chunk = !istest
+eval_chunk = !params$istest
 
 for (sample in sampleids){
   files = dir(pattern = sample)
