@@ -164,7 +164,7 @@ def check_samplesheet(file_in, file_out):
         This function checks that the samplesheet follows the following structure,
         see also the `viral recon samplesheet`_::
 
-            sample,fastq_1,fastq_2
+            sample,input1,input2
             SAMPLE_PE,SAMPLE_PE_RUN1_1.fastq.gz,SAMPLE_PE_RUN1_2.fastq.gz
             SAMPLE_PE,SAMPLE_PE_RUN2_1.fastq.gz,SAMPLE_PE_RUN2_2.fastq.gz
             SAMPLE_SE,SAMPLE_SE_RUN1_1.fastq.gz,
@@ -173,7 +173,7 @@ def check_samplesheet(file_in, file_out):
         https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/samplesheet_test_illumina_amplicon.csv
 
     """
-    required_columns = {"sample", "input1", "input2"}
+    required_columns = {"sample", "input1"}
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))
