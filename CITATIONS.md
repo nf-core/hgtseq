@@ -17,6 +17,8 @@
 
 - [`Trim Galore`](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/)
 
+- [`Qualimap`](http://qualimap.conesalab.org)
+
 
 - [`BWA`](http://bio-bwa.sourceforge.net)
   > Li, H. (2013). Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM. arXiv preprint arXiv:1303.3997.
