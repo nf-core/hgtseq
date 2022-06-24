@@ -35,7 +35,6 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 //
 include { BAM_QC                      } from '../subworkflows/local/bam_qc/main'
 include { CLASSIFY_UNMAPPED           } from '../subworkflows/local/classify_unmapped/main'
-include { INPUT_CHECK                 } from '../subworkflows/local/input_check'
 include { PREPARE_READS               } from '../subworkflows/local/prepare_reads/main'
 include { READS_QC                    } from '../subworkflows/local/reads_qc/main'
 include { REPORTING                   } from '../subworkflows/local/reporting/main'
