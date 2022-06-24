@@ -251,7 +251,7 @@ def create_input_channel(LinkedHashMap row) {
 
     // check if mandatory input1 column exists
     if (row.input1){
-        def file1      = returnFile(row.input1)
+        def file1 = returnFile(row.input1)
         if (!file1.exists()) {
             exit 1, "ERROR: Please check input samplesheet -> file indicated in input1 column does not exist!\n${row.input1}"
         }
@@ -268,7 +268,7 @@ def create_input_channel(LinkedHashMap row) {
         if (!file2.exists()) {
             exit 1, "ERROR: Please check input samplesheet -> file indicated in input2 column does not exist!\n${row.input2}"
         }
-        if (hasExtension(file1, "bam")){
+        if (file1.getExtension().toLowerCase() == "bam"){
             exit 1, "ERROR: when providing BAM input in column input1, column input2 should not exist"
         }
         if (!(file1.getExtension() == file2.getExtension())){
