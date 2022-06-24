@@ -270,6 +270,7 @@ def create_input_channel(LinkedHashMap row) {
     }
     // single or paired end is set based on presence or absence of input2 column
     if (row.input2){
+        def file1 = returnFile(row.input1)
         def file2 = returnFile(row.input2)
         if (!file2.exists()) {
             exit 1, "ERROR: Please check input samplesheet -> file indicated in input2 column does not exist!\n${row.input2}"
