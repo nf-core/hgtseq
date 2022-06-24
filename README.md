@@ -39,11 +39,11 @@ A graphical view of the pipeline can be seen below.
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 3. Adapter and quality trimming ([`Trim Galore`](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/))
-4. Mapping reads using BWA ([BWA](http://bio-bwa.sourceforge.net))
-5. Sort and index alignments, extraction reads by sam flag and conversion to fastq format([SAMtools](https://www.htslib.org))
-6. Taxonomic classification ([Kraken2](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown))
-7. Plotting Kraken2 results ([Krona](https://hpc.nih.gov/apps/kronatools.html))
-8. Html analysis report ([RMarkDown](https://rmarkdown.rstudio.com))
+4. Mapping reads using BWA ([`BWA`](http://bio-bwa.sourceforge.net))
+5. Sort and index alignments, extraction reads by sam flag and conversion to fastq format([`SAMtools`](https://www.htslib.org))
+6. Taxonomic classification ([`Kraken2`](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown))
+7. Plotting Kraken2 results ([`Krona`](https://hpc.nih.gov/apps/kronatools.html))
+8. Html analysis report ([`RMarkDown`](https://rmarkdown.rstudio.com))
 
 
 ## Quick Start
