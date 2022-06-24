@@ -268,7 +268,7 @@ def create_input_channel(LinkedHashMap row) {
         if (!file2.exists()) {
             exit 1, "ERROR: Please check input samplesheet -> file indicated in input2 column does not exist!\n${row.input2}"
         }
-        if (file1.getExtension().toLowerCase() == "bam"){
+        if (file1.getExtension() == "bam"){
             exit 1, "ERROR: when providing BAM input in column input1, column input2 should not exist"
         }
         if (!(file1.getExtension() == file2.getExtension())){
