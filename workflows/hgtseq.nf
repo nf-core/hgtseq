@@ -65,13 +65,13 @@ def multiqc_report = []
 
 workflow HGTSEQ {
 
-    def ch_input = Channel.empty()
-    def csv_input = returnFile(params.input)
+    ch_input = Channel.empty()
+    csv_input = returnFile(params.input)
     // split csv
     ch_input = csv_input
-    .csv
-    .splitCsv ( header:true, sep:',' )
-    .map { create_input_channel(it) }
+        .csv
+        .splitCsv ( header:true, sep:',' )
+        .map { create_input_channel(it) }
 
     ch_versions = Channel.empty()
 
