@@ -68,8 +68,7 @@ workflow HGTSEQ {
     ch_input = Channel.empty()
     csv_input = returnFile(params.input)
     // split csv
-    ch_input = csv_input
-        .csv
+    ch_input = Channel.from(csv_input)
         .splitCsv ( header:true, sep:',' )
         .map { create_input_channel(it) }
 
