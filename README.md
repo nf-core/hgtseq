@@ -26,13 +26,24 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 
 On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure. This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources. The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/hgtseq/results).
 
-## Pipeline summary
+## Functionality Overview
 
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
+A graphical view of the pipeline can be seen below.
+
+<p align="center">
+<img src="docs/images/hgtseq_pipeline_metromap.png" alt="nf-core/circdna metromap" width="70%">
+</p>
+
+## Pipeline summary
 
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 3. Adapter and quality trimming ([`Trim Galore`](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/))
+4. Mapping reads using BWA ([BWA](http://bio-bwa.sourceforge.net))
+5. Sort and index alignments, extraction reads by sam flag and conversion to fastq format([SAMtools](https://www.htslib.org))
+6. Taxonomic classification ([Kraken2](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown))
+7. Plotting Kraken2 results ([Krona](https://hpc.nih.gov/apps/kronatools.html))
+8. Html analysis report ([RMarkDown](https://rmarkdown.rstudio.com))
 
 
 ## Quick Start
@@ -43,8 +54,13 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 3. Download the pipeline and test it on a minimal dataset with a single command:
 
+  - FASTQ input:
    ```console
    nextflow run nf-core/hgtseq -profile test,YOURPROFILE --outdir <OUTDIR>
+   ```
+  - BAM input:
+   ```console
+   nextflow run nf-core/hgtseq -profile test_bam,YOURPROFILE --outdir <OUTDIR>
    ```
 
    Note that some form of configuration will be needed so that Nextflow knows how to fetch the required software. This is usually done in the form of a config profile (`YOURPROFILE` in the example command above). You can chain multiple config profiles in a comma-separated string.
@@ -56,10 +72,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 4. Start running your own analysis!
 
-   <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
-
    ```console
-   nextflow run nf-core/hgtseq --input samplesheet.csv --outdir <OUTDIR> --genome GRCh37 -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
+   nextflow run nf-core/hgtseq --input <YOURINPUT>.csv --outdir <OUTDIR> --genome GRCh38 -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
    ```
 
 ## Documentation
