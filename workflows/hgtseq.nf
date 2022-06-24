@@ -240,18 +240,39 @@ def create_input_channel(LinkedHashMap row) {
     // input2 can only be .fastq.gz or .fastq
     // create meta map
     def meta = [:]
-    meta.id         = row.sample
-
-    // add path(s) of the fastq file(s) to the meta map
-    def input_meta = []
-    def file1      = returnFile(row.input1)
-    if (!file1.exists()) {
-        exit 1, "ERROR: Please check input samplesheet -> file indicated in input1 column does not exist!\n${row.input1}"
+    // check if mandatory sample column exists
+    if (row.sample){
+        meta.id         = row.sample
+    } else {
+        exit 1, "ERROR: Please check input samplesheet -> a column named sample with sample ID is mandatory!\n"
     }
+
+    def input_meta = []
+
+    // check if mandatory input1 column exists
+    if (row.input1){
+        def file1      = returnFile(row.input1)
+        if (!file1.exists()) {
+            exit 1, "ERROR: Please check input samplesheet -> file indicated in input1 column does not exist!\n${row.input1}"
+        }
+        // check whether input1 is a fastq or bam
+        if (!hasExtension(file1, "fastq.gz") && !hasExtension(file1, "fastq") && !hasExtension(file1, "bam")){
+            exit 1, "ERROR: input file in input1 column must be either a fastq or a bam file!\n${row.input1}"
+        }
+    } else {
+        exit 1, "ERROR: Please check input samplesheet -> a column named input1 with either fastq or bam input is mandatory!\n"
+    }
+    // single or paired end is set based on presence or absence of input2 column
     if (row.input2){
         def file2 = returnFile(row.input2)
         if (!file2.exists()) {
             exit 1, "ERROR: Please check input samplesheet -> file indicated in input2 column does not exist!\n${row.input2}"
+        }
+        if (hasExtension(file1, "bam")){
+            exit 1, "ERROR: when providing BAM input in column input1, column input2 should not exist"
+        }
+        if (!(file1.getExtension() == file2.getExtension())){
+            exit 1, "ERROR: when providing paired end fastq files, both input should have the same extension\n${row.input1}\n${row.input2}"
         }
         meta.single_end = false
         input_meta = [ meta, [ file1, file2 ] ]
