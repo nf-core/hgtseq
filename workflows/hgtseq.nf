@@ -285,6 +285,7 @@ def create_input_channel(LinkedHashMap row) {
         input_meta = [ meta, [ file1, file2 ] ]
     } else {
         meta.single_end = true
+        def file1 = returnFile(row.input1)
         input_meta = [ meta, [ file1 ] ]
     }
     return input_meta
