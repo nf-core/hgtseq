@@ -8,9 +8,13 @@
 
 **nf-core/hgtseq** is a bioinformatics best-practice analysis pipeline for A pipeline to investigate horizontal gene transfer from NGS data.
 
-### Input Formats
+## Input Formats
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the input file. This file can have at least two or three columns according to the format of reads used, i.e. two columns for BAM files and three for FASTQ files (as defined in the table below). The FASTQ file extension can be either *fastq.gz* or *fastq*.
+The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the input file. This file can have at least two or three columns according to the format of reads used, i.e. two columns for BAM files and three for FASTQ files (as defined in the tables below).
+
+### FASTQ
+
+The FASTQ file extension can be either *fastq.gz* or *fastq*.
 
 ```console
 sample,input1,input2
@@ -18,20 +22,29 @@ testsample01,/path/to/file1_1.fastq.gz/path/to/file1_2.fastq.gz
 testsample02,/path/to/file2_1.fastq.gz,/path/to/file2_2.fastq.gz
 testsample03,/path/to/file3_1.fastq,/path/to/file3_2.fastq.gz
 ```
+
+| Column    | Description                                                                                                                                                                            |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
+| `input1` | Full path to FastQ file for Illumina short reads 1. File can be either *fastq.gz* or *fastq*.                                                             |
+| `input2` | Full path to FastQ file for Illumina short reads 2. File can be either *fastq.gz* or *fastq*.                                                              |
+
+An [example samplesheet](../assets/samplesheet_fastq.csv) has been provided with the pipeline.
+
+### BAM
+
 ```console
 sample,input1
 testsample01,/path/to/file1.bam
 testsample02,/path/to/file2.bam
 testsample03,/path/to/file3.bam
 ```
-
 | Column    | Description                                                                                                                                                                            |
 | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `input1` | Full path to FastQ file for Illumina short reads 1 or Full path to BAM file. If input file is Fastq file, it can be either *fastq.gz* or *fastq*.                                                             |
-| `input2` | Full path to FastQ file for Illumina short reads 2. File can be either *fastq.gz* or *fastq*.                                                              |
+| `input1` | Full path to aligned Bam file.                                                             |
 
-An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+An [example samplesheet](../assets/samplesheet_bam.csv) has been provided with the pipeline.
 
 ## Running the pipeline
 
