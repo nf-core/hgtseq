@@ -323,22 +323,26 @@
                 "clip_r1": {
                     "type": "string",
                     "default": "None",
-                    "hidden": true
+                    "hidden": true,
+                    "description": "Instructs Trim Galore to remove bp from the 5' end of read 1."
                 },
                 "clip_r2": {
                     "type": "string",
                     "default": "None",
-                    "hidden": true
+                    "hidden": true,
+                    "description": "Instructs Trim Galore to remove bp from the 5' end of read 2."
                 },
                 "three_prime_clip_r1": {
                     "type": "string",
                     "default": "None",
-                    "hidden": true
+                    "hidden": true,
+                    "description": "Instructs Trim Galore to remove bp from the 3' end of read 1 after adapter/quality trimming has been performed."
                 },
                 "three_prime_clip_r2": {
                     "type": "string",
                     "default": "None",
-                    "hidden": true
+                    "hidden": true,
+                    "description": "Instructs Trim Galore to remove bp from the 3' end of read 2 after adapter/quality trimming has been performed."
                 }
             }
         }
