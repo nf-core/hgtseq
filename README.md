@@ -80,9 +80,7 @@ The nf-core/hgtseq pipeline comes with documentation about the pipeline [usage](
 
 nf-core/hgtseq was originally written by Simone Carpanzano, Francesco Lescai.
 
-We thank the following people for their extensive assistance in the development of this pipeline:
-
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+We thank nf-core community, and in particular the authors of the modules used in the pipeline: Paolo Cozzi, Jose Espinosa-Carrasco, Phil Ewels, Gisela Gabernet, Maxime Garcia, Jeremy Guntoro, Friederike Hanssen, Matthias Hortenhuber, Patrick Hüther, Suzanne Jin, Felix Krueger, Harshil Patel, Alex Peltzer, Abhinav Sharma, Gregor Sturm, James Fellows Yates.
 
 ## Contributions and Support
 
