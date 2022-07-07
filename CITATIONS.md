@@ -15,23 +15,23 @@
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
   > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
 
-- [`Trim Galore`](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/)
+- [Trim Galore](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/)
 
-- [`Qualimap`](http://qualimap.conesalab.org)
+- [Qualimap](http://qualimap.conesalab.org)
 
-- [`BWA`](http://bio-bwa.sourceforge.net)
+- [BWA](http://bio-bwa.sourceforge.net)
   > Li, H. (2013). Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM. arXiv preprint arXiv:1303.3997.
 
-- [`SAMtools`](https://www.htslib.org)
+- [SAMtools](https://www.htslib.org)
   > Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R; 1000 Genome Project Data Processing Subgroup. The Sequence Alignment/Map format and SAMtools. Bioinformatics. 2009 Aug 15;25(16):2078-9. doi: 10.1093/bioinformatics/btp352. Epub 2009 Jun 8. PMID: 19505943; PMCID: PMC2723002.
 
-- [`Kraken2`](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown)
+- [Kraken2](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown)
   > Wood, Derrick E., Jennifer Lu, and Ben Langmead. 2019. Improved Metagenomic Analysis with Kraken 2. Genome Biology 20 (1): 257. doi: 10.1186/s13059-019-1891-0.
 
-- [`Krona`](https://hpc.nih.gov/apps/kronatools.html)
+- [Krona](https://hpc.nih.gov/apps/kronatools.html)
   > Ondov, B. D., Bergman, N. H., & Phillippy, A. M. (2011). Interactive metagenomic visualization in a Web browser. BMC bioinformatics, 12(1), 1-10. doi: 10.1186/1471-2105-12-385.
 
-- [`RMarkDown`](https://rmarkdown.rstudio.com)
+- [RMarkDown](https://rmarkdown.rstudio.com)
 
 ## Software packaging/containerisation tools
 
