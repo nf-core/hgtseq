@@ -14,7 +14,7 @@ The pipeline will auto-detect whether a sample is single- or paired-end using th
 
 ### FASTQ
 
-The FASTQ file extension can be either *fastq.gz* or *fastq*.
+The FASTQ file extension can be either _fastq.gz_ or _fastq_.
 
 ```console
 sample,input1,input2
@@ -23,11 +23,11 @@ testsample02,/path/to/file2_1.fastq.gz,/path/to/file2_2.fastq.gz
 testsample03,/path/to/file3_1.fastq,/path/to/file3_2.fastq.gz
 ```
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `input1` | Full path to FastQ file for Illumina short reads 1. File can be either *fastq.gz* or *fastq*.                                                             |
-| `input2` | Full path to FastQ file for Illumina short reads 2. File can be either *fastq.gz* or *fastq*.                                                              |
+| Column   | Description                                                                                                                                                                            |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample` | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
+| `input1` | Full path to FastQ file for Illumina short reads 1. File can be either _fastq.gz_ or _fastq_.                                                                                          |
+| `input2` | Full path to FastQ file for Illumina short reads 2. File can be either _fastq.gz_ or _fastq_.                                                                                          |
 
 An [example samplesheet](../assets/samplesheet_fastq.csv) has been provided with the pipeline.
 
@@ -39,10 +39,11 @@ testsample01,/path/to/file1.bam
 testsample02,/path/to/file2.bam
 testsample03,/path/to/file3.bam
 ```
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `input1` | Full path to aligned Bam file.                                                             |
+
+| Column   | Description                                                                                                                                                                            |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample` | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
+| `input1` | Full path to aligned Bam file.                                                                                                                                                         |
 
 An [example samplesheet](../assets/samplesheet_bam.csv) has been provided with the pipeline.
 
@@ -251,10 +252,8 @@ NXF_OPTS='-Xms1g -Xmx4g'
 
 ## Limitations
 
-- `Reporting Subworkflow` only works with human data (i.e. setting *is_human = true* e GRCh38 genome required)
+- `Reporting Subworkflow` only works with human data (i.e. setting _is_human = true_ e GRCh38 genome required)
 - If using `conda` as profile, hgtseq pipeline runs without executing `Reporting Subworkflow` due to a conflict between ggbio and RMarkDown
 - Since we had to use small databases to run the tests, results of the tests might be compromised or inconsistent (i.e. SARS-CoV-2 [Krakendb](https://github.com/nf-core/test-datasets/tree/modules/data/genomics/sarscov2/genome/db) and [Kronadb](https://github.com/nf-core/test-datasets/blob/modules/data/genomics/sarscov2/metagenome/krona_taxonomy.tab) for human data).
-For tis reason, we recommend testing pipeline with your own valid database.
+  For tis reason, we recommend testing pipeline with your own valid database.
 - `Kraken2` used for taxonomic classification requires lot of memory (~100GB). So we plan to implement `Clark` in a future release.
-
-
