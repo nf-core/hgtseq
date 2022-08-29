@@ -252,7 +252,7 @@ NXF_OPTS='-Xms1g -Xmx4g'
 
 ## Limitations
 
-- `Reporting Subworkflow` only works with human data (i.e. setting _is_human = true_ e GRCh38 genome required)
+- `Reporting Subworkflow` only works with human data (i.e. setting _is_human = true_ and GRCh38 genome required)
 - If using `conda` as profile, hgtseq pipeline runs without executing `Reporting Subworkflow` due to a conflict between ggbio and RMarkDown
 - Since we had to use small databases to run the tests, results of the tests might be compromised or inconsistent (i.e. SARS-CoV-2 [Krakendb](https://github.com/nf-core/test-datasets/tree/modules/data/genomics/sarscov2/genome/db) and [Kronadb](https://github.com/nf-core/test-datasets/blob/modules/data/genomics/sarscov2/metagenome/krona_taxonomy.tab) for human data).
   For tis reason, we recommend testing pipeline with your own valid database.
