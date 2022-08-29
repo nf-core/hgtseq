@@ -1,0 +1,156 @@
+---
+title: "analysis_report"
+author: "Simone Carpanzano and Francesco Lescai"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    theme: readable
+    highlight: tango
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+editor_options:
+  chunk_output_type: console
+params:
+  sampleids: NULL
+  istest: NULL
+---
+
+# creazione delle tibble per fare il join dei files classificati e dei siti di integrazione
+
+```{r creationTibble, include=FALSE}
+library(GenomicRanges)
+library(ggbio)
+library(biovizBase)
+library(tidyverse)
+library(stringr)
+
+sampleids <- unlist(strsplit(params$sampleids, ","))
+
+data_classified = tibble()
+data_integrations = tibble()
+
+eval_chunk <- params$istest == "false"
+
+for (sample in sampleids){
+  files = dir(pattern = sample)
+  classified = files[grepl("classified", files)]
+  integrations = files[grep("integration", files)]
+  tmp = read_tsv(classified, col_names = c("classtype", "read_name", "taxID", "length", "k-mers info"))
+  data_classified = rbind(
+    data_classified,
+    cbind(
+      tmp,
+      sample = sample
+    )
+  )
+  est = read_tsv(integrations, col_names = c("read_name", "chr", "position"))
+  data_integrations = rbind(
+    data_integrations,
+    cbind(
+      est,
+      sample = sample
+    )
+  )
+}
+```
+# join delle due tibble
+
+```{r jointData, echo=FALSE}
+
+joint_data = data_integrations %>%
+  left_join(data_classified, by = "read_name")
+head(joint_data)
+```
+
+# Filter data by non-Human classification
+
+```{r nonhuman, echo=FALSE, eval=eval_chunk}
+
+joint_data = joint_data %>%
+    filter(classtype != "U") %>%
+    filter(taxID != "9606")
+```
+
+
+# creazione seqInfo per la costruzione del plot
+
+```{r seqInfo, include=FALSE}
+
+data("CRC", package = "biovizBase")
+head(hg19sub)
+seqinfo(hg19sub)
+
+dictionary = "https://raw.githubusercontent.com/nf-core/test-datasets/hgtseq/testdata/reference/Homo_sapiens_assembly38.dict"
+dictred = read_tsv(dictionary, skip = 1, col_names = c("class", "sequence", "length", "m5", "as", "url", "species"))
+
+dictred$sequence <- gsub("SN:", "", dictred$sequence)
+dictred$length <- gsub("LN:", "", dictred$length)
+
+newSeqInfoData <- Seqinfo(
+  seqnames = dictred$sequence,
+  seqlengths = as.numeric(dictred$length),
+  isCircular = NA,
+  genome = "hg38"
+)
+
+newSeqInfoData_noextra <- newSeqInfoData[
+  c(
+    paste0("chr", as.character(c(1:22))),
+    "chrX",
+    "chrY"
+  )
+]
+```
+# creazione del file GRanges necessario per plottare i dati
+
+```{r GRangesFile, include=FALSE}
+
+integration <- GRanges(
+  joint_data$chr,
+  IRanges(
+    start = joint_data$position,
+    end = joint_data$position
+  )
+)
+
+integration_noextra <- integration[
+  seqnames(integration) %in% seqnames(newSeqInfoData_noextra)
+]
+
+matchinglevels = seqlevels(newSeqInfoData_noextra)[seqlevels(newSeqInfoData_noextra) %in% seqlevels(integration_noextra)]
+
+integration_noextra = keepSeqlevels(integration_noextra, matchinglevels)
+
+seqlengths(integration_noextra) = seqlengths(newSeqInfoData_noextra)[seqlevels(newSeqInfoData_noextra) %in% seqlevels(integration_noextra)]
+
+genoma_hg38 <- GRanges(
+  seqnames(newSeqInfoData_noextra),
+  IRanges(
+    start = 1,
+    end = unname(seqlengths(newSeqInfoData_noextra))
+  )
+)
+
+seqinfo(genoma_hg38) <- newSeqInfoData_noextra
+```
+# esecuzione del plot
+
+```{r plot, echo=TRUE}
+
+plot <- ggbio() +
+  circle(genoma_hg38, geom = "ideo", fill = "gray70") +
+  circle(genoma_hg38, geom = "scale", size = 2) +
+  circle(genoma_hg38, geom = "text", aes(label = seqnames), vjust = 0, size = 3)
+
+integration_plot <- plot +
+  circle(integration_noextra, geom = "rect", color = "red", radius = 20)
+
+integration_plot
+```
+
+
+```{r saveimage, echo=FALSE}
+save.image("analysis_report.RData")
+```
