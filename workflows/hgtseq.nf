@@ -261,11 +261,11 @@ def create_input_channel(LinkedHashMap row) {
             exit 1, "ERROR: Please check input samplesheet -> file indicated in input1 column does not exist!\n${row.input1}"
         }
         // check whether input1 is a fastq or bam
-        if (!hasExtension(file1, "fastq.gz") && !hasExtension(file1, "fastq") && !hasExtension(file1, "bam")){
-            exit 1, "ERROR: input file in input1 column must be either a fastq or a bam file!\n${row.input1}"
+        if (!hasExtension(file1, "fastq.gz") && !hasExtension(file1, "fastq") && !hasExtension(file1, "bam") && !hasExtension(file1, "cram")){
+            exit 1, "ERROR: input file in input1 column must be either a fastq or a bam/cram file!\n${row.input1}"
         }
     } else {
-        exit 1, "ERROR: Please check input samplesheet -> a column named input1 with either fastq or bam input is mandatory!\n"
+        exit 1, "ERROR: Please check input samplesheet -> a column named input1 with either fastq or bam/cram input is mandatory!\n"
     }
     // single or paired end is set based on presence or absence of input2 column
     if (row.input2){
@@ -274,8 +274,8 @@ def create_input_channel(LinkedHashMap row) {
         if (!file2.exists()) {
             exit 1, "ERROR: Please check input samplesheet -> file indicated in input2 column does not exist!\n${row.input2}"
         }
-        if (getExtensionFromStringPath(row.input1) == ".bam"){
-            exit 1, "ERROR: when providing BAM input in column input1, column input2 should not exist"
+        if (getExtensionFromStringPath(row.input1) == ".bam" | getExtensionFromStringPath(row.input1) == ".cram"){
+            exit 1, "ERROR: when providing BAM or CRAM input in column input1, column input2 should not exist"
         }
         if (!(getExtensionFromStringPath(row.input1) == getExtensionFromStringPath(row.input2))){
             exit 1, "ERROR: when providing paired end fastq files, both input should have the same extension\n${row.input1}\n${row.input2}"
