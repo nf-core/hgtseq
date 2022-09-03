@@ -135,7 +135,7 @@ workflow HGTSEQ {
         ch_versions = ch_versions.mix(CLASSIFY_UNMAPPED.out.versions)
     } else {
         // executes SORTBAM on aligned trimmed reads
-        / executes SORTBAM on input files from CSV
+        // executes SORTBAM on input files from CSV
         SORTBAM (
             PREPARE_READS.out.bam
         )
