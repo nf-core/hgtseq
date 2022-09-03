@@ -14,29 +14,12 @@ workflow BAM_QC {
 
     take:
     bam        // channel: [mandatory] [ val(meta), path(bam) ]
+    bam_bai    // channel: [mandatory] [ val(meta), path(bam), path(bai) ]
     fasta      // channel: [mandatory] path(fasta)
     gff        // channel: [optional] path(gff)
 
     main:
     ch_versions = Channel.empty()
-
-    // samtools stats block needs the bam file to be sorted
-    // and indexed
-
-    SAMTOOLS_SORT ( bam )
-    ch_versions = ch_versions.mix(SAMTOOLS_SORT.out.versions.first())
-
-    SAMTOOLS_INDEX ( SAMTOOLS_SORT.out.bam )
-    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions.first())
-
-    // additionally, the modules require a single channel containing
-    // both the bam file and its index
-    // which is the reason for creating an additional channel that joins
-    // both of them:
-
-    SAMTOOLS_SORT.out.bam
-        .join(SAMTOOLS_INDEX.out.bai, by: [0], remainder: true)
-        .set { bam_bai }
 
     SAMTOOLS_STATS ( bam_bai, fasta )
     ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
@@ -49,7 +32,7 @@ workflow BAM_QC {
 
     // qualimap requires the original bam file
     // but also a GFF file with the regions to run the QC on
-    QUALIMAP_BAMQC ( SAMTOOLS_SORT.out.bam, gff )
+    QUALIMAP_BAMQC ( bam, gff )
     ch_versions = ch_versions.mix(QUALIMAP_BAMQC.out.versions.first())
 
     emit:

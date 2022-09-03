@@ -38,6 +38,7 @@ include { CLASSIFY_UNMAPPED           } from '../subworkflows/local/classify_unm
 include { PREPARE_READS               } from '../subworkflows/local/prepare_reads/main'
 include { READS_QC                    } from '../subworkflows/local/reads_qc/main'
 include { REPORTING                   } from '../subworkflows/local/reporting/main'
+include { SORTBAM                     } from '../subworkflows/local/sortbam/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,32 +114,43 @@ workflow HGTSEQ {
     }
 
     if (params.isbam) {
-        // executes BAM QC on input files from CSV
+        // executes SORTBAM on input files from CSV
+        SORTBAM (
+            ch_input
+        )
+
         BAM_QC (
-            ch_input,
+            SORTBAM.out.bam_only,
+            SORTBAM.out.bam_bai,
             params.fasta,
             params.gff
         )
         ch_versions = ch_versions.mix(BAM_QC.out.versions)
 
-        // executes classification on input files from CSV
+        // executes classification on sorted bam including bai in tuple
         CLASSIFY_UNMAPPED (
-            ch_input,
+            SORTBAM.out.bam_bai,
             ch_krakendb
         )
         ch_versions = ch_versions.mix(CLASSIFY_UNMAPPED.out.versions)
     } else {
-        // executes BAM QC on aligned trimmed reads
+        // executes SORTBAM on aligned trimmed reads
+        / executes SORTBAM on input files from CSV
+        SORTBAM (
+            PREPARE_READS.out.bam
+        )
+        // then executes BAM QC on the sorted files
         BAM_QC (
-            PREPARE_READS.out.bam,
+            SORTBAM.out.bam_only,
+            SORTBAM.out.bam_bai,
             params.fasta,
             params.gff
         )
         ch_versions = ch_versions.mix(BAM_QC.out.versions)
 
-        // executes classification on aligned trimmed reads
+        // executes classification on aligned trimmed reads sorted and in tuple with bai
         CLASSIFY_UNMAPPED (
-            PREPARE_READS.out.bam,
+            SORTBAM.out.bam_bai,
             ch_krakendb
         )
         ch_versions = ch_versions.mix(CLASSIFY_UNMAPPED.out.versions)
