@@ -65,7 +65,7 @@ for (sample in sampleids){
 
 joint_data = data_integrations %>%
   left_join(data_classified, by = "read_name")
-head(joint_data)
+    head(joint_data)
 ```
 
 # Filter data by non-Human classification
