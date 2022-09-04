@@ -18,7 +18,6 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 
 On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure. This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources. The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/hgtseq/results).
 
-
 ## Functionality Overview
 
 A graphical view of the pipeline can be seen below.
@@ -74,7 +73,7 @@ Note that some form of configuration will be needed so that Nextflow knows how t
    --genome GRCh38 \
    -profile <docker/singularity/podman/shifter/charliecloud/conda/institute> \
    --krakendb /path/to/kraken_db \
-  --kronadb /path/to/krona_db/taxonomy.tab
+   --kronadb /path/to/krona_db/taxonomy.tab
    ```
 
 ## Documentation
