@@ -46,22 +46,16 @@ A graphical view of the pipeline can be seen below.
 
 3. Download the pipeline and test it on a minimal dataset with a single command:
 
-<<<<<<< HEAD
 - FASTQ input:
-=======
-   ```bash
-   nextflow run nf-core/hgtseq -profile test,YOURPROFILE --outdir <OUTDIR>
-   ```
->>>>>>> TEMPLATE
 
 ```console
-nextflow run nf-core/hgtseq -profile test,YOURPROFILE --outdir <OUTDIR>
+   nextflow run nf-core/hgtseq -profile test,YOURPROFILE --outdir <OUTDIR>
 ```
 
 - BAM input:
 
 ```console
-nextflow run nf-core/hgtseq -profile test_bam,YOURPROFILE --outdir <OUTDIR>
+   nextflow run nf-core/hgtseq -profile test_bam,YOURPROFILE --outdir <OUTDIR>
 ```
 
 Note that some form of configuration will be needed so that Nextflow knows how to fetch the required software. This is usually done in the form of a config profile (`YOURPROFILE` in the example command above). You can chain multiple config profiles in a comma-separated string.
@@ -73,15 +67,14 @@ Note that some form of configuration will be needed so that Nextflow knows how t
 
 4. Start running your own analysis!
 
-<<<<<<< HEAD
    ```console
-   nextflow run nf-core/hgtseq --input <YOURINPUT>.csv --outdir <OUTDIR> --genome GRCh38 -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
-=======
-   <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
-
-   ```bash
-   nextflow run nf-core/hgtseq --input samplesheet.csv --outdir <OUTDIR> --genome GRCh37 -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
->>>>>>> TEMPLATE
+   nextflow run nf-core/hgtseq \
+   --input <YOURINPUT>.csv \
+   --outdir <OUTDIR> \
+   --genome GRCh38 \
+   -profile <docker/singularity/podman/shifter/charliecloud/conda/institute> \
+   --krakendb /path/to/kraken_db \
+  --kronadb /path/to/krona_db/taxonomy.tab
    ```
 
 ## Documentation

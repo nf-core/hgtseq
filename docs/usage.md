@@ -16,16 +16,11 @@ The pipeline will auto-detect whether a sample is single- or paired-end using th
 
 The FASTQ file extension can be either _fastq.gz_ or _fastq_.
 
-<<<<<<< HEAD
 ```console
 sample,input1,input2
 testsample01,/path/to/file1_1.fastq.gz/path/to/file1_2.fastq.gz
 testsample02,/path/to/file2_1.fastq.gz,/path/to/file2_2.fastq.gz
 testsample03,/path/to/file3_1.fastq,/path/to/file3_2.fastq.gz
-=======
-```bash
---input '[path to samplesheet file]'
->>>>>>> TEMPLATE
 ```
 
 | Column   | Description                                                                                                                                                                            |
