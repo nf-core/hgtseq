@@ -136,11 +136,13 @@
                 "bwaindex": {
                     "type": "string",
                     "default": null,
+                    "description": "Path bwa-mem indexes",
                     "hidden": true
                 },
                 "bwamem2index": {
                     "type": "string",
                     "default": null,
+                    "description": "Path bwa-mem2 indexes",
                     "hidden": true
                 }
             },
