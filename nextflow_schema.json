@@ -147,7 +147,6 @@
                 }
             },
             "required": [
-                "is_human",
                 "krakendb",
                 "kronadb"
             ]
