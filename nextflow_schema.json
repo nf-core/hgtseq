@@ -115,12 +115,12 @@
                 "krakendb": {
                     "type": "string",
                     "default": "None",
-                    "description": "Either a local path or a URL to compressed kraken database file"
+                    "description": "Either a local path or a URL to compressed kraken database folder"
                 },
                 "kronadb": {
                     "type": "string",
                     "default": "None",
-                    "description": "Either a local path or a URL to compressed .tab krona taxonomy"
+                    "description": "Either a local path or a URL to compressed .tab krona taxonomy file"
                 },
                 "gff": {
                     "type": "string",

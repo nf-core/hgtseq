@@ -12,27 +12,17 @@ include { PARSEOUTPUTS                                } from '../../../modules/l
 workflow CLASSIFY_UNMAPPED {
 
     take:
-    bam  // channel: [ val(meta), [ bam ] ]
+    bam_bai  // channel: [ val(meta), path(bam), path(bai) ]
     db   // channel: [ path(database) ]
 
     main:
 
     ch_versions = Channel.empty()
 
-    SAMTOOLS_SORT ( bam )
-    ch_versions = ch_versions.mix(SAMTOOLS_SORT.out.versions)
-
-    SAMTOOLS_INDEX ( SAMTOOLS_SORT.out.bam )
-    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions)
-
-    // joining channels because SAMTOOLS_VIEW needs a tuple
-    // combining [ [meta], bam, bai ]
-    ch_indexed_bam = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai)
-
-    SAMTOOLS_VIEW_SINGLE ( ch_indexed_bam, [] )
+    SAMTOOLS_VIEW_SINGLE ( bam_bai, [] )
     ch_versions = ch_versions.mix(SAMTOOLS_VIEW_SINGLE.out.versions)
 
-    SAMTOOLS_VIEW_BOTH ( ch_indexed_bam, [] )
+    SAMTOOLS_VIEW_BOTH ( bam_bai, [] )
     ch_versions = ch_versions.mix(SAMTOOLS_VIEW_BOTH.out.versions)
 
     PARSEOUTPUTS ( SAMTOOLS_VIEW_SINGLE.out.bam )

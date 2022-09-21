@@ -27,6 +27,9 @@ library(tidyverse)
 library(stringr)
 
 sampleids <- unlist(strsplit(params$sampleids, ","))
+## for safety we remove new line characters in case the number of samples
+## exceeds the lenght of a line in the terminal in use
+sampleids = str_replace_all(sampleids, "[\r\n]" , "")
 
 data_classified = tibble()
 data_integrations = tibble()
@@ -53,6 +56,7 @@ for (sample in sampleids){
       sample = sample
     )
   )
+  rm(est,sample)
 }
 ```
 # join delle due tibble
@@ -61,7 +65,7 @@ for (sample in sampleids){
 
 joint_data = data_integrations %>%
   left_join(data_classified, by = "read_name")
-head(joint_data)
+    head(joint_data)
 ```
 
 # Filter data by non-Human classification
