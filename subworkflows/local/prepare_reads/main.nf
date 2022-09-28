@@ -29,21 +29,27 @@ workflow PREPARE_READS {
     ch_versions = ch_versions.mix(TRIMGALORE.out.versions)
 
     if (aligner == "bwa-mem") {
-        // reference is indexed
+        // reference is indexed if index not available in iGenomes
         BWAMEM1_INDEX ( fasta )
         ch_versions = ch_versions.mix(BWAMEM1_INDEX.out.versions)
 
+        // sets bwaindex to correct input
+        bwaindex      = params.fasta ? params.bwaindex      ? Channel.fromPath(params.bwaindex).collect()      : BWAMEM1_INDEX.out.index : []
+
         // appropriately tagged interleaved FASTQ reads are mapped to the reference
-        BWAMEM1_MEM ( TRIMGALORE.out.reads, BWAMEM1_INDEX.out.index, false )
+        BWAMEM1_MEM ( TRIMGALORE.out.reads, bwaindex, false )
         ch_versions = ch_versions.mix(BWAMEM1_MEM.out.versions)
         aligned_bam = BWAMEM1_MEM.out.bam
     } else {
-        // reference is indexed
+        // reference is indexed if index not available in iGenomes
         BWAMEM2_INDEX ( fasta )
         ch_versions = ch_versions.mix(BWAMEM2_INDEX.out.versions)
 
+        // sets bwamem2index to correct input
+        bwamem2index  = params.fasta ? params.bwamem2index  ? Channel.fromPath(params.bwamem2index).collect()  : BWAMEM2_INDEX.out.index : []
+
         // appropriately tagged interleaved FASTQ reads are mapped to the reference
-        BWAMEM2_MEM ( TRIMGALORE.out.reads, BWAMEM2_INDEX.out.index, false )
+        BWAMEM2_MEM ( TRIMGALORE.out.reads, bwamem2index, false )
         ch_versions = ch_versions.mix(BWAMEM2_MEM.out.versions)
         aligned_bam = BWAMEM2_MEM.out.bam
     }

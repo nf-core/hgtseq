@@ -70,7 +70,7 @@ Note that some form of configuration will be needed so that Nextflow knows how t
    nextflow run nf-core/hgtseq \
    --input <YOURINPUT>.csv \
    --outdir <OUTDIR> \
-   --genome GRCh38 \
+   --genome GATK.GRCh38 \
    -profile <docker/singularity/podman/shifter/charliecloud/conda/institute> \
    --krakendb /path/to/kraken_db \
    --kronadb /path/to/krona_db/taxonomy.tab
