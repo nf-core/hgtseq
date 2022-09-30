@@ -55,7 +55,8 @@
                 },
                 "taxonomy_id": {
                     "type": "string",
-                    "default": "None"
+                    "default": "None",
+                    "description": "TaxID of samples used as input"
                 }
             }
         },
