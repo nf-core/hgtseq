@@ -13,7 +13,7 @@ process RANALYSIS {
     val(sampleids)
     path(markdownfile)
     val(istest)
-
+    val(taxonomy_id)
 
     output:
     path("analysis_report.html"), emit: report
@@ -32,7 +32,8 @@ process RANALYSIS {
         rmarkdown::render('$markdownfile',
         params = list(
         sampleids = \\\"$samplestring\\\",
-        istest = \\\"$istest\\\"
+        istest = \\\"$istest\\\",
+        taxonomy_id = \\\"$taxonomy_id\\\"
         ),
         knit_root_dir=workdir,
         output_dir=workdir)"

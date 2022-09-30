@@ -15,6 +15,7 @@ editor_options:
 params:
   sampleids: NULL
   istest: NULL
+  taxonomy_id : NULL
 ---
 
 # creazione delle tibble per fare il join dei files classificati e dei siti di integrazione
@@ -34,7 +35,13 @@ sampleids = str_replace_all(sampleids, "[\r\n]" , "")
 data_classified = tibble()
 data_integrations = tibble()
 
-eval_chunk <- params$istest == "false"
+eval_istest <- params$istest == "false"
+
+if ( params$taxonomy_id == "9606" ) {
+    eval_taxid = TRUE
+} else {
+    eval_taxid = FALSE
+}
 
 for (sample in sampleids){
   files = dir(pattern = sample)
@@ -68,19 +75,19 @@ joint_data = data_integrations %>%
     head(joint_data)
 ```
 
-# Filter data by non-Human classification
+# filter data by non-Human classification
 
-```{r nonhuman, echo=FALSE, eval=eval_chunk}
+```{r nonhuman, echo=FALSE, eval=eval_istest}
 
 joint_data = joint_data %>%
     filter(classtype != "U") %>%
-    filter(taxID != "9606")
+    filter(taxID != params$taxonomy_id )
 ```
 
 
 # creazione seqInfo per la costruzione del plot
 
-```{r seqInfo, include=FALSE}
+```{r seqInfo, include=FALSE, eval=eval_taxid}
 
 data("CRC", package = "biovizBase")
 head(hg19sub)
@@ -109,7 +116,7 @@ newSeqInfoData_noextra <- newSeqInfoData[
 ```
 # creazione del file GRanges necessario per plottare i dati
 
-```{r GRangesFile, include=FALSE}
+```{r GRangesFile, include=FALSE, eval=eval_taxid}
 
 integration <- GRanges(
   joint_data$chr,
@@ -141,7 +148,7 @@ seqinfo(genoma_hg38) <- newSeqInfoData_noextra
 ```
 # esecuzione del plot
 
-```{r plot, echo=TRUE}
+```{r plot, echo=TRUE, eval=eval_taxid}
 
 plot <- ggbio() +
   circle(genoma_hg38, geom = "ideo", fill = "gray70") +
@@ -153,7 +160,6 @@ integration_plot <- plot +
 
 integration_plot
 ```
-
 
 ```{r saveimage, echo=FALSE}
 save.image("analysis_report.RData")
