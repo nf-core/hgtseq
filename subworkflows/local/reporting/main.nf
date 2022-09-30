@@ -14,6 +14,7 @@ workflow REPORTING {
     integration_sites
     taxonomy
     sampleids
+    taxonomy_id
 
     main:
 
