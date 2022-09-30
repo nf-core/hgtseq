@@ -54,8 +54,8 @@
                     "description": "Defines if pipeline is running a test or using full scale inputs"
                 },
                 "taxonomy_id": {
-                    "type": "string",
-                    "default": null
+                    "type": "number",
+                    "default": "None"
                 }
             }
         },
