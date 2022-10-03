@@ -2,18 +2,12 @@ process BAMSTATS {
     tag "$meta.id"
     label 'process_low'
 
-    conda (params.enable_conda ? "bioconda::biopet==0.8.0--py35_0" : null)
+    conda (params.enable_conda ? "bioconda::biopet-bamstats==1.0.1" : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/biopet:0.8.0--py36r3.4.1_0':
-        'quay.io/biocontainers/biopet:0.8.0--py35_0' }"
+        'https://depot.galaxyproject.org/singularity/biopet-bamstats:1.0.1--hdfd78af_1':
+        'quay.io/biocontainers/biopet-bamstats:1.0.1--hdfd78af_1' }"
 
     input:
-    // TODO nf-core: Where applicable all sample-specific information e.g. "id", "single_end", "read_group"
-    //               MUST be provided as an input via a Groovy Map called "meta".
-    //               This information may not be required in some instances e.g. indexing reference genome files:
-    //               https://github.com/nf-core/modules/blob/master/modules/bwa/index/main.nf
-    // TODO nf-core: Where applicable please provide/convert compressed files as input/output
-    //               e.g. "*.fastq.gz" and NOT "*.fastq", "*.bam" and NOT "*.sam" etc.
     tuple val(meta), path(bam)
 
     output:
