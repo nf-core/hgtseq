@@ -1,7 +1,7 @@
 // runs SAMPLE_QC from either reads or bam files
 // or both after alignment
 
-include { BAMTOOLS_STATS    } from '../../../modules/nf-core/modules/bamtools/stats'
+include { BAMTOOLS_STATS    } from '../../../modules/nf-core/modules/bamtools/stats/main'
 include { SAMTOOLS_SORT     } from '../../../modules/nf-core/modules/samtools/sort/main'
 include { SAMTOOLS_INDEX    } from '../../../modules/nf-core/modules/samtools/index/main'
 include { SAMTOOLS_STATS    } from '../../../modules/nf-core/modules/samtools/stats/main'
