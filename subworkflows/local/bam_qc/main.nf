@@ -1,6 +1,7 @@
 // runs SAMPLE_QC from either reads or bam files
 // or both after alignment
 
+include { BAMTOOLS_STATS    } from '../../../modules/nf-core/modules/bamtools/stats'
 include { SAMTOOLS_SORT     } from '../../../modules/nf-core/modules/samtools/sort/main'
 include { SAMTOOLS_INDEX    } from '../../../modules/nf-core/modules/samtools/index/main'
 include { SAMTOOLS_STATS    } from '../../../modules/nf-core/modules/samtools/stats/main'
@@ -35,11 +36,15 @@ workflow BAM_QC {
     QUALIMAP_BAMQC ( bam, gff )
     ch_versions = ch_versions.mix(QUALIMAP_BAMQC.out.versions.first())
 
+    BAMTOOLS_STATS ( bam )
+    ch_versions = ch_versions.mix(BAMTOOLS_STATS.out.versions.first())
+
     emit:
     stats    = SAMTOOLS_STATS.out.stats       // channel: [ val(meta), [ stats ] ]
     flagstat = SAMTOOLS_FLAGSTAT.out.flagstat // channel: [ val(meta), [ flagstat ] ]
     idxstats = SAMTOOLS_IDXSTATS.out.idxstats // channel: [ val(meta), [ idxstats ] ]
     qualimap = QUALIMAP_BAMQC.out.results     // channel: [ val(meta), [ results ] ]
+    bamstats = BAMTOOLS_STATS.out.stats       // channel: [ val(meta), [ bamstats ] ]
 
     versions = ch_versions                    // channel: [ versions.yml ]
 }
