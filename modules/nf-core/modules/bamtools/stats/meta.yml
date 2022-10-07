@@ -1,35 +1,43 @@
-process BAMTOOLS_STATS {
-    tag "$meta.id"
-    label 'process_single'
+name: "bamtools_stats"
+description: BamTools provides both a programmer's API and an end-user's toolkit for handling BAM files.
+keywords:
+  - bamtools
+  - stats
+  - bam
+tools:
+  - bamtools:
+      description: C++ API & command-line toolkit for working with BAM data
+      homepage: http://github.com/pezmaster31/bamtools
+      documentation: https://github.com/pezmaster31/bamtools/wiki
+      tool_dev_url: http://github.com/pezmaster31/bamtools
+      doi: ""
+      licence: ["MIT"]
 
-    conda (params.enable_conda ? "bioconda::bamtools=2.5.1" : null)
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bamtools:2.5.1--h9a82719_9' :
-        'quay.io/biocontainers/bamtools:2.5.1--h9a82719_9' }"
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - bam:
+      type: file
+      description: BAM file
+      pattern: "*.bam"
 
-    input:
-    tuple val(meta), path(bam)
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - stats:
+      type: file
+      description: File containing alignment statistics
+      pattern: "*.stats"
 
-    output:
-    tuple val(meta), path("*.stats"), emit: stats
-    path "versions.yml"             , emit: versions
-
-    when:
-    task.ext.when == null || task.ext.when
-
-    script:
-    def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
-
-    """
-    bamtools \\
-        stats \\
-        -in $bam \\
-        >${prefix}.bam.stats
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        bamtools: \$( bamtools --version | grep -e 'bamtools' | sed 's/^.*bamtools //' )
-    END_VERSIONS
-    """
-}
+authors:
+  - "@lescai"
