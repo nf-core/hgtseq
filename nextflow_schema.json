@@ -54,6 +54,7 @@
                     "description": "Defines if pipeline is running a test or using full scale inputs"
                 },
                 "taxonomy_id": {
+                    "type": "string",
                     "default": "None",
                     "description": "TaxID of samples used as input"
                 }
