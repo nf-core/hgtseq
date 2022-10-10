@@ -1,4 +1,4 @@
-name: bamtools_stats
+name: "bamtools_stats"
 description: BamTools provides both a programmer's API and an end-user's toolkit for handling BAM files.
 keywords:
   - bamtools
@@ -12,6 +12,7 @@ tools:
       tool_dev_url: http://github.com/pezmaster31/bamtools
       doi: ""
       licence: ["MIT"]
+
 input:
   - meta:
       type: map
@@ -22,6 +23,7 @@ input:
       type: file
       description: BAM file
       pattern: "*.bam"
+
 output:
   - meta:
       type: map
@@ -36,5 +38,6 @@ output:
       type: file
       description: File containing alignment statistics
       pattern: "*.stats"
+
 authors:
   - "@lescai"
