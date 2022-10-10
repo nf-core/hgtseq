@@ -31,7 +31,7 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 */
 
 //
-// SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
+// SUBWORKFLOW: Consisting of a mix of local and nf-core
 //
 include { BAM_QC                      } from '../subworkflows/local/bam_qc/main'
 include { CLASSIFY_UNMAPPED           } from '../subworkflows/local/classify_unmapped/main'
@@ -47,12 +47,12 @@ include { SORTBAM                     } from '../subworkflows/local/sortbam/main
 */
 
 //
-// MODULE: Installed directly from nf-core/modules
+// MODULE: Installed directly from nf-core
 //
-include { MULTIQC                                     } from '../modules/nf-core/modules/multiqc/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS                 } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
-include { UNTAR                       as UNTAR_KRAKEN } from '../modules/nf-core/modules/untar/main'
-include { UNTAR                       as UNTAR_KRONA  } from '../modules/nf-core/modules/untar/main'
+include { MULTIQC                                     } from '../modules/nf-core/multiqc/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS                 } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include { UNTAR                       as UNTAR_KRAKEN } from '../modules/nf-core/untar/main'
+include { UNTAR                       as UNTAR_KRONA  } from '../modules/nf-core/untar/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
