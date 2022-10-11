@@ -48,8 +48,8 @@ for (sample in sampleids){
   files = dir(pattern = sample)
   files_single = dir("classified_single", pattern = sample)
   files_both = dir("classified_both", pattern = sample)
-  classified_single = files_single[grepl("classified", files)]
-  classified_both = files_both[grepl("classified", files)]
+  classified_single = files_single[grepl("classified", files_single)]
+  classified_both = files_both[grepl("classified", files_both)]
   integrations = files[grep("integration", files)]
   tmpsingle = read_tsv(classified_single, col_names = c("classtype", "read_name", "taxID", "length", "k-mers info"))
   data_classified_single = rbind(
