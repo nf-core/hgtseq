@@ -56,6 +56,7 @@ nextflow run nf-core/hgtseq \
 --input samplesheet.csv \
 --outdir <OUTDIR> \
 --genome GATK.GRCh38 \
+--taxonomy_id "TAXID"
 -profile <singularity,docker,conda> \
 --krakendb /path/to/kraken_db \
 --kronadb /path/to/krona_db/taxonomy.tab
