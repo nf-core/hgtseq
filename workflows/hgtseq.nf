@@ -31,7 +31,7 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 */
 
 //
-// SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
+// SUBWORKFLOW: Consisting of a mix of local and nf-core
 //
 include { BAM_QC                      } from '../subworkflows/local/bam_qc/main'
 include { CLASSIFY_UNMAPPED           } from '../subworkflows/local/classify_unmapped/main'
@@ -47,12 +47,12 @@ include { SORTBAM                     } from '../subworkflows/local/sortbam/main
 */
 
 //
-// MODULE: Installed directly from nf-core/modules
+// MODULE: Installed directly from nf-core
 //
-include { MULTIQC                                     } from '../modules/nf-core/modules/multiqc/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS                 } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
-include { UNTAR                       as UNTAR_KRAKEN } from '../modules/nf-core/modules/untar/main'
-include { UNTAR                       as UNTAR_KRONA  } from '../modules/nf-core/modules/untar/main'
+include { MULTIQC                                     } from '../modules/nf-core/multiqc/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS                 } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include { UNTAR                       as UNTAR_KRAKEN } from '../modules/nf-core/untar/main'
+include { UNTAR                       as UNTAR_KRONA  } from '../modules/nf-core/untar/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -158,7 +158,6 @@ workflow HGTSEQ {
 
     // execute reporting only if genome is Human
     if (!params.enable_conda) {
-        if (params.is_human) {
             REPORTING (
                 CLASSIFY_UNMAPPED.out.classified_single.collect{ it[1] },
                 CLASSIFY_UNMAPPED.out.classified_both.collect{ it[1] },
@@ -167,7 +166,6 @@ workflow HGTSEQ {
                 CLASSIFY_UNMAPPED.out.classified_single.collect{ it[0].id }
             )
             ch_versions = ch_versions.mix(REPORTING.out.versions)
-        }
     }
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
@@ -195,6 +193,7 @@ workflow HGTSEQ {
     ch_multiqc_files = ch_multiqc_files.mix(BAM_QC.out.flagstat.collect{it[1]}.ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(BAM_QC.out.idxstats.collect{it[1]}.ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(BAM_QC.out.qualimap.collect{it[1]}.ifEmpty([]))
+    ch_multiqc_files = ch_multiqc_files.mix(BAM_QC.out.bamstats.collect{it[1]}.ifEmpty([]))
     // adding kraken report if running full analysis
     // when running small test, small krakendb won't classify enough reads to generate a report
     if (params.multiqc_runkraken) {
@@ -205,7 +204,9 @@ workflow HGTSEQ {
 
     MULTIQC (
         ch_multiqc_files.collect(),
-        [[],[]]
+        [],
+        [],
+        []
     )
     multiqc_report = MULTIQC.out.report.toList()
     ch_versions    = ch_versions.mix(MULTIQC.out.versions)

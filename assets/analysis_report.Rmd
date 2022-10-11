@@ -15,6 +15,7 @@ editor_options:
 params:
   sampleids: NULL
   istest: NULL
+  taxonomy_id : NULL
 ---
 
 # creazione delle tibble per fare il join dei files classificati e dei siti di integrazione
@@ -31,32 +32,48 @@ sampleids <- unlist(strsplit(params$sampleids, ","))
 ## exceeds the lenght of a line in the terminal in use
 sampleids = str_replace_all(sampleids, "[\r\n]" , "")
 
-data_classified = tibble()
+data_classified_single = tibble()
 data_integrations = tibble()
+data_classified_both = tibble()
 
-eval_chunk <- params$istest == "false"
+eval_istest <- params$istest == "false"
+
+if ( params$taxonomy_id == "9606" ) {
+    eval_taxid = TRUE
+} else {
+    eval_taxid = FALSE
+}
 
 for (sample in sampleids){
   files = dir(pattern = sample)
-  classified = files[grepl("classified", files)]
+  classified_single = paste0("classified_single/", dir("classified_single", pattern = sample))
+  classified_both = paste0("classified_both/", dir("classified_both", pattern = sample))
   integrations = files[grep("integration", files)]
-  tmp = read_tsv(classified, col_names = c("classtype", "read_name", "taxID", "length", "k-mers info"))
-  data_classified = rbind(
-    data_classified,
+  tmpsingle = read_tsv(classified_single, col_names = c("classtype", "read_name", "taxID", "length", "k-mers info"))
+  data_classified_single = rbind(
+    data_classified_single,
     cbind(
-      tmp,
+      tmpsingle,
       sample = sample
     )
   )
-  est = read_tsv(integrations, col_names = c("read_name", "chr", "position"))
+  intsingle = read_tsv(integrations, col_names = c("read_name", "chr", "position"))
   data_integrations = rbind(
     data_integrations,
     cbind(
-      est,
+      intsingle,
       sample = sample
     )
   )
-  rm(est,sample)
+  tmpboth = read_tsv(classified_both, col_names = c("classtype", "read_name", "taxID", "length", "k-mers info"))
+  data_classified_both = rbind(
+    data_classified_both,
+    cbind(
+      tmpboth,
+      sample = sample
+    )
+  )
+  rm(intsingle,sample)
 }
 ```
 # join delle due tibble
@@ -64,23 +81,29 @@ for (sample in sampleids){
 ```{r jointData, echo=FALSE}
 
 joint_data = data_integrations %>%
-  left_join(data_classified, by = "read_name")
+  left_join(data_classified_single, by = "read_name")
     head(joint_data)
 ```
 
-# Filter data by non-Human classification
+# filter data by non-Human classification
 
-```{r nonhuman, echo=FALSE, eval=eval_chunk}
+```{r nonhuman, echo=FALSE, eval=eval_istest}
 
 joint_data = joint_data %>%
     filter(classtype != "U") %>%
-    filter(taxID != "9606")
+    filter(taxID != params$taxonomy_id )
 ```
 
+```{r filteringBoth, echo=FALSE, eval=eval_istest}
+
+data_classified_both = data_classified_both %>%
+  filter(classtype != "U") %>%
+  filter(taxID != params$taxonomy_id)
+```
 
 # creazione seqInfo per la costruzione del plot
 
-```{r seqInfo, include=FALSE}
+```{r seqInfo, include=FALSE, eval=eval_taxid}
 
 data("CRC", package = "biovizBase")
 head(hg19sub)
@@ -109,7 +132,7 @@ newSeqInfoData_noextra <- newSeqInfoData[
 ```
 # creazione del file GRanges necessario per plottare i dati
 
-```{r GRangesFile, include=FALSE}
+```{r GRangesFile, include=FALSE, eval=eval_taxid}
 
 integration <- GRanges(
   joint_data$chr,
@@ -141,7 +164,7 @@ seqinfo(genoma_hg38) <- newSeqInfoData_noextra
 ```
 # esecuzione del plot
 
-```{r plot, echo=TRUE}
+```{r plot, echo=TRUE, eval=eval_taxid}
 
 plot <- ggbio() +
   circle(genoma_hg38, geom = "ideo", fill = "gray70") +
@@ -153,7 +176,6 @@ integration_plot <- plot +
 
 integration_plot
 ```
-
 
 ```{r saveimage, echo=FALSE}
 save.image("analysis_report.RData")

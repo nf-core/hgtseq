@@ -1,12 +1,12 @@
 
-include { SAMTOOLS_INDEX                              } from '../../../modules/nf-core/modules/samtools/index/main.nf'
-include { SAMTOOLS_SORT                               } from '../../../modules/nf-core/modules/samtools/sort/main.nf'
-include { SAMTOOLS_VIEW   as SAMTOOLS_VIEW_SINGLE     } from '../../../modules/nf-core/modules/samtools/view/main.nf'
-include { SAMTOOLS_VIEW   as SAMTOOLS_VIEW_BOTH       } from '../../../modules/nf-core/modules/samtools/view/main.nf'
+include { SAMTOOLS_INDEX                              } from '../../../modules/nf-core/samtools/index/main.nf'
+include { SAMTOOLS_SORT                               } from '../../../modules/nf-core/samtools/sort/main.nf'
+include { SAMTOOLS_VIEW   as SAMTOOLS_VIEW_SINGLE     } from '../../../modules/nf-core/samtools/view/main.nf'
+include { SAMTOOLS_VIEW   as SAMTOOLS_VIEW_BOTH       } from '../../../modules/nf-core/samtools/view/main.nf'
 include { SAMTOOLS_FASTQ  as SAMTOOLS_FASTQ_SINGLE    } from '../../../modules/local/samtools/fastqlocal/main.nf'
 include { SAMTOOLS_FASTQ  as SAMTOOLS_FASTQ_BOTH      } from '../../../modules/local/samtools/fastqlocal/main.nf'
-include { KRAKEN2_KRAKEN2 as KRAKEN2_SINGLE           } from '../../../modules/nf-core/modules/kraken2/kraken2/main.nf'
-include { KRAKEN2_KRAKEN2 as KRAKEN2_BOTH             } from '../../../modules/nf-core/modules/kraken2/kraken2/main.nf'
+include { KRAKEN2_KRAKEN2 as KRAKEN2_SINGLE           } from '../../../modules/nf-core/kraken2/kraken2/main.nf'
+include { KRAKEN2_KRAKEN2 as KRAKEN2_BOTH             } from '../../../modules/nf-core/kraken2/kraken2/main.nf'
 include { PARSEOUTPUTS                                } from '../../../modules/local/parseoutputs/main.nf'
 
 workflow CLASSIFY_UNMAPPED {
@@ -19,10 +19,10 @@ workflow CLASSIFY_UNMAPPED {
 
     ch_versions = Channel.empty()
 
-    SAMTOOLS_VIEW_SINGLE ( bam_bai, [] )
+    SAMTOOLS_VIEW_SINGLE ( bam_bai, [], [] )
     ch_versions = ch_versions.mix(SAMTOOLS_VIEW_SINGLE.out.versions)
 
-    SAMTOOLS_VIEW_BOTH ( bam_bai, [] )
+    SAMTOOLS_VIEW_BOTH ( bam_bai, [], [] )
     ch_versions = ch_versions.mix(SAMTOOLS_VIEW_BOTH.out.versions)
 
     PARSEOUTPUTS ( SAMTOOLS_VIEW_SINGLE.out.bam )
