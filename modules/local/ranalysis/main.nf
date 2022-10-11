@@ -8,8 +8,8 @@ process RANALYSIS {
         'ghcr.io/lescailab/r-ggbio-reporting:1.0.0' }"
 
     input:
-    path(classified_reads_single), stageAs: 'classified_single/?*'
-    path(classified_reads_both), stageAs: 'classified_both/?*'
+    path(classified_reads_single), stageAs: 'classified_single/*'
+    path(classified_reads_both), stageAs: 'classified_both/*'
     path(integration_sites)
     val(sampleids)
     path(markdownfile)
