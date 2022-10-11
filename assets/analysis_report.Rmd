@@ -94,7 +94,7 @@ joint_data = joint_data %>%
     filter(taxID != params$taxonomy_id )
 ```
 
-```{r nonhuman, echo=FALSE, eval=eval_istest}
+```{r filteringBoth, echo=FALSE, eval=eval_istest}
 
 data_classified_both = data_classified_both %>%
   filter(classtype != "U") %>%
