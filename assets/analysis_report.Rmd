@@ -46,8 +46,8 @@ if ( params$taxonomy_id == "9606" ) {
 
 for (sample in sampleids){
   files = dir(pattern = sample)
-  classified_single = dir("classified_single", pattern = sample)
-  classified_both = dir("classified_both", pattern = sample)
+  classified_single = paste0("classified_single/", dir("classified_single", pattern = sample))
+  classified_both = paste0("classified_both/", dir("classified_both", pattern = sample))
   integrations = files[grep("integration", files)]
   tmpsingle = read_tsv(classified_single, col_names = c("classtype", "read_name", "taxID", "length", "k-mers info"))
   data_classified_single = rbind(
@@ -94,6 +94,12 @@ joint_data = joint_data %>%
     filter(taxID != params$taxonomy_id )
 ```
 
+```{r nonhuman, echo=FALSE, eval=eval_istest}
+
+data_classified_both = data_classified_both %>%
+  filter(classtype != "U") %>%
+  filter(taxID != params$taxonomy_id)
+```
 
 # creazione seqInfo per la costruzione del plot
 
