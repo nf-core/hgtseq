@@ -18,8 +18,6 @@ params:
   taxonomy_id : NULL
 ---
 
-# creazione delle tibble per fare il join dei files classificati e dei siti di integrazione
-
 ```{r creationTibble, include=FALSE}
 library(GenomicRanges)
 library(ggbio)
@@ -76,7 +74,6 @@ for (sample in sampleids){
   rm(intsingle,sample)
 }
 ```
-# join delle due tibble
 
 ```{r jointData, echo=FALSE}
 
@@ -84,8 +81,6 @@ joint_data = data_integrations %>%
   left_join(data_classified_single, by = "read_name")
     head(joint_data)
 ```
-
-# filter data by non-Human classification
 
 ```{r nonhuman, echo=FALSE, eval=eval_istest}
 
@@ -100,8 +95,6 @@ data_classified_both = data_classified_both %>%
   filter(classtype != "U") %>%
   filter(taxID != params$taxonomy_id)
 ```
-
-# creazione seqInfo per la costruzione del plot
 
 ```{r seqInfo, include=FALSE, eval=eval_taxid}
 
@@ -130,7 +123,6 @@ newSeqInfoData_noextra <- newSeqInfoData[
   )
 ]
 ```
-# creazione del file GRanges necessario per plottare i dati
 
 ```{r GRangesFile, include=FALSE, eval=eval_taxid}
 
@@ -162,7 +154,6 @@ genoma_hg38 <- GRanges(
 
 seqinfo(genoma_hg38) <- newSeqInfoData_noextra
 ```
-# esecuzione del plot
 
 ```{r plot, echo=TRUE, eval=eval_taxid}
 
@@ -175,6 +166,47 @@ integration_plot <- plot +
   circle(integration_noextra, geom = "rect", color = "red", radius = 20)
 
 integration_plot
+```
+
+```{r scoreData, include=FALSE}
+evalKrakenQual <- function(kmersinfo){
+  kmersTab <- as_tibble(
+    matrix(ncol = 2, byrow = TRUE,
+           data = unlist(strsplit(
+             unlist(strsplit(kmersinfo, " ")),
+             ":"))),
+    .name_repair = "minimal"
+  )
+  names(kmersTab) <- c("taxid", "kmers_found")
+  kmersTab = kmersTab %>% filter(kmersTab$taxid != "|")
+  kmersTab$kmers_found = as.numeric(kmersTab$kmers_found)
+  kmersTab = kmersTab %>%
+    group_by(taxid) %>%
+    summarise(tot_kmers = sum(kmers_found))
+  ## sum kmers for scoring includes kmers not classified, i.e. 0
+  sum_all_kmers = sum(kmersTab$tot_kmers)
+  ## then we can filter them out to calculate max == assigned taxid
+  kmersTab = kmersTab %>%
+    filter(taxid != "0")
+  max_taxid = paste0(kmersTab$taxid[which(kmersTab$tot_kmers == max(kmersTab$tot_kmers))],
+                     collapse = ",")
+  max_kmers = max(kmersTab$tot_kmers)
+  taxid_score = max(kmersTab$tot_kmers)/sum_all_kmers
+  taxid_classified_score = max(kmersTab$tot_kmers)/sum(kmersTab$tot_kmers)
+  parsed = tibble(
+    max_taxid = max_taxid,
+    max_kmers = max_kmers,
+    sum_all_kmers = sum_all_kmers,
+    sum_classified_kmers = sum(kmersTab$tot_kmers),
+    taxid_score = taxid_score,
+    taxid_classified_score = taxid_classified_score
+  )
+  return(parsed)
+}
+
+scored_data = cbind(joint_data,
+                   do.call(rbind,
+                           lapply(joint_data$`k-mers info`, evalKrakenQual)))
 ```
 
 ```{r saveimage, echo=FALSE}
