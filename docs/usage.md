@@ -55,8 +55,8 @@ The typical command for running the pipeline is as follows:
 nextflow run nf-core/hgtseq \
 --input samplesheet.csv \
 --outdir <OUTDIR> \
---genome GATK.GRCh38 \
---taxonomy_id "TAXID"
+--genome GRCh38 \
+--taxonomy_id "TAXID" \
 -profile <singularity,docker,conda> \
 --krakendb /path/to/kraken_db \
 --kronadb /path/to/krona_db/taxonomy.tab
@@ -259,8 +259,8 @@ NXF_OPTS='-Xms1g -Xmx4g'
 
 ## Limitations
 
-- `Reporting Subworkflow` only works with human data (i.e. setting _is_human = true_ and GATK.GRCh38 or NCBI.GRCh38 genome required)
+- `Reporting Subworkflow` execute the circular plot only with human data (i.e. setting _--taxonomy_id = "9606"_ and GATK.GRCh38 or NCBI.GRCh38 genome required)
 - If using `conda` as profile, hgtseq pipeline runs without executing `Reporting Subworkflow` due to a conflict between ggbio and RMarkDown
 - Since small databases should be used to run the tests, their results might be compromised or inconsistent (i.e. SARS-CoV-2 [Krakendb](https://github.com/nf-core/test-datasets/tree/modules/data/genomics/sarscov2/genome/db) and [Kronadb](https://github.com/nf-core/test-datasets/blob/modules/data/genomics/sarscov2/metagenome/krona_taxonomy.tab) for human data).
-  For tis reason, we recommend testing pipeline with your own valid database.
+  For this reason, we recommend testing pipeline with your own valid database.
 - `Kraken2` used for taxonomic classification requires lot of memory (~100GB). So we plan to implement `Clark` in a future release.
