@@ -71,6 +71,7 @@ Note that some form of configuration will be needed so that Nextflow knows how t
    --input <YOURINPUT>.csv \
    --outdir <OUTDIR> \
    --genome GATK.GRCh38 \
+   --taxonomy_id "TAXID" \
    -profile <docker/singularity/podman/shifter/charliecloud/conda/institute> \
    --krakendb /path/to/kraken_db \
    --kronadb /path/to/krona_db/taxonomy.tab

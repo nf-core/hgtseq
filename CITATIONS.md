@@ -18,6 +18,8 @@
 
 - [Trim Galore](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/)
 
+  > Felix Krueger, at the Babraham Institute and its staff: Simon Andrews, Anne Segonds-Pichon, Laura Biggins, Christel Krueger, Jo Montgomery.
+
 - [Qualimap](http://qualimap.conesalab.org)
 
 - [BWA](http://bio-bwa.sourceforge.net)
@@ -37,6 +39,8 @@
   > Ondov, B. D., Bergman, N. H., & Phillippy, A. M. (2011). Interactive metagenomic visualization in a Web browser. BMC bioinformatics, 12(1), 1-10. doi: 10.1186/1471-2105-12-385.
 
 - [RMarkDown](https://rmarkdown.rstudio.com)
+
+  > JJ Allaire, Yihui Xie,Jonathan McPherson, Javier Luraschi,Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, Richard Iannone, Andrew Dunning, Atsushi Yasumoto,Barret Schloerke,Carson Sievert, Christophe Dervieux, Devon Ryan, Frederik Aust, Jeff Allen, JooYoung Seo, Malcolm Barrett, Rob Hyndman, Romain Lesur, Roy Storey, Ruben Arslan, ,Sergio Oller, RStudio, PBC, jQuery UI s, Mark Otto, Jacob Thornton, Twitter Inc, Alexander Farkas, Scott Jehl, Ivan Sagalaev, Greg Franko, John MacFarlane, Google Inc, Dave Raggett, W3C, Dave Gandy, Ben Sperry, Drifty, Aidan Lister, Benct Philip Jonsson, Albert Krewinkel
 
 ## Software packaging/containerisation tools
 
