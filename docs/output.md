@@ -22,7 +22,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
   - [Alignment](#alignment)
     - [BWAmem](#bwa) - Read mapping to reference genome
     - [SAMtools](#samtools) - Sorting, indexing, filtering & stats generation of BAM file
-  - [Exctracted Reads](#extracted-reads)
+  - [Extracted Reads](#extracted-reads)
     - [SAMtools]() - Extracting reads by sam flag
   - [Converted Reads](#converted-reads)
     - [SAMtools]() - Converting reads to fastq format
