@@ -43,7 +43,7 @@ testsample03,/path/to/file3.bam
 | Column   | Description                                                                                                                                                                            |
 | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sample` | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `input1` | Full path to aligned Bam file.                                                                                                                                                         |
+| `input1` | Full path to aligned BAM file.                                                                                                                                                         |
 
 An [example samplesheet](../assets/samplesheet_bam.csv) has been provided with the pipeline.
 
