@@ -52,7 +52,7 @@ A graphical view of the pipeline can be seen below.
        nextflow run nf-core/hgtseq -profile test,YOURPROFILE --outdir <OUTDIR>
     ```
 
-- BAM input:
+    - BAM input:
 
     ```console
        nextflow run nf-core/hgtseq -profile test_bam,YOURPROFILE --outdir <OUTDIR>
