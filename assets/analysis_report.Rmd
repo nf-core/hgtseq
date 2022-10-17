@@ -99,8 +99,6 @@ data_classified_both = data_classified_both %>%
 ```{r seqInfo, include=FALSE, eval=eval_taxid}
 
 data("CRC", package = "biovizBase")
-head(hg19sub)
-seqinfo(hg19sub)
 
 dictionary = "https://raw.githubusercontent.com/nf-core/test-datasets/hgtseq/testdata/reference/Homo_sapiens_assembly38.dict"
 dictred = read_tsv(dictionary, skip = 1, col_names = c("class", "sequence", "length", "m5", "as", "url", "species"))
