@@ -62,7 +62,7 @@ nextflow run nf-core/hgtseq \
 --kronadb /path/to/krona_db/taxonomy.tab
 ```
 
-This will launch the pipeline with the `singularity,docker or conda` configuration profile. See below for more information about profiles.
+This will launch the pipeline with the `singularity`, `docker` or `conda` configuration profile. See below for more information about profiles.
 
 Note that the pipeline will create the following files in your working directory:
 
