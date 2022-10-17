@@ -6,7 +6,7 @@
 
 ## Introduction
 
-**nf-core/hgtseq** is a bioinformatics best-practice analysis pipeline for A pipeline to investigate horizontal gene transfer from NGS data.
+**nf-core/hgtseq** is a bioinformatics best-practice analysis pipeline for investigating horizontal gene transfer from NGS data.
 
 ## Input Formats
 
