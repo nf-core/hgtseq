@@ -46,7 +46,7 @@ A graphical view of the pipeline can be seen below.
 
 3. Download the pipeline and test it on a minimal dataset with a single command:
 
-- FASTQ input:
+    - FASTQ input:
 
 ```console
    nextflow run nf-core/hgtseq -profile test,YOURPROFILE --outdir <OUTDIR>
