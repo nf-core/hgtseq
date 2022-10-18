@@ -19,7 +19,6 @@ workflow PREPARE_READS {
     aligner    // string:  [mandatory] "bwa-mem" or "bwa-mem2"
 
     main:
-
     ch_versions = Channel.empty()
     aligned_bam = Channel.empty()
 
