@@ -2,10 +2,8 @@
 // as primary input, and serves as comparison of reads quality between
 // original and trimmed reads.
 
-
 include { FASTQC as FASTQC_UNTRIMMED } from '../../../modules/nf-core/fastqc/main'
 include { FASTQC as FASTQC_TRIMMED   } from '../../../modules/nf-core/fastqc/main'
-
 
 workflow READS_QC {
 
