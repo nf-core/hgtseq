@@ -32,7 +32,6 @@ workflow SORTBAM {
         .join(SAMTOOLS_INDEX.out.bai, by: [0], remainder: true)
         .set { bam_bai }
 
-
     emit:
     bam_only = SAMTOOLS_SORT.out.bam  // channel: [ val(meta), path(bam) ]
     bam_bai  = bam_bai                // channel: [ val(meta), path(bam), path(bai) ]
