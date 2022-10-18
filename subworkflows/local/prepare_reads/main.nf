@@ -2,9 +2,7 @@
 // this subworkflow prepares the inputs from fastq reads to bam files
 // and performs QC of both reads and resulting bam files
 
-
 // modules to include in this subworkflow
-
 
 include { BWAMEM2_INDEX                } from '../../../modules/nf-core/bwamem2/index/main.nf'
 include { BWAMEM2_MEM                  } from '../../../modules/nf-core/bwamem2/mem/main'
