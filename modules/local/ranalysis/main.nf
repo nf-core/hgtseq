@@ -26,7 +26,7 @@ process RANALYSIS {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: ''
-    samplestring = sampleids.join(',')
+    def samplestring = sampleids.join(',')
 
     """
     Rscript -e "workdir<-getwd()
