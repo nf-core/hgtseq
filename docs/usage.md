@@ -282,5 +282,5 @@ NXF_OPTS='-Xms1g -Xmx4g'
 ## Limitations
 
 - Our local module `ranalysis` execute the circular plot in the html report only if human data is used (i.e. `--taxonomy_id 9606`, mandatory parameter explained above)
-- If using `conda` as profile, hgtseq pipeline runs without executing `ranalysis` module due to a container conflict
+- If using `conda` as profile, hgtseq pipeline runs without executing `ranalysis` module due to a container conflict.
 - `Kraken2` used for taxonomic classification requires lot of memory (~100GB). So we plan to implement `Clark` in a future release.
