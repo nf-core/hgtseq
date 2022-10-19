@@ -9,8 +9,6 @@ include { SAMTOOLS_IDXSTATS } from '../../../modules/nf-core/samtools/idxstats/m
 include { SAMTOOLS_FLAGSTAT } from '../../../modules/nf-core/samtools/flagstat/main'
 include { QUALIMAP_BAMQC    } from '../../../modules/nf-core/qualimap/bamqc/main'
 
-
-
 workflow BAM_QC {
 
     take:

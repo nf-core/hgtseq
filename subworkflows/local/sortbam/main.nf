@@ -4,8 +4,6 @@
 include { SAMTOOLS_SORT     } from '../../../modules/nf-core/samtools/sort/main'
 include { SAMTOOLS_INDEX    } from '../../../modules/nf-core/samtools/index/main'
 
-
-
 workflow SORTBAM {
 
     take:
@@ -31,7 +29,6 @@ workflow SORTBAM {
     SAMTOOLS_SORT.out.bam
         .join(SAMTOOLS_INDEX.out.bai, by: [0], remainder: true)
         .set { bam_bai }
-
 
     emit:
     bam_only = SAMTOOLS_SORT.out.bam  // channel: [ val(meta), path(bam) ]
