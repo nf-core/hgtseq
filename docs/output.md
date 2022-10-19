@@ -11,29 +11,29 @@ The directories listed below will be created in the results directory after the 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
-- [Quality Control]()
-  - [FastQC](#fastqc) - Raw read QC
-  - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
-  - [Qualimap](#qualimap) - Quality control of alignment sequencing data
-  - [Bamtools](https://github.com/pezmaster31/bamtools) - General alignment statistics from the BAM file
+- [Quality Control](#quality-control)
+  - FastQC - Raw read QC
+  - MultiQC - Aggregate report describing results and QC from the whole pipeline
+  - Qualimap - Quality control of alignment sequencing data
+  - Bamtools - General alignment statistics from the BAM file
 - [Preprocess](#preprocess)
-  - [Trimming]()
-    - [TrimGalore](#trimgalore) - Read Trimming
-  - [Alignment](#alignment)
-    - [BWAmem](#bwa) - Read mapping to reference genome
-    - [SAMtools](#samtools) - Sorting, indexing, filtering & stats generation of BAM file
-  - [Extracted Reads](#extracted-reads)
-    - [SAMtools]() - Extracting reads by sam flag
-  - [Converted Reads](#converted-reads)
-    - [SAMtools]() - Converting reads to fastq format
-    - [Parseoutputs]() - Parsing reads to get only sample name, chr and position to investigate integration sites
+  - Trimming
+    - TrimGalore - Read Trimming
+  - Alignment
+    - BWAmem - Read mapping to reference genome
+    - SAMtools - Sorting, indexing, filtering & stats generation of BAM file
+  - Extracted Reads
+    - SAMtools - Extracting reads by sam flag
+  - Converted Reads
+    - SAMtools - Converting reads to fastq format
+    - Parseoutputs - Parsing reads to get only sample name, chr and position to investigate integration sites
 - [Results](#results)
-  - [Analysis Report](#analysis-report) - RMarkDown report
-  - [Classified](#classified)
-    - [GAWK]() - Collated reads
-    - [Kraken2]() - Taxonomic classification
-  - [Krona Plots](#krona-plots)
-    - [KronaTools]() - Interactive multi-layered pie charts
+  - Analysis Report - RMarkDown report
+  - Classified
+    - GAWK - Collated reads
+    - Kraken2 - Taxonomic classification
+  - Krona Plots
+    - KronaTools - Interactive multi-layered pie charts
 
 ## Quality Control
 
