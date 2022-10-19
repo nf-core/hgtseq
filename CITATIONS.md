@@ -18,8 +18,6 @@
 
 - [Trim Galore](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/)
 
-  > Felix Krueger, at the Babraham Institute and its staff: Simon Andrews, Anne Segonds-Pichon, Laura Biggins, Christel Krueger, Jo Montgomery.
-
 - [Qualimap](http://qualimap.conesalab.org)
 
 - [BWA](http://bio-bwa.sourceforge.net)
@@ -40,7 +38,7 @@
 
 - [RMarkDown](https://rmarkdown.rstudio.com)
 
-  > JJ Allaire, Yihui Xie,Jonathan McPherson, Javier Luraschi,Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, Richard Iannone, Andrew Dunning, Atsushi Yasumoto,Barret Schloerke,Carson Sievert, Christophe Dervieux, Devon Ryan, Frederik Aust, Jeff Allen, JooYoung Seo, Malcolm Barrett, Rob Hyndman, Romain Lesur, Roy Storey, Ruben Arslan, ,Sergio Oller, RStudio, PBC, jQuery UI s, Mark Otto, Jacob Thornton, Twitter Inc, Alexander Farkas, Scott Jehl, Ivan Sagalaev, Greg Franko, John MacFarlane, Google Inc, Dave Raggett, W3C, Dave Gandy, Ben Sperry, Drifty, Aidan Lister, Benct Philip Jonsson, Albert Krewinkel
+  > Yihui Xie and J.J. Allaire and Garrett Grolemund (2018). R Markdown: The Definitive Guide. Chapman and Hall/CRC. ISBN 9781138359338. URL https://bookdown.org/yihui/rmarkdown.
 
 ## Software packaging/containerisation tools
 
