@@ -8,6 +8,12 @@
 
 **nf-core/hgtseq** is a bioinformatics best-practice analysis pipeline for investigating horizontal gene transfer from NGS data.
 
+## Topic introduction
+
+The pipeline accepts either a FASTQ with raw paired-end reads from Illumina sequencing as input, or an already aligned paired-end BAM file. Raw reads are first trimmed for quality and Illumina adapters: the resulting high quality reads are aligned to the host genome, which is defined by its identifier in the iGenomes repository for seamless download, and via NCBI taxonomic identifier. Pre-aligned BAM files are then processed in parallel to extract 2 categories of reads, via their SAM bitwise flags. With bitwise flag 13, we extract reads classified as paired, which are unmapped and whose mate is also unmapped (i.e. both mates unmapped). With bitwise flag 5 we extract reads classified as paired, which are unmapped but whose mate is mapped (i.e. only one mate unmapped in a pair). In both cases we use flag 256 to exclude non-primary alignments. Both categories are classified using kraken2.
+
+The second category, i.e. unmapped reads whose mate is mapped, provide the opportunity to infer the potential genomic location of an integration event, if confirmed, by using the information available for the properly mapped mate in the pair: for this category of reads, the pipeline parses the genomic coordinates of the mate from the BAM file, and merges them with the unmapped reads classified by kraken2. Finally, host-classified reads are filtered out and the data are used to generate krona plots and an HTML report with RMarkdown.
+
 ## Input Formats
 
 The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the input file. This file can have at least two or three columns according to the format of reads used, i.e. two columns for BAM files and three for FASTQ files (as defined in the tables below).
@@ -88,6 +94,28 @@ It is a good idea to specify a pipeline version when running the pipeline on you
 First, go to the [nf-core/hgtseq releases page](https://github.com/nf-core/hgtseq/releases) and find the latest version number - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`.
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future.
+
+## Pipeline arguments
+
+> **NB:** These options are user-specific and use a _double_ hyphen.
+
+Please note that, in addition to the classic parameters such as `--input` and `--outdir`, the pipeline requires other specific parameters.
+
+### `--genome`
+
+The user must specify the genome of interest. A list of genomes is available in the pipeline under the folder `conf/igenomes.config`, that contains illumina iGenomes reference file paths
+
+### `--taxonomy_id`
+
+Since the code in the report is executed differently based on the taxonomy id of the analyzed species, the user must enter it in the command line (must be taken from the Taxonomy Database of NCBI).
+
+### `--krakendb`
+
+User must provide a Kraken2 database in order to perform the classification.
+
+### `--kronadb`
+
+User must also provide a Krona database in order to generate interactive pie charts with Kronatools.
 
 ## Core Nextflow arguments
 
@@ -259,8 +287,6 @@ NXF_OPTS='-Xms1g -Xmx4g'
 
 ## Limitations
 
-- `Reporting Subworkflow` execute the circular plot only with human data (i.e. setting _--taxonomy_id = "9606"_ and GATK.GRCh38 or NCBI.GRCh38 genome required)
-- If using `conda` as profile, hgtseq pipeline runs without executing `Reporting Subworkflow` due to a conflict between ggbio and RMarkDown
-- Since small databases should be used to run the tests, their results might be compromised or inconsistent (i.e. SARS-CoV-2 [Krakendb](https://github.com/nf-core/test-datasets/tree/modules/data/genomics/sarscov2/genome/db) and [Kronadb](https://github.com/nf-core/test-datasets/blob/modules/data/genomics/sarscov2/metagenome/krona_taxonomy.tab) for human data).
-  For this reason, we recommend testing pipeline with your own valid database.
+- Our local module `ranalysis` execute the circular plot in the html report only if human data is used (i.e. `--taxonomy_id 9606`, mandatory parameter explained above)
+- If using `conda` as profile, hgtseq pipeline runs without executing `ranalysis` module due to a container conflict.
 - `Kraken2` used for taxonomic classification requires lot of memory (~100GB). So we plan to implement `Clark` in a future release.

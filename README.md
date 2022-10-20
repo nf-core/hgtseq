@@ -71,7 +71,7 @@ Note that some form of configuration will be needed so that Nextflow knows how t
    nextflow run nf-core/hgtseq \
    --input <YOURINPUT>.csv \
    --outdir <OUTDIR> \
-   --genome GATK.GRCh38 \
+   --genome GRCh38 \
    --taxonomy_id "TAXID" \
    -profile <docker/singularity/podman/shifter/charliecloud/conda/institute> \
    --krakendb /path/to/kraken_db \
@@ -95,6 +95,9 @@ If you would like to contribute to this pipeline, please see the [contributing g
 For further information or help, don't hesitate to get in touch on the [Slack `#hgtseq` channel](https://nfcore.slack.com/channels/hgtseq) (you can join with [this invite](https://nf-co.re/join/slack)).
 
 ## Citations
+
+<!-- nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
+<!-- If you use  nf-core/hgtseq for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 

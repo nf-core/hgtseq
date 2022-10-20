@@ -1,6 +1,5 @@
 ---
 title: "analysis_report"
-author: "Simone Carpanzano and Francesco Lescai"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
