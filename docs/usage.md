@@ -8,6 +8,12 @@
 
 **nf-core/hgtseq** is a bioinformatics best-practice analysis pipeline for investigating horizontal gene transfer from NGS data.
 
+## Topic introduction
+
+The pipeline accepts either a FASTQ with raw paired-end reads from Illumina sequencing as input, or an already aligned paired-end BAM file. Raw reads are first trimmed for quality and Illumina adapters: the resulting high quality reads are aligned to the host genome, which is defined by its identifier in the iGenomes repository for seamless download, and via NCBI taxonomic identifier. Pre-aligned BAM files are then processed in parallel to extract 2 categories of reads, via their SAM bitwise flags. With bitwise flag 13, we extract reads classified as paired, which are unmapped and whose mate is also unmapped (i.e. both mates unmapped). With bitwise flag 5 we extract reads classified as paired, which are unmapped but whose mate is mapped (i.e. only one mate unmapped in a pair). In both cases we use flag 256 to exclude non-primary alignments. Both categories are classified using kraken2.
+
+The second category, i.e. unmapped reads whose mate is mapped, provide the opportunity to infer the potential genomic location of an integration event, if confirmed, by using the information available for the properly mapped mate in the pair: for this category of reads, the pipeline parses the genomic coordinates of the mate from the BAM file, and merges them with the unmapped reads classified by kraken2. Finally, host-classified reads are filtered out and the data are used to generate krona plots and an HTML report with RMarkdown.
+
 ## Input Formats
 
 The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the input file. This file can have at least two or three columns according to the format of reads used, i.e. two columns for BAM files and three for FASTQ files (as defined in the tables below).
