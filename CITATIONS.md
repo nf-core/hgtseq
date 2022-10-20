@@ -20,6 +20,8 @@
 
 - [Qualimap](http://qualimap.conesalab.org)
 
+  > Okonechnikov, K., Conesa, A., & García-Alcalde, F. (2015). “Qualimap 2: advanced multi-sample quality control for high-throughput sequencing data.” Bioinformatics, btv566
+
 - [BWA](http://bio-bwa.sourceforge.net)
 
   > Li, H. (2013). Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM. arXiv preprint arXiv:1303.3997.
