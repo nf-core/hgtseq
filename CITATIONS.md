@@ -32,7 +32,7 @@
 
 - [Kraken2](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown)
 
-  > Wood, Derrick E., Jennifer Lu, and Ben Langmead. 2019. Improved Metagenomic Analysis with Kraken 2. Genome Biology 20 (1): 257. doi: 10.1186/s13059-019-1891-0.
+  > Wood, Derrick E., Jennifer Lu, and Ben Langmead. (2019). Improved Metagenomic Analysis with Kraken 2. Genome Biology 20 (1): 257. doi: 10.1186/s13059-019-1891-0.
 
 - [Krona](https://hpc.nih.gov/apps/kronatools.html)
 

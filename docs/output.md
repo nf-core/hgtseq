@@ -107,7 +107,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 [`SAMtools`](https://www.htslib.org) is a suite of programs for interacting with high-throughput sequencing data
 
-[`Parseoutputs`]() is our local module that allows us to parsing reads to get only the informations we need to perform analyzes in following R report.
+`Parseoutputs` is our local module that allows us to parsing reads to get only the informations we need to perform analyzes in following R report.
 
 ## Results
 
