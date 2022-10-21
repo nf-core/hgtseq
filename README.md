@@ -13,7 +13,8 @@
 
 ## Introduction
 
-**nf-core/hgtseq** is a bioinformatics best-practice analysis pipeline built to investigate horizontal gene transfer from NGS data.
+**nf-core/hgtseq** is a bioinformatics best-practice analysis pipeline built to investigate horizontal gene transfer from NGS data. hgtseq inputs can be either fastq files, which are then mapped to the proper host reference with BWA, or mapped BAM files. Unmapped reads are then extracted with SAMtools view based on their SAM flag classification: two separate files are generated, depending on whether both mates are unmapped, or just one is. Taxonomic classification is then performed with Kraken2. A rich set of visualisations completes the
+pipeline, accompanying the results with interactive Krona plots as well as Circos-like plots generated with R, aimed at better annotating potential integration sites in the host genome
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
