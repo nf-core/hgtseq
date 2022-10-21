@@ -115,7 +115,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 **Output directory: `results/`**
 
-- `/classified/`
+- `classified/`
   - `single_unmapped/`
     - `sample01.kraken2.classifiedreads.txt` : File containing reads info after Kraken2 classification
     - `sample01.kraken2.report.txt` : Classification in the Kraken2 report format.
