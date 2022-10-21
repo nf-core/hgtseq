@@ -148,7 +148,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 The `analysis_report.html` has two mainly functions:
 
-- it execute a circular plot (made with GenomicRanges & ggbio R packages), which graphically shows the specific position on the chromosome of each read.
+- it displays a circular plot (made with GenomicRanges & ggbio R packages), which graphically shows the specific position on the chromosome of each read.
 - it contains a function that assigns a score to each reads based on the kmers analyzed by Kraken2
 
 ### Krona Plots
