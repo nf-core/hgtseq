@@ -111,11 +111,11 @@ Since the code in the report is executed differently based on the taxonomy id of
 
 ### --krakendb
 
-User must provide a Kraken2 database in order to perform the classification.
+User must provide a Kraken2 database in order to perform the classification. Can optionally be in a `.tar.gz` archive.
 
 ### --kronadb
 
-User must also provide a Krona database in order to generate interactive pie charts with Kronatools.
+User must also provide a Krona database in order to generate interactive pie charts with Kronatools. Can optionally be in a `.tar.gz` archive.
 
 ## Core Nextflow arguments
 
