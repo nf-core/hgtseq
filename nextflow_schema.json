@@ -64,7 +64,8 @@
                 "aligner": {
                     "type": "string",
                     "default": "bwa-mem",
-                    "description": "Choose if aligner should be bwa-mem or bwa-mem2"
+                    "description": "Choose if aligner should be bwa-mem or bwa-mem2",
+                    "enum": ["bwa-mem", "bwa-mem2"]
                 },
                 "multiqc_runkraken": {
                     "type": "boolean",
@@ -114,12 +115,12 @@
                 "krakendb": {
                     "type": "string",
                     "default": "None",
-                    "description": "Either a local path or a URL to compressed kraken database folder"
+                    "description": "A local path to kraken database folder or compressed database file, or a URL to a compressed database file, in tar.gz format"
                 },
                 "kronadb": {
                     "type": "string",
                     "default": "None",
-                    "description": "Either a local path or a URL to compressed .tab krona taxonomy file"
+                    "description": "A local path or a URL to a .tab krona taxonomy file; it can also receive a compressed .tab file in tar.gz format"
                 },
                 "gff": {
                     "type": "string",
