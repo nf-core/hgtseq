@@ -16,7 +16,7 @@ The second category, i.e. unmapped reads whose mate is mapped, provide the oppor
 
 ## Input Formats
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the input file. This file can have at least two or three columns according to the format of reads used, i.e. two columns for BAM files and three for FASTQ files (as defined in the tables below).
+The input file can have at least two or three columns according to the format of reads used, i.e. two columns for BAM files and three for FASTQ files (as defined in the tables below).
 
 ### FASTQ
 
