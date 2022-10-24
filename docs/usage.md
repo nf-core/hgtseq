@@ -101,19 +101,19 @@ This version number will be logged in reports when you run the pipeline, so that
 
 Please note that, in addition to the classic parameters such as `--input` and `--outdir`, the pipeline requires other specific parameters.
 
-### `--genome`
+### --genome
 
 The user must specify the genome of interest. A list of genomes is available in the pipeline under the folder conf/igenomes.config, that contains illumina iGenomes reference file paths. This follows [nf-core guidelines](https://nf-co.re/usage/reference_genomes) for reference management, and sets all necessary parameters (like fasta, gtf, bwa). The user is recommended to primarily use the _genome_ parameter, and can follow instructions at [this](https://nf-co.re/usage/reference_genomes#adding-paths-to-a-config-file) page to add genomes not currently included in the repository. All parameters set automatically as a consequence, though hidden, can be accessed by the user at command line should they wish a finer control.
 
-### `--taxonomy_id`
+### --taxonomy_id
 
 Since the code in the report is executed differently based on the taxonomy id of the analyzed species, the user must enter it in the command line (must be taken from the Taxonomy Database of NCBI).
 
-### `--krakendb`
+### --krakendb
 
 User must provide a Kraken2 database in order to perform the classification.
 
-### `--kronadb`
+### --kronadb
 
 User must also provide a Krona database in order to generate interactive pie charts with Kronatools.
 
