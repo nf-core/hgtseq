@@ -6,67 +6,75 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+**nf-core/hgtseq** is a bioinformatics best-practice analysis pipeline for investigating horizontal gene transfer from NGS data.
 
-## Samplesheet input
+## Topic introduction
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+The pipeline accepts either a FASTQ with raw paired-end reads from Illumina sequencing as input, or an already aligned paired-end BAM file. Raw reads are first trimmed for quality and Illumina adapters: the resulting high quality reads are aligned to the host genome, which is defined by its identifier in the iGenomes repository for seamless download, and via NCBI taxonomic identifier. Pre-aligned BAM files are then processed in parallel to extract 2 categories of reads, via their SAM bitwise flags. With bitwise flag 13, we extract reads classified as paired, which are unmapped and whose mate is also unmapped (i.e. both mates unmapped). With bitwise flag 5 we extract reads classified as paired, which are unmapped but whose mate is mapped (i.e. only one mate unmapped in a pair). In both cases we use flag 256 to exclude non-primary alignments. Both categories are classified using kraken2.
 
-```console
---input '[path to samplesheet file]'
-```
+The second category, i.e. unmapped reads whose mate is mapped, provide the opportunity to infer the potential genomic location of an integration event, if confirmed, by using the information available for the properly mapped mate in the pair: for this category of reads, the pipeline parses the genomic coordinates of the mate from the BAM file, and merges them with the unmapped reads classified by kraken2. Finally, host-classified reads are filtered out and the data are used to generate krona plots and an HTML report with RMarkdown.
 
-### Multiple runs of the same sample
+## Input Formats
 
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
+The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the input file. This file can have at least two or three columns according to the format of reads used, i.e. two columns for BAM files and three for FASTQ files (as defined in the tables below).
 
-```console
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
-```
+### FASTQ
 
-### Full samplesheet
-
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
-
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
+The FASTQ file extension can be either _fastq.gz_ or _fastq_.
 
 ```console
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
+sample,input1,input2
+testsample01,/path/to/file1_1.fastq.gz/path/to/file1_2.fastq.gz
+testsample02,/path/to/file2_1.fastq.gz,/path/to/file2_2.fastq.gz
+testsample03,/path/to/file3_1.fastq,/path/to/file3_2.fastq.gz
 ```
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
+| Column   | Description                                                                                                                                                                            |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample` | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
+| `input1` | Full path to FastQ file for Illumina short reads 1. File can be either _fastq.gz_ or _fastq_.                                                                                          |
+| `input2` | Full path to FastQ file for Illumina short reads 2. File can be either _fastq.gz_ or _fastq_.                                                                                          |
 
-An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+An [example samplesheet](../assets/samplesheet_fastq.csv) has been provided with the pipeline.
+
+### BAM
+
+```console
+sample,input1
+testsample01,/path/to/file1.bam
+testsample02,/path/to/file2.bam
+testsample03,/path/to/file3.bam
+```
+
+| Column   | Description                                                                                                                                                                            |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample` | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
+| `input1` | Full path to aligned BAM file.                                                                                                                                                         |
+
+An [example samplesheet](../assets/samplesheet_bam.csv) has been provided with the pipeline.
 
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
 
 ```console
-nextflow run nf-core/hgtseq --input samplesheet.csv --outdir <OUTDIR> --genome GRCh37 -profile docker
+nextflow run nf-core/hgtseq \
+--input samplesheet.csv \
+--outdir <OUTDIR> \
+--genome GRCh38 \
+--taxonomy_id "TAXID" \
+-profile <singularity,docker,conda> \
+--krakendb /path/to/kraken_db \
+--kronadb /path/to/krona_db/taxonomy.tab
 ```
 
-This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
+This will launch the pipeline with the `singularity`, `docker` or `conda` configuration profile. See below for more information about profiles.
 
 Note that the pipeline will create the following files in your working directory:
 
-```console
+```bash
 work                # Directory containing the nextflow working files
-<OUTIDR>            # Finished results in specified location (defined with --outdir)
+<OUTDIR>            # Finished results in specified location (defined with --outdir)
 .nextflow_log       # Log file from Nextflow
 # Other nextflow hidden files, eg. history of pipeline runs and old logs.
 ```
@@ -75,7 +83,7 @@ work                # Directory containing the nextflow working files
 
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
 
-```console
+```bash
 nextflow pull nf-core/hgtseq
 ```
 
@@ -86,6 +94,28 @@ It is a good idea to specify a pipeline version when running the pipeline on you
 First, go to the [nf-core/hgtseq releases page](https://github.com/nf-core/hgtseq/releases) and find the latest version number - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`.
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future.
+
+## Pipeline arguments
+
+> **NB:** These options are user-specific and use a _double_ hyphen.
+
+Please note that, in addition to the classic parameters such as `--input` and `--outdir`, the pipeline requires other specific parameters.
+
+### `--genome`
+
+The user must specify the genome of interest. A list of genomes is available in the pipeline under the folder conf/igenomes.config, that contains illumina iGenomes reference file paths. This follows [nf-core guidelines](https://nf-co.re/usage/reference_genomes) for reference management, and sets all necessary parameters (like fasta, gtf, bwa). The user is recommended to primarily use the _genome_ parameter, and can follow instructions at [this](https://nf-co.re/usage/reference_genomes#adding-paths-to-a-config-file) page to add genomes not currently included in the repository. All parameters set automatically as a consequence, though hidden, can be accessed by the user at command line should they wish a finer control.
+
+### `--taxonomy_id`
+
+Since the code in the report is executed differently based on the taxonomy id of the analyzed species, the user must enter it in the command line (must be taken from the Taxonomy Database of NCBI).
+
+### `--krakendb`
+
+User must provide a Kraken2 database in order to perform the classification.
+
+### `--kronadb`
+
+User must also provide a Krona database in order to generate interactive pie charts with Kronatools.
 
 ## Core Nextflow arguments
 
@@ -251,6 +281,12 @@ Some HPC setups also allow you to run nextflow within a cluster job submitted yo
 In some cases, the Nextflow Java virtual machines can start to request a large amount of memory.
 We recommend adding the following line to your environment to limit this (typically in `~/.bashrc` or `~./bash_profile`):
 
-```console
+```bash
 NXF_OPTS='-Xms1g -Xmx4g'
 ```
+
+## Limitations
+
+- Our local module `ranalysis` execute the circular plot in the html report only if human data is used (i.e. `--taxonomy_id 9606`, mandatory parameter explained above)
+- If using `conda` as profile, hgtseq pipeline runs without executing `ranalysis` module due to a container conflict.
+- `Kraken2` used for taxonomic classification requires lot of memory (~100GB). So we plan to implement `Clark` in a future release.

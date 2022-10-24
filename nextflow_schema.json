@@ -10,7 +10,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": ["input", "outdir", "taxonomy_id"],
             "properties": {
                 "input": {
                     "type": "string",
@@ -39,6 +39,38 @@
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
+                },
+                "isbam": {
+                    "type": "boolean",
+                    "description": "Indicates if input files are BAMs: if not, FASTQ files are assumed and alignment is run"
+                },
+                "istest": {
+                    "type": "boolean",
+                    "hidden": true,
+                    "description": "Defines if pipeline is running a test or using full scale inputs"
+                },
+                "taxonomy_id": {
+                    "type": "number",
+                    "description": "TaxID of samples used as input"
+                }
+            }
+        },
+        "run_options": {
+            "title": "Run options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "aligner": {
+                    "type": "string",
+                    "default": "bwa-mem",
+                    "description": "Choose if aligner should be bwa-mem or bwa-mem2"
+                },
+                "multiqc_runkraken": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Choose if multiqc has data to add kraken to report",
+                    "hidden": true
                 }
             }
         },
@@ -61,7 +93,8 @@
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
-                    "fa_icon": "far fa-file-code"
+                    "fa_icon": "far fa-file-code",
+                    "hidden": true
                 },
                 "igenomes_base": {
                     "type": "string",
@@ -77,8 +110,39 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                },
+                "krakendb": {
+                    "type": "string",
+                    "default": "None",
+                    "description": "Either a local path or a URL to compressed kraken database folder"
+                },
+                "kronadb": {
+                    "type": "string",
+                    "default": "None",
+                    "description": "Either a local path or a URL to compressed .tab krona taxonomy file"
+                },
+                "gff": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/plain",
+                    "description": "Path to GFF/GTF annotation file.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
+                    "hidden": true
+                },
+                "bwaindex": {
+                    "type": "string",
+                    "default": "None",
+                    "description": "Path bwa-mem indexes",
+                    "hidden": true
+                },
+                "bwamem2index": {
+                    "type": "string",
+                    "default": "None",
+                    "description": "Path bwa-mem2 indexes",
+                    "hidden": true
                 }
-            }
+            },
+            "required": ["krakendb", "kronadb"]
         },
         "institutional_config_options": {
             "title": "Institutional config options",
@@ -247,11 +311,46 @@
                     "fa_icon": "fas fa-bacon"
                 }
             }
+        },
+        "trimgalore_options": {
+            "title": "Trimgalore options",
+            "type": "object",
+            "description": "Trimgalore trimmings options",
+            "default": "",
+            "properties": {
+                "clip_r1": {
+                    "type": "string",
+                    "default": "None",
+                    "hidden": true,
+                    "description": "Instructs Trim Galore to remove bp from the 5' end of read 1."
+                },
+                "clip_r2": {
+                    "type": "string",
+                    "default": "None",
+                    "hidden": true,
+                    "description": "Instructs Trim Galore to remove bp from the 5' end of read 2."
+                },
+                "three_prime_clip_r1": {
+                    "type": "string",
+                    "default": "None",
+                    "hidden": true,
+                    "description": "Instructs Trim Galore to remove bp from the 3' end of read 1 after adapter/quality trimming has been performed."
+                },
+                "three_prime_clip_r2": {
+                    "type": "string",
+                    "default": "None",
+                    "hidden": true,
+                    "description": "Instructs Trim Galore to remove bp from the 3' end of read 2 after adapter/quality trimming has been performed."
+                }
+            }
         }
     },
     "allOf": [
         {
             "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/run_options"
         },
         {
             "$ref": "#/definitions/reference_genome_options"
@@ -264,6 +363,9 @@
         },
         {
             "$ref": "#/definitions/generic_options"
+        },
+        {
+            "$ref": "#/definitions/trimgalore_options"
         }
     ]
 }
