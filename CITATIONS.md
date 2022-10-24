@@ -22,9 +22,17 @@
 
   > Okonechnikov, K., Conesa, A., & García-Alcalde, F. (2015). “Qualimap 2: advanced multi-sample quality control for high-throughput sequencing data.” Bioinformatics, btv566
 
+- [BAMTOOLS](https://github.com/pezmaster31/bamtools)
+
+  > Barnett DW, Garrison EK, Quinlan AR, Strömberg MP, Marth GT. BamTools: a C++ API and toolkit for analyzing and managing BAM files. Bioinformatics. 2011 Jun 15;27(12):1691-2. doi: 10.1093/bioinformatics/btr174. Epub 2011 Apr 14. PubMed PMID: 21493652; PubMed Central PMCID: PMC3106182.
+
 - [BWA](http://bio-bwa.sourceforge.net)
 
   > Li, H. (2013). Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM. arXiv preprint arXiv:1303.3997.
+
+- [BWAmem2](https://github.com/bwa-mem2/bwa-mem2)
+
+  > Vasimuddin Md, Sanchit Misra, Heng Li, Srinivas Aluru. Efficient Architecture-Aware Acceleration of BWA-MEM for Multicore Systems. IEEE Parallel and Distributed Processing Symposium (IPDPS), 2019.
 
 - [SAMtools](https://www.htslib.org)
 
