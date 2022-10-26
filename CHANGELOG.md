@@ -3,9 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0](https://github.com/nf-core/hgtseq/releases/tag/1.0.0) - Dalmatian Daffodil
-
-Initial release of nf-core/hgtseq, created with the [nf-core](https://nf-co.re/) template.
+## [dev](https://github.com/nf-core/hgtseq/releases/tag/dev)
 
 ### `Added`
 
@@ -14,3 +12,7 @@ Initial release of nf-core/hgtseq, created with the [nf-core](https://nf-co.re/)
 ### `Dependencies`
 
 ### `Deprecated`
+
+## [1.0.0](https://github.com/nf-core/hgtseq/releases/tag/1.0.0) - Dalmatian Daffodil
+
+Initial release of nf-core/hgtseq, created with the [nf-core](https://nf-co.re/) template.
