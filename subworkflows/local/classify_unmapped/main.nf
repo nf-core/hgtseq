@@ -1,7 +1,7 @@
 
 include { SAMTOOLS_INDEX                              } from '../../../modules/nf-core/samtools/index/main.nf'
 include { SAMTOOLS_SORT                               } from '../../../modules/nf-core/samtools/sort/main.nf'
-include { SAMTOOLS_VIEW   as SAMTOOLS_VIEW_SINGLE     } from '../../../modules/nf-core/samtools/view/main.nf'
+include { SAMTOOLS_VIEW_SINGLE                        } from '../../../modules/local/samtools/viewsingle/main.nf'
 include { SAMTOOLS_VIEW   as SAMTOOLS_VIEW_BOTH       } from '../../../modules/nf-core/samtools/view/main.nf'
 include { SAMTOOLS_FASTQ  as SAMTOOLS_FASTQ_SINGLE    } from '../../../modules/local/samtools/fastqlocal/main.nf'
 include { SAMTOOLS_FASTQ  as SAMTOOLS_FASTQ_BOTH      } from '../../../modules/local/samtools/fastqlocal/main.nf'
