@@ -1,0 +1,213 @@
+---
+title: "analysis_report"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    theme: readable
+    highlight: tango
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+editor_options:
+  chunk_output_type: console
+params:
+  sampleids: NULL
+  istest: NULL
+  taxonomy_id : NULL
+---
+
+```{r creationTibble, include=FALSE}
+library(GenomicRanges)
+library(ggbio)
+library(biovizBase)
+library(tidyverse)
+library(stringr)
+
+sampleids <- unlist(strsplit(params$sampleids, ","))
+## for safety we remove new line characters in case the number of samples
+## exceeds the lenght of a line in the terminal in use
+sampleids = str_replace_all(sampleids, "[\r\n]" , "")
+
+data_classified_single = tibble()
+data_integrations = tibble()
+data_classified_both = tibble()
+
+eval_istest <- params$istest == "false"
+
+if ( params$taxonomy_id == "9606" ) {
+    eval_taxid = TRUE
+} else {
+    eval_taxid = FALSE
+}
+
+for (sample in sampleids){
+  files = dir(pattern = sample)
+  classified_single = paste0("classified_single/", dir("classified_single", pattern = sample))
+  classified_both = paste0("classified_both/", dir("classified_both", pattern = sample))
+  integrations = files[grep("integration", files)]
+  tmpsingle = read_tsv(classified_single, col_names = c("classtype", "read_name", "taxID", "length", "k-mers info"))
+  data_classified_single = rbind(
+    data_classified_single,
+    cbind(
+      tmpsingle,
+      sample = sample
+    )
+  )
+  intsingle = read_tsv(integrations, col_names = c("read_name", "chr", "position"))
+  data_integrations = rbind(
+    data_integrations,
+    cbind(
+      intsingle,
+      sample = sample
+    )
+  )
+  tmpboth = read_tsv(classified_both, col_names = c("classtype", "read_name", "taxID", "length", "k-mers info"))
+  data_classified_both = rbind(
+    data_classified_both,
+    cbind(
+      tmpboth,
+      sample = sample
+    )
+  )
+  rm(intsingle,sample)
+}
+```
+
+```{r jointData, echo=FALSE}
+
+joint_data = data_integrations %>%
+  left_join(data_classified_single, by = "read_name")
+    head(joint_data)
+```
+
+```{r nonhuman, echo=FALSE, eval=eval_istest}
+
+joint_data = joint_data %>%
+    filter(classtype != "U") %>%
+    filter(taxID != params$taxonomy_id )
+```
+
+```{r filteringBoth, echo=FALSE, eval=eval_istest}
+
+data_classified_both = data_classified_both %>%
+  filter(classtype != "U") %>%
+  filter(taxID != params$taxonomy_id)
+```
+
+```{r seqInfo, include=FALSE, eval=eval_taxid}
+
+data("CRC", package = "biovizBase")
+head(hg19sub)
+seqinfo(hg19sub)
+
+dictionary = "https://raw.githubusercontent.com/nf-core/test-datasets/hgtseq/testdata/reference/Homo_sapiens_assembly38.dict"
+dictred = read_tsv(dictionary, skip = 1, col_names = c("class", "sequence", "length", "m5", "as", "url", "species"))
+
+dictred$sequence <- gsub("SN:", "", dictred$sequence)
+dictred$length <- gsub("LN:", "", dictred$length)
+
+newSeqInfoData <- Seqinfo(
+  seqnames = dictred$sequence,
+  seqlengths = as.numeric(dictred$length),
+  isCircular = NA,
+  genome = "hg38"
+)
+
+newSeqInfoData_noextra <- newSeqInfoData[
+  c(
+    paste0("chr", as.character(c(1:22))),
+    "chrX",
+    "chrY"
+  )
+]
+```
+
+```{r GRangesFile, include=FALSE, eval=eval_taxid}
+
+integration <- GRanges(
+  joint_data$chr,
+  IRanges(
+    start = joint_data$position,
+    end = joint_data$position
+  )
+)
+
+integration_noextra <- integration[
+  seqnames(integration) %in% seqnames(newSeqInfoData_noextra)
+]
+
+matchinglevels = seqlevels(newSeqInfoData_noextra)[seqlevels(newSeqInfoData_noextra) %in% seqlevels(integration_noextra)]
+
+integration_noextra = keepSeqlevels(integration_noextra, matchinglevels)
+
+seqlengths(integration_noextra) = seqlengths(newSeqInfoData_noextra)[seqlevels(newSeqInfoData_noextra) %in% seqlevels(integration_noextra)]
+
+genoma_hg38 <- GRanges(
+  seqnames(newSeqInfoData_noextra),
+  IRanges(
+    start = 1,
+    end = unname(seqlengths(newSeqInfoData_noextra))
+  )
+)
+
+seqinfo(genoma_hg38) <- newSeqInfoData_noextra
+```
+
+```{r plot, echo=TRUE, eval=eval_taxid}
+
+plot <- ggbio() +
+  circle(genoma_hg38, geom = "ideo", fill = "gray70") +
+  circle(genoma_hg38, geom = "scale", size = 2) +
+  circle(genoma_hg38, geom = "text", aes(label = seqnames), vjust = 0, size = 3)
+
+integration_plot <- plot +
+  circle(integration_noextra, geom = "rect", color = "red", radius = 20)
+
+integration_plot
+```
+
+```{r scoreData, include=FALSE}
+evalKrakenQual <- function(kmersinfo){
+  kmersTab <- as_tibble(
+    matrix(ncol = 2, byrow = TRUE,
+           data = unlist(strsplit(
+             unlist(strsplit(kmersinfo, " ")),
+             ":"))),
+    .name_repair = "minimal"
+  )
+  names(kmersTab) <- c("taxid", "kmers_found")
+  kmersTab = kmersTab %>% filter(kmersTab$taxid != "|")
+  kmersTab$kmers_found = as.numeric(kmersTab$kmers_found)
+  kmersTab = kmersTab %>%
+    group_by(taxid) %>%
+    summarise(tot_kmers = sum(kmers_found))
+  ## sum kmers for scoring includes kmers not classified, i.e. 0
+  sum_all_kmers = sum(kmersTab$tot_kmers)
+  ## then we can filter them out to calculate max == assigned taxid
+  kmersTab = kmersTab %>%
+    filter(taxid != "0")
+  max_taxid = paste0(kmersTab$taxid[which(kmersTab$tot_kmers == max(kmersTab$tot_kmers))],
+                     collapse = ",")
+  max_kmers = max(kmersTab$tot_kmers)
+  taxid_score = max(kmersTab$tot_kmers)/sum_all_kmers
+  taxid_classified_score = max(kmersTab$tot_kmers)/sum(kmersTab$tot_kmers)
+  parsed = tibble(
+    max_taxid = max_taxid,
+    max_kmers = max_kmers,
+    sum_all_kmers = sum_all_kmers,
+    sum_classified_kmers = sum(kmersTab$tot_kmers),
+    taxid_score = taxid_score,
+    taxid_classified_score = taxid_classified_score
+  )
+  return(parsed)
+}
+
+scored_data = cbind(joint_data,
+                   do.call(rbind,
+                           lapply(joint_data$`k-mers info`, evalKrakenQual)))
+```
+
+```{r saveimage, echo=FALSE}
+save.image("analysis_report.RData")
+```
