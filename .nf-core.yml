@@ -1,4 +1,4 @@
 repository_type: pipeline
 lint:
-    nextflow_config:
-        - params.enable_conda
+  nextflow_config:
+    - params.enable_conda
