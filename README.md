@@ -13,7 +13,6 @@
 
 ## Introduction
 
-<<<<<<< HEAD
 **nf-core/hgtseq** is a bioinformatics best-practice analysis pipeline built to investigate horizontal gene transfer from NGS data.
 
 The pipeline uses metagenomic classification of paired-read alignments against a reference genome to identify the presence of non-host microbial sequences within read pairs, and to infer potential integration sites into the host genome.
@@ -32,20 +31,6 @@ A graphical view of the pipeline can be seen below.
 
 ## Pipeline summary
 
-=======
-**nf-core/hgtseq** is a bioinformatics pipeline that ...
-
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
-
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
-
->>>>>>> TEMPLATE
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 3. Adapter and quality trimming ([`Trim Galore`](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/))
@@ -67,7 +52,6 @@ A graphical view of the pipeline can be seen below.
 
 First, prepare a samplesheet with your input data that looks as follows:
 
-<<<<<<< HEAD
    - FASTQ input:
 
    ```console
@@ -86,35 +70,19 @@ Note that some form of configuration will be needed so that Nextflow knows how t
 > - Please check [nf-core/configs](https://github.com/nf-core/configs#documentation) to see if a custom config file to run nf-core pipelines already exists for your Institute. If so, you can simply use `-profile <institute>` in your command. This will enable either `docker` or `singularity` and set the appropriate execution settings for your local compute environment.
 > - If you are using `singularity`, please use the [`nf-core download`](https://nf-co.re/tools/#downloading-pipelines-for-offline-use) command to download images first, before running the pipeline. Setting the [`NXF_SINGULARITY_CACHEDIR` or `singularity.cacheDir`](https://www.nextflow.io/docs/latest/singularity.html?#singularity-docker-hub) Nextflow options enables you to store and re-use the images from a central location for future pipeline runs.
 > - If you are using `conda`, it is highly recommended to use the [`NXF_CONDA_CACHEDIR` or `conda.cacheDir`](https://www.nextflow.io/docs/latest/conda.html) settings to store the environments in a central location for future pipeline runs.
-=======
-`samplesheet.csv`:
-
-```csv
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-```
-
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
->>>>>>> TEMPLATE
 
 -->
 
-<<<<<<< HEAD
-   ```console
-   nextflow run nf-core/hgtseq \
-   --input <YOURINPUT>.csv \
-   --outdir <OUTDIR> \
-   --genome GRCh38 \
-   --taxonomy_id "TAXID" \
-   -profile <docker/singularity/podman/shifter/charliecloud/conda/institute> \
-   --krakendb /path/to/kraken_db \
-   --kronadb /path/to/krona_db/taxonomy.tab
-   ```
-=======
-Now, you can run the pipeline using:
-
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
->>>>>>> TEMPLATE
+```console
+nextflow run nf-core/hgtseq \
+--input <YOURINPUT>.csv \
+--outdir <OUTDIR> \
+--genome GRCh38 \
+--taxonomy_id "TAXID" \
+-profile <docker/singularity/podman/shifter/charliecloud/conda/institute> \
+--krakendb /path/to/kraken_db \
+--kronadb /path/to/krona_db/taxonomy.tab
+```
 
 ```bash
 nextflow run nf-core/hgtseq \
