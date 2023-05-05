@@ -159,7 +159,7 @@ workflow HGTSEQ {
     }
 
     // execute reporting only if genome is Human
-    if (!params.enable_conda) {
+    if (!workflow.profile.contains('conda') {
             REPORTING (
                 CLASSIFY_UNMAPPED.out.classified_single.collect{ it[1] },
                 CLASSIFY_UNMAPPED.out.classified_both.collect{ it[1] },
