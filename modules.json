@@ -5,7 +5,6 @@
         "https://github.com/nf-core/modules.git": {
             "modules": {
                 "nf-core": {
-<<<<<<< HEAD
                     "bamtools/stats": {
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
@@ -34,11 +33,6 @@
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
                         "git_sha": "76cc4938c1f6ea5c7d83fed1eeffc146787f9543",
-=======
-                    "custom/dumpsoftwareversions": {
-                        "branch": "master",
-                        "git_sha": "76cc4938c1f6ea5c7d83fed1eeffc146787f9543",
->>>>>>> TEMPLATE
                         "installed_by": ["modules"]
                     },
                     "fastqc": {
