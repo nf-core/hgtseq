@@ -330,38 +330,6 @@
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
                 }
             }
-        },
-        "trimgalore_options": {
-            "title": "Trimgalore options",
-            "type": "object",
-            "description": "Trimgalore trimmings options",
-            "default": "",
-            "properties": {
-                "clip_r1": {
-                    "type": "string",
-                    "default": "None",
-                    "hidden": true,
-                    "description": "Instructs Trim Galore to remove bp from the 5' end of read 1."
-                },
-                "clip_r2": {
-                    "type": "string",
-                    "default": "None",
-                    "hidden": true,
-                    "description": "Instructs Trim Galore to remove bp from the 5' end of read 2."
-                },
-                "three_prime_clip_r1": {
-                    "type": "string",
-                    "default": "None",
-                    "hidden": true,
-                    "description": "Instructs Trim Galore to remove bp from the 3' end of read 1 after adapter/quality trimming has been performed."
-                },
-                "three_prime_clip_r2": {
-                    "type": "string",
-                    "default": "None",
-                    "hidden": true,
-                    "description": "Instructs Trim Galore to remove bp from the 3' end of read 2 after adapter/quality trimming has been performed."
-                }
-            }
         }
     },
     "allOf": [
@@ -382,9 +350,6 @@
         },
         {
             "$ref": "#/definitions/generic_options"
-        },
-        {
-            "$ref": "#/definitions/trimgalore_options"
         }
     ]
 }
