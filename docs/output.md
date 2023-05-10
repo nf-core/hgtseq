@@ -167,7 +167,7 @@ The `analysis_report.html` has two mainly functions:
 
 [`KronaTools`](https://hpc.nih.gov/apps/kronatools.html) allows hierarchical data to be explored with zooming, multi-layered pie charts. KronaTools can be used to create Krona charts from several bioinformatics tools and raw data formats. The resulting interactive charts are self-contained and can be viewed with any modern web browser.
 
-<div align="center"><img src="images/kronaplot_example.png" width="500" height="500"></div>
+<div align="center"><img src="images/kronaplot_example.png" width="550" height="550"></div>
 
 ## Quality Control
 
