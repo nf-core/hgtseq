@@ -151,7 +151,7 @@ The `analysis_report.html` has two mainly functions:
 - it contains a function that assigns a score to each reads based on the kmers analyzed by Kraken2
 - it displays a circular plot (made with GenomicRanges & ggbio R packages), which graphically shows the specific position on the chromosome of each read.
 
-<div align="center"><img src="images/circos_plot.png" width="500" height="500"></div>
+<div align="center"><img src="images/circos_example.png" width="500" height="500"></div>
 
 ### Krona Plots
 
