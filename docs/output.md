@@ -148,8 +148,10 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 The `analysis_report.html` has two mainly functions:
 
-- it displays a circular plot (made with GenomicRanges & ggbio R packages), which graphically shows the specific position on the chromosome of each read.
 - it contains a function that assigns a score to each reads based on the kmers analyzed by Kraken2
+- it displays a circular plot (made with GenomicRanges & ggbio R packages), which graphically shows the specific position on the chromosome of each read.
+
+<div align="center"><img src="images/circos_example.png" width="500" height="500"></div>
 
 ### Krona Plots
 
@@ -164,6 +166,8 @@ The `analysis_report.html` has two mainly functions:
     - `version.yml` : File with the Krona version used
 
 [`KronaTools`](https://hpc.nih.gov/apps/kronatools.html) allows hierarchical data to be explored with zooming, multi-layered pie charts. KronaTools can be used to create Krona charts from several bioinformatics tools and raw data formats. The resulting interactive charts are self-contained and can be viewed with any modern web browser.
+
+<div align="center"><img src="images/kronaplot_example.png" width="550" height="550"></div>
 
 ## Quality Control
 

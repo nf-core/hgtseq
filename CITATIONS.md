@@ -1,5 +1,9 @@
 # nf-core/hgtseq: Citations
 
+## [hgtseq](https://www.mdpi.com/1422-0067/23/23/14512)
+
+> Carpanzano S, Santorsola M, Nf-Core Community, Lescai F. hgtseq: A Standard Pipeline to Study Horizontal Gene Transfer. Int J Mol Sci. 2022 Nov 22;23(23):14512. doi: 10.3390/ijms232314512. PMID: 36498841; PMCID: PMC9738810.
+
 ## [nf-core](https://pubmed.ncbi.nlm.nih.gov/32055031/)
 
 > Ewels PA, Peltzer A, Fillinger S, Patel H, Alneberg J, Wilm A, Garcia MU, Di Tommaso P, Nahnsen S. The nf-core framework for community-curated bioinformatics pipelines. Nat Biotechnol. 2020 Mar;38(3):276-278. doi: 10.1038/s41587-020-0439-x. PubMed PMID: 32055031.
