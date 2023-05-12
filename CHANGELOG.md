@@ -13,7 +13,7 @@ Initial release of nf-core/hgtseq, created with the [nf-core](https://nf-co.re/)
 
 ### `Fixed`
 
-- [#31](https://github.com/nf-core/hgtseq/pull/31) - Template and all nf-core/modules updated
+- [#31](https://github.com/nf-core/hgtseq/pull/31) - Sync `TEMPLATE` with `tools` `2.8` and all nf-core/modules updated
 
 ### `Dependencies`
 
