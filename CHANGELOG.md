@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#31](https://github.com/nf-core/hgtseq/pull/31) - Sync `TEMPLATE` with `tools` `2.8` and all nf-core/modules updated
+- [#31](https://github.com/nf-core/hgtseq/pull/31) - Sync `TEMPLATE` with `tools 2.8` and all nf-core/modules updated
 
 ### `Dependencies`
 
