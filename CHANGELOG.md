@@ -11,7 +11,7 @@ Initial release of nf-core/hgtseq, created with the [nf-core](https://nf-co.re/)
 
 ### `Fixed`
 
-- [#31](https://github.com/nf-core/hgtseq/pull/31) - All modules update and fixed issue where _single_unmapped_ reads also include _both_unmapped_, by creating a local module with two steps samtools flag filtering
+- [#31](https://github.com/nf-core/hgtseq/pull/31) - All modules updated and fixed issue where _single_unmapped_ reads also include _both_unmapped_, by creating a local module with two steps samtools flag filtering
 
 ### `Dependencies`
 
