@@ -241,6 +241,12 @@
                     "fa_icon": "fas fa-question-circle",
                     "hidden": true
                 },
+                "version": {
+                    "type": "boolean",
+                    "description": "Display version and exit.",
+                    "fa_icon": "fas fa-question-circle",
+                    "hidden": true
+                },
                 "publish_dir_mode": {
                     "type": "string",
                     "default": "copy",
@@ -278,11 +284,29 @@
                     "fa_icon": "fas fa-palette",
                     "hidden": true
                 },
+                "hook_url": {
+                    "type": "string",
+                    "description": "Incoming hook URL for messaging service",
+                    "fa_icon": "fas fa-people-group",
+                    "help_text": "Incoming hook URL for messaging service. Currently, MS Teams and Slack are supported.",
+                    "hidden": true
+                },
                 "multiqc_config": {
                     "type": "string",
                     "description": "Custom config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
+                },
+                "multiqc_logo": {
+                    "type": "string",
+                    "description": "Custom logo file to supply to MultiQC. File name must also be set in the MultiQC config file",
+                    "fa_icon": "fas fa-image",
+                    "hidden": true
+                },
+                "multiqc_methods_description": {
+                    "type": "string",
+                    "description": "Custom MultiQC yaml file containing HTML including a methods description.",
+                    "fa_icon": "fas fa-cog"
                 },
                 "tracedir": {
                     "type": "string",
@@ -304,44 +328,6 @@
                     "description": "Show all params when using `--help`",
                     "hidden": true,
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
-                },
-                "enable_conda": {
-                    "type": "boolean",
-                    "description": "Run this workflow with Conda. You can also use '-profile conda' instead of providing this parameter.",
-                    "hidden": true,
-                    "fa_icon": "fas fa-bacon"
-                }
-            }
-        },
-        "trimgalore_options": {
-            "title": "Trimgalore options",
-            "type": "object",
-            "description": "Trimgalore trimmings options",
-            "default": "",
-            "properties": {
-                "clip_r1": {
-                    "type": "string",
-                    "default": "None",
-                    "hidden": true,
-                    "description": "Instructs Trim Galore to remove bp from the 5' end of read 1."
-                },
-                "clip_r2": {
-                    "type": "string",
-                    "default": "None",
-                    "hidden": true,
-                    "description": "Instructs Trim Galore to remove bp from the 5' end of read 2."
-                },
-                "three_prime_clip_r1": {
-                    "type": "string",
-                    "default": "None",
-                    "hidden": true,
-                    "description": "Instructs Trim Galore to remove bp from the 3' end of read 1 after adapter/quality trimming has been performed."
-                },
-                "three_prime_clip_r2": {
-                    "type": "string",
-                    "default": "None",
-                    "hidden": true,
-                    "description": "Instructs Trim Galore to remove bp from the 3' end of read 2 after adapter/quality trimming has been performed."
                 }
             }
         }
@@ -364,9 +350,6 @@
         },
         {
             "$ref": "#/definitions/generic_options"
-        },
-        {
-            "$ref": "#/definitions/trimgalore_options"
         }
     ]
 }

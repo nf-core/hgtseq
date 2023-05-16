@@ -4,7 +4,7 @@
     nf-core/hgtseq
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Github : https://github.com/nf-core/hgtseq
-Website: https://nf-co.re/hgtseq
+    Website: https://nf-co.re/hgtseq
     Slack  : https://nfcore.slack.com/channels/hgtseq
 ----------------------------------------------------------------------------------------
 */

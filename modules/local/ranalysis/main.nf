@@ -2,7 +2,7 @@ process RANALYSIS {
     tag "Ranalysis"
     label 'process_low'
 
-    conda (params.enable_conda ? "bioconda::bioconductor-ggbio==1.42.0--r41hdfd78af_0" : null)
+    conda "bioconda::bioconductor-ggbio==1.42.0--r41hdfd78af_0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'library://lescailab/hgtseq/r-ggbio-reporting:sha256.eb829b05cf12e8d827813a6afb6e38592aac6568f685a6519f5ed7dd20125cb3' :
         'ghcr.io/lescailab/r-ggbio-reporting:1.0.0' }"

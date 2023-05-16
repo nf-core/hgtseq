@@ -3,7 +3,7 @@ process GAWK {
     tag 'collate kraken'
     label 'process_low'
 
-    conda (params.enable_conda ? "gawk==5.1.0" : null)
+    conda "gawk==5.1.0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/gawk:5.1.0':
         'quay.io/biocontainers/gawk:5.1.0' }"
