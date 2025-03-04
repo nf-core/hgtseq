@@ -15,7 +15,7 @@ workflow SORTBAM {
     // samtools stats block needs the bam file to be sorted
     // and indexed
 
-    SAMTOOLS_SORT ( bam )
+    SAMTOOLS_SORT ( bam, [] )
     ch_versions = ch_versions.mix(SAMTOOLS_SORT.out.versions.first())
 
     SAMTOOLS_INDEX ( SAMTOOLS_SORT.out.bam )

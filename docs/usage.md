@@ -23,7 +23,8 @@ The input file can have at least two or three columns according to the format of
 The FASTQ file extension can be either _fastq.gz_ or _fastq_.
 
 <<<<<<< HEAD
-```console
+
+````console
 sample,input1,input2
 testsample01,/path/to/file1_1.fastq.gz,/path/to/file1_2.fastq.gz
 testsample02,/path/to/file2_1.fastq.gz,/path/to/file2_2.fastq.gz
@@ -35,7 +36,7 @@ CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
 CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
 CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
 >>>>>>> TEMPLATE
-```
+````
 
 | Column   | Description                                                                                                                                                                            |
 | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -48,7 +49,8 @@ An [example samplesheet](../assets/samplesheet_fastq.csv) has been provided with
 ### BAM
 
 <<<<<<< HEAD
-```console
+
+````console
 sample,input1
 testsample01,/path/to/file1.bam
 testsample02,/path/to/file2.bam
@@ -64,7 +66,7 @@ TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
 TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
 TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
 >>>>>>> TEMPLATE
-```
+````
 
 | Column   | Description                                                                                                                                                                            |
 | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -78,7 +80,8 @@ An [example samplesheet](../assets/samplesheet_bam.csv) has been provided with t
 The typical command for running the pipeline is as follows:
 
 <<<<<<< HEAD
-```console
+
+````console
 nextflow run nf-core/hgtseq \
 -profile <singularity,docker,conda> \
 --input samplesheet.csv \
@@ -91,7 +94,7 @@ nextflow run nf-core/hgtseq \
 ```bash
 nextflow run nf-core/hgtseq --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker
 >>>>>>> TEMPLATE
-```
+````
 
 This will launch the pipeline with the `singularity`, `docker` or `conda` configuration profile. See below for more information about profiles.
 
@@ -109,14 +112,16 @@ If you wish to repeatedly use the same parameters for multiple runs, rather than
 Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
 
 <<<<<<< HEAD
+
 > ⚠️ Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
 > The above pipeline run specified with a params file in yaml format:
-=======
+> =======
 > [!WARNING]
 > Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
 
 The above pipeline run specified with a params file in yaml format:
->>>>>>> TEMPLATE
+
+> > > > > > > TEMPLATE
 
 ```bash
 nextflow run nf-core/hgtseq -profile docker -params-file params.yaml
@@ -125,7 +130,7 @@ nextflow run nf-core/hgtseq -profile docker -params-file params.yaml
 <<<<<<< HEAD
 with `params.yaml` containing:
 
-```yaml
+````yaml
 input: './samplesheet.csv'
 outdir: './results/'
 genome: 'GRCh37'
@@ -139,7 +144,7 @@ outdir: './results/'
 genome: 'GRCh37'
 >>>>>>> TEMPLATE
 <...>
-```
+````
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
 
@@ -184,13 +189,14 @@ User must provide a Kraken2 database in order to perform the classification. Can
 
 ### `--kronadb`
 
-User must also provide a Krona database in order to generate interactive pie charts with Kronatools. Can optionally be in a `.tar.gz` archive.
-=======
+# User must also provide a Krona database in order to generate interactive pie charts with Kronatools. Can optionally be in a `.tar.gz` archive.
+
 To further assist in reproducibility, you can use share and reuse [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
 
 > [!TIP]
 > If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
->>>>>>> TEMPLATE
+>
+> > > > > > > TEMPLATE
 
 ## Core Nextflow arguments
 
@@ -228,11 +234,11 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
   - A generic configuration profile to be used with [Charliecloud](https://hpc.github.io/charliecloud/)
 - `apptainer`
   - A generic configuration profile to be used with [Apptainer](https://apptainer.org/)
-<<<<<<< HEAD
-=======
+    <<<<<<< HEAD
+    =======
 - `wave`
   - A generic configuration profile to enable [Wave](https://seqera.io/wave/) containers. Use together with one of the above (requires Nextflow ` 24.03.0-edge` or later).
->>>>>>> TEMPLATE
+    > > > > > > > TEMPLATE
 - `conda`
   - A generic configuration profile to be used with [Conda](https://conda.io/docs/). Please only use Conda as a last resort i.e. when it's not possible to run the pipeline with Docker, Singularity, Podman, Shifter, Charliecloud, or Apptainer.
 
@@ -260,7 +266,8 @@ To change the resource requests, please see the [max resources](https://nf-co.re
 In some cases you may wish to change which container or conda environment a step of the pipeline uses for a particular tool. By default nf-core pipelines use containers and software from the [biocontainers](https://biocontainers.pro/) or [bioconda](https://bioconda.github.io/) projects. However in some cases the pipeline specified version maybe out of date.
 =======
 In some cases, you may wish to change the container or conda environment used by a pipeline steps for a particular tool. By default, nf-core pipelines use containers and software from the [biocontainers](https://biocontainers.pro/) or [bioconda](https://bioconda.github.io/) projects. However, in some cases the pipeline specified version maybe out of date.
->>>>>>> TEMPLATE
+
+> > > > > > > TEMPLATE
 
 To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/usage/configuration#updating-tool-versions) section of the nf-core website.
 

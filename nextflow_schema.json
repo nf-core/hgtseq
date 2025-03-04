@@ -106,7 +106,6 @@
                     "hidden": true,
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
                 },
-<<<<<<< HEAD
                 "krakendb": {
                     "type": "string",
                     "default": "None",
@@ -136,7 +135,7 @@
                     "default": "None",
                     "description": "Path bwa-mem2 indexes",
                     "hidden": true
-=======
+                },
                 "igenomes_base": {
                     "type": "string",
                     "format": "directory-path",
@@ -144,7 +143,6 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "default": "s3://ngi-igenomes/igenomes/"
->>>>>>> TEMPLATE
                 }
             },
             "required": ["krakendb", "kronadb"]
@@ -300,14 +298,7 @@
             "$ref": "#/$defs/input_output_options"
         },
         {
-<<<<<<< HEAD
-            "$ref": "#/definitions/run_options"
-        },
-        {
-            "$ref": "#/definitions/reference_genome_options"
-=======
             "$ref": "#/$defs/reference_genome_options"
->>>>>>> TEMPLATE
         },
         {
             "$ref": "#/$defs/institutional_config_options"

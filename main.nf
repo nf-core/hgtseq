@@ -26,17 +26,10 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_hgts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-<<<<<<< HEAD
-params.fasta        = WorkflowMain.getGenomeAttribute(params, 'fasta')
-params.gff          = WorkflowMain.getGenomeAttribute(params, 'gtf')
-params.bwaindex     = WorkflowMain.getGenomeAttribute(params, 'bwa')
-params.bwamem2index = WorkflowMain.getGenomeAttribute(params, 'bwamem2')
-=======
-// TODO nf-core: Remove this line if you don't need a FASTA file
-//   This is an example of how to use getGenomeAttribute() to fetch parameters
-//   from igenomes.config using `--genome`
-params.fasta = getGenomeAttribute('fasta')
->>>>>>> TEMPLATE
+params.fasta        = getGenomeAttribute(params, 'fasta')
+params.gff          = getGenomeAttribute(params, 'gtf')
+params.bwaindex     = getGenomeAttribute(params, 'bwa')
+params.bwamem2index = getGenomeAttribute(params, 'bwamem2')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
