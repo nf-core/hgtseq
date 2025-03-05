@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/hgtseq//nextflow_schema.json",
+    "$id": "https://raw.githubusercontent.com/nf-core/hgtseq/master/nextflow_schema.json",
     "title": "nf-core/hgtseq pipeline parameters",
     "description": "A pipeline to investigate horizontal gene transfer from NGS data",
     "type": "object",
@@ -10,7 +10,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": ["input", "outdir", "taxonomy_id"],
             "properties": {
                 "input": {
                     "type": "string",
@@ -28,6 +28,145 @@
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
+                },
+                "taxonomy_id": {
+                    "type": "number",
+                    "description": "TaxID of samples used as input"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "Email address for completion summary."
+                },
+                "multiqc_title": {
+                    "type": "string",
+                    "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified."
+                },
+                "isbam": {
+                    "type": "boolean",
+                    "description": "Indicates if input files are BAMs: if not, FASTQ files are assumed and alignment is run"
+                },
+                "istest": {
+                    "type": "boolean",
+                    "description": "Defines if pipeline is running a test or using full scale inputs",
+                    "hidden": true
+                }
+            }
+        },
+        "run_options": {
+            "title": "Run options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "aligner": {
+                    "type": "string",
+                    "default": "bwa-mem",
+                    "description": "Choose if aligner should be bwa-mem or bwa-mem2"
+                },
+                "multiqc_runkraken": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Choose if multiqc has data to add kraken to report",
+                    "hidden": true
+                }
+            }
+        },
+        "reference_genome_options": {
+            "title": "Reference genome options",
+            "type": "object",
+            "description": "Reference genome related files and options required for the workflow",
+            "default": "",
+            "properties": {
+                "genome": {
+                    "type": "string",
+                    "description": "Name of iGenomes reference.",
+                    "pattern": "^\\\\S+\\\\.fn?a(sta)?(\\\\.gz)?$",
+                    "format": "file-path",
+                    "mimetype": "text/plain"
+                },
+                "fasta": {
+                    "type": "string",
+                    "description": "Path to FASTA genome file.",
+                    "format": "file-path",
+                    "hidden": true
+                },
+                "igenomes_base": {
+                    "type": "string",
+                    "default": "s3://ngi-igenomes/igenomes/",
+                    "description": "Directory / URL base for iGenomes references.",
+                    "format": "directory-path",
+                    "hidden": true
+                },
+                "igenomes_ignore": {
+                    "type": "boolean",
+                    "description": "Do not load the iGenomes reference config.",
+                    "hidden": true
+                },
+                "krakendb": {
+                    "type": "string",
+                    "description": "A local path to kraken database folder or compressed database file, or a URL to a compressed database file, in tar.gz format"
+                },
+                "kronadb": {
+                    "type": "string",
+                    "description": "A local path or a URL to a .tab krona taxonomy file; it can also receive a compressed .tab file in tar.gz format"
+                },
+                "gff": {
+                    "type": "string",
+                    "description": "Path to GFF/GTF annotation file.",
+                    "format": "file-path",
+                    "mimetype": "text/plain",
+                    "hidden": true
+                },
+                "bwaindex": {
+                    "type": "string",
+                    "description": "Path bwa-mem indexes",
+                    "hidden": true
+                },
+                "bwamem2index": {
+                    "type": "string",
+                    "description": "Path bwa-mem2 indexes",
+                    "hidden": true
+                }
+            },
+            "required": ["krakendb", "kronadb"]
+        },
+        "institutional_config_options": {
+            "title": "Institutional config options",
+            "type": "object",
+            "description": "Parameters used to describe centralised config profiles. These should not be edited.",
+            "default": "",
+            "properties": {
+                "custom_config_version": {
+                    "type": "string",
+                    "default": "master",
+                    "hidden": true,
+                    "description": "Git commit id for Institutional configs."
+                },
+                "custom_config_base": {
+                    "type": "string",
+                    "default": "https://raw.githubusercontent.com/nf-core/configs/master",
+                    "hidden": true,
+                    "description": "Base directory for Institutional configs."
+                },
+                "config_profile_name": {
+                    "type": "string",
+                    "hidden": true,
+                    "description": "Institutional config name."
+                },
+                "config_profile_description": {
+                    "type": "string",
+                    "hidden": true,
+                    "description": "Institutional config description."
+                },
+                "config_profile_contact": {
+                    "type": "string",
+                    "hidden": true,
+                    "description": "Institutional config contact information."
+                },
+                "config_profile_url": {
+                    "type": "string",
+                    "hidden": true,
+                    "description": "Institutional config URL link."
                 }
             }
         },
@@ -44,6 +183,39 @@
                     "fa_icon": "fas fa-question-circle",
                     "hidden": true
                 },
+                "publish_dir_mode": {
+                    "type": "string",
+                    "default": "copy",
+                    "description": "Method used to save pipeline results to output directory.",
+                    "hidden": true
+                },
+                "email_on_fail": {
+                    "type": "string",
+                    "description": "Email address for completion summary, only when pipeline fails.",
+                    "pattern": "^([a-zA-Z0-9_\\\\-\\\\.]+)@([a-zA-Z0-9_\\\\-\\\\.]+)\\\\.([a-zA-Z]{2,5})$",
+                    "hidden": true
+                },
+                "plaintext_email": {
+                    "type": "boolean",
+                    "description": "Send plain-text email instead of HTML.",
+                    "hidden": true
+                },
+                "max_multiqc_email_size": {
+                    "type": "string",
+                    "default": "25.MB",
+                    "description": "File size limit when attaching MultiQC reports to summary emails.",
+                    "hidden": true
+                },
+                "monochrome_logs": {
+                    "type": "boolean",
+                    "description": "Do not use coloured log outputs.",
+                    "hidden": true
+                },
+                "hook_url": {
+                    "type": "string",
+                    "hidden": true,
+                    "description": "Incoming hook URL for messaging service"
+                },
                 "validate_params": {
                     "type": "boolean",
                     "description": "Boolean whether to validate parameters against the schema at runtime",
@@ -56,6 +228,25 @@
                     "fa_icon": "far calendar",
                     "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
+                },
+                "multiqc_config": {
+                    "type": "string",
+                    "description": "Custom config file to supply to MultiQC.",
+                    "hidden": true
+                },
+                "multiqc_logo": {
+                    "type": "string",
+                    "description": "Custom logo file to supply to MultiQC. File name must also be set in the MultiQC config file",
+                    "hidden": true
+                },
+                "multiqc_methods_description": {
+                    "type": "string",
+                    "description": "Custom MultiQC yaml file containing HTML including a methods description."
+                },
+                "pipelines_testdata_base_path": {
+                    "type": "string",
+                    "default": "https://raw.githubusercontent.com/nf-core/test-datasets/",
+                    "description": "Path to nf-core/test-datasets"
                 }
             }
         }
@@ -65,114 +256,16 @@
             "$ref": "#/$defs/input_output_options"
         },
         {
+            "$ref": "#/$defs/run_options"
+        },
+        {
+            "$ref": "#/$defs/reference_genome_options"
+        },
+        {
+            "$ref": "#/$defs/institutional_config_options"
+        },
+        {
             "$ref": "#/$defs/generic_options"
         }
-    ],
-    "properties": {
-        "krakendb": {
-            "type": "string"
-        },
-        "kronadb": {
-            "type": "string"
-        },
-        "isbam": {
-            "type": "boolean"
-        },
-        "genome": {
-            "type": "string"
-        },
-        "igenomes_base": {
-            "type": "string",
-            "default": "s3://ngi-igenomes/igenomes/"
-        },
-        "igenomes_ignore": {
-            "type": "boolean"
-        },
-        "taxonomy_id": {
-            "type": "string"
-        },
-        "aligner": {
-            "type": "string",
-            "default": "bwa-mem"
-        },
-        "istest": {
-            "type": "boolean"
-        },
-        "multiqc_config": {
-            "type": "string"
-        },
-        "multiqc_title": {
-            "type": "string"
-        },
-        "multiqc_logo": {
-            "type": "string"
-        },
-        "max_multiqc_email_size": {
-            "type": "string",
-            "default": "25.MB"
-        },
-        "multiqc_runkraken": {
-            "type": "boolean",
-            "default": true
-        },
-        "multiqc_methods_description": {
-            "type": "string"
-        },
-        "publish_dir_mode": {
-            "type": "string",
-            "default": "copy"
-        },
-        "email": {
-            "type": "string"
-        },
-        "email_on_fail": {
-            "type": "string"
-        },
-        "plaintext_email": {
-            "type": "boolean"
-        },
-        "monochrome_logs": {
-            "type": "boolean"
-        },
-        "hook_url": {
-            "type": "string"
-        },
-        "pipelines_testdata_base_path": {
-            "type": "string",
-            "default": "https://raw.githubusercontent.com/nf-core/test-datasets/"
-        },
-        "config_profile_name": {
-            "type": "string"
-        },
-        "config_profile_description": {
-            "type": "string"
-        },
-        "custom_config_version": {
-            "type": "string",
-            "default": "master"
-        },
-        "custom_config_base": {
-            "type": "string",
-            "default": "https://raw.githubusercontent.com/nf-core/configs/master"
-        },
-        "config_profile_contact": {
-            "type": "string"
-        },
-        "config_profile_url": {
-            "type": "string"
-        },
-        "fasta": {
-            "type": "string"
-        },
-        "gff": {
-            "type": "string"
-        },
-        "bwaindex": {
-            "type": "string"
-        },
-        "bwamem2index": {
-            "type": "string"
-        }
-    },
-    "required": ["krakendb", "kronadb"]
+    ]
 }
