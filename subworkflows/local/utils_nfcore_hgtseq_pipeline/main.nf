@@ -68,7 +68,6 @@ workflow PIPELINE_INITIALISATION {
     //
     validateInputParameters()
 
-
     //
     // Create channel from input file provided through params.input
     //
@@ -91,6 +90,7 @@ workflow PIPELINE_INITIALISATION {
         [ meta, files.flatten() ]
     }
     .set { ch_samplesheet }
+
     emit:
     samplesheet = ch_samplesheet
     versions    = ch_versions
