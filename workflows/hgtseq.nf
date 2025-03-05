@@ -45,7 +45,6 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS                 } from '../modules/nf-core
 include { UNTAR                       as UNTAR_KRAKEN } from '../modules/nf-core/untar/main'
 include { UNTAR                       as UNTAR_KRONA  } from '../modules/nf-core/untar/main'
 include { FASTQC                                      } from '../modules/nf-core/fastqc/main'
-include { MULTIQC                                     } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap                            } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc                        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML                      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -108,7 +107,8 @@ workflow HGTSEQ {
     if (params.isbam) {
         // executes SORTBAM on input files from CSV
         SORTBAM (
-            ch_input
+            ch_input,
+            params.fasta
         )
 
         BAM_QC (
@@ -129,7 +129,8 @@ workflow HGTSEQ {
         // executes SORTBAM on aligned trimmed reads
         // executes SORTBAM on input files from CSV
         SORTBAM (
-            PREPARE_READS.out.bam
+            PREPARE_READS.out.bam,
+            params.fasta
         )
         // then executes BAM QC on the sorted files
         BAM_QC (

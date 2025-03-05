@@ -26,10 +26,10 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_hgts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-params.fasta        = getGenomeAttribute(params, 'fasta')
-params.gff          = getGenomeAttribute(params, 'gtf')
-params.bwaindex     = getGenomeAttribute(params, 'bwa')
-params.bwamem2index = getGenomeAttribute(params, 'bwamem2')
+params.fasta        = getGenomeAttribute('fasta')
+params.gff          = getGenomeAttribute('gtf')
+params.bwaindex     = getGenomeAttribute('bwa')
+params.bwamem2index = getGenomeAttribute('bwamem2')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
