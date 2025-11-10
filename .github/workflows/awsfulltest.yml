@@ -4,13 +4,11 @@ name: nf-core AWS full size tests
 # It runs the -profile 'test_full' on AWS batch
 
 on:
-  pull_request:
-    branches:
-      - main
-      - master
   workflow_dispatch:
   pull_request_review:
     types: [submitted]
+  release:
+    types: [published]
 
 jobs:
   run-platform:
