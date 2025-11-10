@@ -36,7 +36,7 @@ workflow PREPARE_READS {
         bwaindex      = params.fasta ? params.bwaindex      ? Channel.fromPath(params.bwaindex).collect().map{ it -> [[id:it[0].baseName], it] } : BWAMEM1_INDEX.out.index : []
 
         // appropriately tagged interleaved FASTQ reads are mapped to the reference
-        BWAMEM1_MEM ( TRIMGALORE.out.reads, bwaindex, false )
+        BWAMEM1_MEM ( TRIMGALORE.out.reads, bwaindex, [[],[]], false )
         ch_versions = ch_versions.mix(BWAMEM1_MEM.out.versions)
         aligned_bam = BWAMEM1_MEM.out.bam
     } else {
@@ -48,7 +48,7 @@ workflow PREPARE_READS {
         bwamem2index  = params.fasta ? params.bwamem2index  ? Channel.fromPath(params.bwamem2index).collect()  : BWAMEM2_INDEX.out.index : []
 
         // appropriately tagged interleaved FASTQ reads are mapped to the reference
-        BWAMEM2_MEM ( TRIMGALORE.out.reads, bwamem2index, false )
+        BWAMEM2_MEM ( TRIMGALORE.out.reads, bwamem2index, [[],[]], false )
         ch_versions = ch_versions.mix(BWAMEM2_MEM.out.versions)
         aligned_bam = BWAMEM2_MEM.out.bam
     }
