@@ -1,11 +1,19 @@
 lint:
+<<<<<<< HEAD
   actions_ci: false
   multiqc_config: false
+=======
+>>>>>>> TEMPLATE
   files_unchanged:
     - assets/analysis_report.Rmd
     - docs/images/nf-core-hgtseq_logo_dark.png
     - docs/images/nf-core-hgtseq_logo_light.png
+<<<<<<< HEAD
 nf_core_version: 3.2.0
+=======
+  multiqc_config: false
+nf_core_version: 3.3.2
+>>>>>>> TEMPLATE
 repository_type: pipeline
 template:
   author: Simone Carpanzano, Francesco Lescai

@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/hgtseq/master/assets/schema_input.json",
+    "$id": "https://raw.githubusercontent.com/nf-core/hgtseq/main/assets/schema_input.json",
     "title": "nf-core/hgtseq pipeline - params.input schema",
     "description": "Schema for the file provided with params.input",
     "type": "array",
@@ -16,13 +16,14 @@
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
+                "pattern": "^([\\S\\s]*\\/)?[^\\s\\/]+\\.f(ast)?q\\.gz$",
                 "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             },
             "fastq_2": {
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
+<<<<<<< HEAD
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
                 "errorMessage": "FastQ file for reads 2 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             },
@@ -32,6 +33,10 @@
                 "exists": true,
                 "pattern": "^\\S+\\.bam$",
                 "errorMessage": "BAM file cannot contain spaces and must have extension '.bam'"
+=======
+                "pattern": "^([\\S\\s]*\\/)?[^\\s\\/]+\\.f(ast)?q\\.gz$",
+                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+>>>>>>> TEMPLATE
             }
         },
         "oneOf": [
