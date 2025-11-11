@@ -16,3 +16,9 @@ template:
   org: nf-core
   outdir: .
   version: 1.2.0dev
+update:
+  https://github.com/nf-core/modules.git:
+    nf-core:
+      fastqc: False
+      multiqc: False
+
