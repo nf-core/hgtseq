@@ -23,7 +23,6 @@
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
-<<<<<<< HEAD
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
                 "errorMessage": "FastQ file for reads 2 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             },
@@ -33,10 +32,6 @@
                 "exists": true,
                 "pattern": "^\\S+\\.bam$",
                 "errorMessage": "BAM file cannot contain spaces and must have extension '.bam'"
-=======
-                "pattern": "^([\\S\\s]*\\/)?[^\\s\\/]+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
->>>>>>> TEMPLATE
             }
         },
         "oneOf": [

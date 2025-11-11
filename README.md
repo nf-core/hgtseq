@@ -5,14 +5,8 @@
   </picture>
 </h1>
 
-<<<<<<< HEAD
-[![GitHub Actions CI Status](https://github.com/nf-core/hgtseq/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/hgtseq/actions/workflows/ci.yml)
-[![GitHub Actions Linting Status](https://github.com/nf-core/hgtseq/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/hgtseq/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/hgtseq/results)
-[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.7244734-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.7244734)
-=======
 [![GitHub Actions CI Status](https://github.com/nf-core/hgtseq/actions/workflows/nf-test.yml/badge.svg)](https://github.com/nf-core/hgtseq/actions/workflows/nf-test.yml)
 [![GitHub Actions Linting Status](https://github.com/nf-core/hgtseq/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/hgtseq/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/hgtseq/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
->>>>>>> TEMPLATE
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
 [![Nextflow](https://img.shields.io/badge/version-%E2%89%A524.10.5-green?style=flat&logo=nextflow&logoColor=white&color=%230DC09D&link=https%3A%2F%2Fnextflow.io)](https://www.nextflow.io/)
@@ -30,7 +24,6 @@
 
 The pipeline uses metagenomic classification of paired-read alignments against a reference genome to identify the presence of non-host microbial sequences within read pairs, and to infer potential integration sites into the host genome.
 
-<<<<<<< HEAD
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
 On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure. This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources. The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/hgtseq/results).
@@ -53,11 +46,6 @@ A graphical view of the pipeline can be seen below.
 6. Taxonomic classification ([`Kraken2`](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown))
 7. Plotting Kraken2 results ([`Krona`](https://hpc.nih.gov/apps/kronatools.html))
 8. Html analysis report ([`RMarkDown`](https://rmarkdown.rstudio.com))
-=======
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/guidelines/graphic_design/workflow_diagrams#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
->>>>>>> TEMPLATE
 
 ## Usage
 

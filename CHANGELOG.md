@@ -1,13 +1,13 @@
-# nf-core/hgtseq: Changelog
+ # nf-core/hgtseq: Changelog
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-<<<<<<< HEAD
-## 1.2.0dev
-=======
-## v1.2.0dev - [date]
->>>>>>> TEMPLATE
+## v1.2.0dev - [11/11/2025]
+
+- fixed an issue with pipeline config
+- updated pipeline logo
+- template update to version 3.2.1
 
 ## [1.1.0](https://github.com/nf-core/hgtseq/releases/tag/1.1.0) - Beary Rose
 

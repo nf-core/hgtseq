@@ -23,10 +23,6 @@ env:
   NXF_ANSI_LOG: false
   NXF_SINGULARITY_CACHEDIR: ${{ github.workspace }}/.singularity
   NXF_SINGULARITY_LIBRARYDIR: ${{ github.workspace }}/.singularity
-<<<<<<< HEAD
-=======
-
->>>>>>> TEMPLATE
 jobs:
   nf-test-changes:
     name: nf-test-changes
@@ -46,22 +42,13 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 0
-<<<<<<< HEAD
-=======
-
->>>>>>> TEMPLATE
       - name: get number of shards
         id: set-shards
         uses: ./.github/actions/get-shards
         env:
           NFT_VER: ${{ env.NFT_VER }}
         with:
-<<<<<<< HEAD
-          tags: "cpu,cpu_conda"
-          max_shards: 15
-=======
           max_shards: 7
->>>>>>> TEMPLATE
 
       - name: debug
         run: |
@@ -75,10 +62,6 @@ jobs:
     runs-on: # use self-hosted runners
       - runs-on=${{ github.run_id }}-nf-test
       - runner=4cpu-linux-x64
-<<<<<<< HEAD
-      - disk=large
-=======
->>>>>>> TEMPLATE
     strategy:
       fail-fast: false
       matrix:
@@ -93,12 +76,9 @@ jobs:
           - isMain: false
             profile: "singularity"
         NXF_VER:
-<<<<<<< HEAD
           - "24.04.2"
           - "25.04.8"
-=======
           - "24.10.5"
->>>>>>> TEMPLATE
           - "latest-everything"
     env:
       NXF_ANSI_LOG: false
@@ -115,22 +95,15 @@ jobs:
         continue-on-error: ${{ matrix.NXF_VER == 'latest-everything' }}
         env:
           NFT_WORKDIR: ${{ env.NFT_WORKDIR }}
-<<<<<<< HEAD
           SENTIEON_AUTH_MECH: "GitHub Actions - token"
           SENTIEON_ENCRYPTION_KEY: ${{ secrets.SENTIEON_ENCRYPTION_KEY }}
           SENTIEON_LICENSE_MESSAGE: ${{ secrets.SENTIEON_LICENSE_MESSAGE }}
           SENTIEON_LICSRVR_IP: ${{ secrets.SENTIEON_LICSRVR_IP }}
-=======
->>>>>>> TEMPLATE
         with:
           profile: ${{ matrix.profile }}
           shard: ${{ matrix.shard }}
           total_shards: ${{ env.TOTAL_SHARDS }}
-<<<<<<< HEAD
           tags: ${{ matrix.profile == 'conda' && 'cpu_conda' || 'cpu,cpu_conda' }}
-=======
-
->>>>>>> TEMPLATE
       - name: Report test status
         if: ${{ always() }}
         run: |
@@ -145,10 +118,6 @@ jobs:
               exit 1
             fi
           fi
-<<<<<<< HEAD
-=======
-
->>>>>>> TEMPLATE
   confirm-pass:
     needs: [nf-test]
     if: always()

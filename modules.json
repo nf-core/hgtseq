@@ -37,7 +37,6 @@
                     },
                     "fastqc": {
                         "branch": "master",
-<<<<<<< HEAD
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
                         "installed_by": ["modules"]
                     },
@@ -54,14 +53,10 @@
                     "krona/ktupdatetaxonomy": {
                         "branch": "master",
                         "git_sha": "4789f43ab82b70a6719890d2ffe43685979960bd",
-=======
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
->>>>>>> TEMPLATE
                         "installed_by": ["modules"]
                     },
                     "multiqc": {
                         "branch": "master",
-<<<<<<< HEAD
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
                         "installed_by": ["modules"]
                     },
@@ -113,9 +108,6 @@
                     "untar": {
                         "branch": "master",
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
-=======
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
->>>>>>> TEMPLATE
                         "installed_by": ["modules"]
                     }
                 }
