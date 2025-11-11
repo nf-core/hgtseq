@@ -21,4 +21,3 @@ update:
     nf-core:
       fastqc: False
       multiqc: False
-
