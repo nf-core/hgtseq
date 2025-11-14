@@ -27,8 +27,11 @@ workflow SORTBAM {
     // which is the reason for creating an additional channel that joins
     // both of them:
 
+    // NOTE: avoid using `remainder: true` here because it triggers a NullPointerException
+    // in Nextflow 25.x when the upstream channel closes before the join completes.
+    // avoid using join at all, and use combine instead to make this more robust
     SAMTOOLS_SORT.out.bam
-        .join(SAMTOOLS_INDEX.out.bai, by: [0], remainder: true)
+        .combine(SAMTOOLS_INDEX.out.bai, by: 0)
         .set { bam_bai }
 
     emit:

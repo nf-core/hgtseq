@@ -5,7 +5,7 @@ lint:
     - assets/analysis_report.Rmd
     - docs/images/nf-core-hgtseq_logo_dark.png
     - docs/images/nf-core-hgtseq_logo_light.png
-nf_core_version: 3.2.0
+nf_core_version: 3.3.2
 repository_type: pipeline
 template:
   author: Simone Carpanzano, Francesco Lescai
@@ -16,3 +16,8 @@ template:
   org: nf-core
   outdir: .
   version: 1.2.0dev
+update:
+  https://github.com/nf-core/modules.git:
+    nf-core:
+      fastqc: False
+      multiqc: False
