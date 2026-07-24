@@ -4,7 +4,7 @@ lint:
     - docs/images/nf-core-hgtseq_logo_dark.png
     - docs/images/nf-core-hgtseq_logo_light.png
   multiqc_config: false
-nf_core_version: 4.0.2
+nf_core_version: 4.0.3
 repository_type: pipeline
 template:
   author: Simone Carpanzano, Francesco Lescai
